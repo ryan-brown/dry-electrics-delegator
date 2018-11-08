@@ -46,7 +46,7 @@ def home():
     <html>
       <head>
         <title>Dry Electrics Delegator</title>
-        <script>setTimeout(() => window.location = window.location, 60 * 1000);<script>
+        <script>setTimeout(() => window.location = window.location, 60 * 1000);</script>
       </head>
       <body bgcolor="#dddddd">
         <center>
