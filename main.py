@@ -1,4 +1,5 @@
 from flask import Flask, request
+import maya
 import cgi
 import datetime
 
@@ -13,7 +14,7 @@ def rowHTML():
   for tup in sorted_data:
     name = tup[0]
     percentage = tup[1]["percentage"]
-    time = tup[1]["time"]
+    time = maya.parse(tup[1]["time"], timezone='US/Eastern').slang_time()
     charging = tup[1]["charging"]
 
     html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
