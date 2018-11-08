@@ -14,7 +14,7 @@ def rowHTML():
     name = tup[0]
     percentage = tup[1]["percentage"]
     time = tup[1]["time"]
-    charging = tup[1]["charging"]
+    charging = "⚡" if tup[1]["charging"] else "💤"
 
     html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
       getRowColor(percentage),
@@ -57,7 +57,7 @@ def home():
           <table border="1" style="width:25%">
             <tr>
               <th>User</th>
-              <th>Charging</th>
+              <th>Status</th>
               <th>Percentage</th>
               <th>Updated At</th>
             </tr>
