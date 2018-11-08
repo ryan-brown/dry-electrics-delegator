@@ -1,4 +1,5 @@
 from flask import Flask, request
+import cgi
 import datetime
 
 app = Flask(__name__)
@@ -13,10 +14,12 @@ def rowHTML():
     name = tup[0]
     percentage = tup[1]["percentage"]
     time = tup[1]["time"]
+    charging = tup[1]["charging"]
 
-    html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
+    html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
       getRowColor(percentage),
       name,
+      charging,
       percentage,
       time)
 
@@ -54,6 +57,7 @@ def home():
           <table border="1" style="width:25%">
             <tr>
               <th>User</th>
+              <th>Charging</th>
               <th>Percentage</th>
               <th>Updated At</th>
             </tr>
@@ -68,8 +72,19 @@ def home():
 @app.route("/percentage", methods=['POST'])
 def percentage():
   data = request.get_json()
-  user_data[data["username"]] = {
-    "percentage": int(data["percentage"]),
+  username = cgi.escape(data["username"])
+  try:
+    percentage = int(data["percentage"])
+    if percentage < 0 or percentage > 100 or len(username) > 16:
+      return "fuck you"
+
+    charging = bool(data["charging"])
+  except:
+    return "still fuck you"
+
+  user_data[username] = {
+    "percentage": percentage,
+    "charging": charging,
     "time": datetime.datetime.now()
   }
   return "Success!"
