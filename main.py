@@ -86,6 +86,6 @@ def percentage():
   user_data[username] = {
     "percentage": percentage,
     "charging": charging,
-    "time": datetime.datetime.now()
+    "time": maya.now().datetime(to_timezone='US/Eastern')
   }
   return "Success!"
