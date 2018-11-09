@@ -2,6 +2,7 @@ from flask import Flask, request
 import maya
 import cgi
 import datetime
+import os
 
 app = Flask(__name__)
 
@@ -43,6 +44,11 @@ def getRowColor(percentage):
     green = 255
 
   return "#{}{}00".format(toHex(red), toHex(green))
+
+@app.route("/update")
+def update():
+  os.system("git pull origin master")
+  return "Done"
 
 @app.route("/")
 def home():
