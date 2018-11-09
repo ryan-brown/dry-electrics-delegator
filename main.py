@@ -56,7 +56,7 @@ def update():
   return "Done"
 
 @app.route("/reset", methods=['GET'])
-def update():
+def reset():
   user_data = {}
   return "Done"
 
