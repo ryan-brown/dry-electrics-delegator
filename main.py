@@ -70,6 +70,7 @@ def home():
             </tr>
             {}
           </table>
+          HOT RELOADS LOL
         </center>
       </body>
     </html>""".format(rowHTML())
