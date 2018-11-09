@@ -3,31 +3,31 @@ import maya
 import cgi
 import datetime
 import os
+import database
 
 app = Flask(__name__)
 
-user_data = {}
-
 def rowHTML():
-  sorted_data = sorted(user_data.items(), key=lambda kv: kv[1]["percentage"])
+  user_data = database.select_all()
+  sorted_user_data = sorted(user_data, key=lambda tup: tup[2])
 
   html = ""
-  for tup in sorted_data:
-    name = tup[0]
-    percentage = tup[1]["percentage"]
-    time = maya.parse(tup[1]["time"], timezone='US/Eastern').slang_time()
-    charging = "🔌 " if tup[1]["charging"] else  "🔋 "
+  for tup in sorted_user_data:
+    name = tup[1]
+    percentage = tup[2]
+    charging = "🔌 " if tup[3] else  "🔋 "
+    updated_at = maya.parse(tup[4], timezone='US/Eastern').slang_time()
 
     html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
-      getRowColor(percentage),
+      get_row_color(percentage),
       name,
       charging,
       percentage,
-      time)
+      updated_at)
 
   return html
 
-def toHex(num):
+def to_hex(num):
   res = hex(num)[2:]
 
   if num < 16:
@@ -35,7 +35,7 @@ def toHex(num):
 
   return res
 
-def getRowColor(percentage):
+def get_row_color(percentage):
   if percentage <= 50:
     red = 255
     green = round(255 * percentage * 2 / 100)
@@ -43,7 +43,7 @@ def getRowColor(percentage):
     red = round(255 * (1 - (percentage - 50) * 2 / 100))
     green = 255
 
-  return "#{}{}00".format(toHex(red), toHex(green))
+  return "#{}{}00".format(to_hex(red), to_hex(green))
 
 @app.route('/favicon.ico')
 def favicon():
@@ -53,13 +53,7 @@ def favicon():
 @app.route("/update", methods=['GET', 'POST'])
 def update():
   os.system("git pull origin master")
-  return "Done"
-
-@app.route("/reset", methods=['GET'])
-def reset():
-  global user_data
-  user_data = {}
-  return "Done"
+  return "Done", 200
 
 @app.route("/")
 def home():
@@ -117,15 +111,14 @@ def percentage():
   try:
     percentage = int(data["percentage"])
     if percentage < 0 or percentage > 100 or len(username) > 16:
-      return "fuck you"
+      return "Reported percentage out of bounds", 400
 
     charging = bool(data["charging"])
-  except:
-    return "still fuck you"
+    updated_at = maya.now().datetime(to_timezone='US/Eastern')
 
-  user_data[username] = {
-    "percentage": percentage,
-    "charging": charging,
-    "time": maya.now().datetime(to_timezone='US/Eastern')
-  }
-  return "Success!"
+    database.insert_update(username, percentage, charging, updated_at)
+
+    return "Success", 200
+  except:
+    return "An unexpected error has occurred, please try again later", 500
+
