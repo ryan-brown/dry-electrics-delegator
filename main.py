@@ -16,14 +16,18 @@ def rowHTML():
     name = tup[1]
     percentage = tup[2]
     charging = "🔌 " if tup[3] else  "🔋 "
-    updated_at = maya.parse(tup[4], timezone='US/Eastern').slang_time()
+    updated_at = maya.parse(tup[4], timezone='US/Eastern')
+
+    seconds_since_update = (maya.now() - updated_at).total_seconds()
+    if seconds_since_update > 60*10:
+      continue
 
     html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
       get_row_color(percentage),
       name,
       charging,
       percentage,
-      updated_at)
+      updated_at.slang_time())
 
   return html
 
@@ -92,7 +96,7 @@ def home():
           <table border="1">
             <tr>
               <th>User</th>
-              <th>Status</th>
+              <th>Charging</th>
               <th>Percentage</th>
               <th>Updated At</th>
             </tr>
