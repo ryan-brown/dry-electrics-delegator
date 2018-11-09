@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 import maya
 import cgi
 import datetime
@@ -45,6 +45,11 @@ def getRowColor(percentage):
 
   return "#{}{}00".format(toHex(red), toHex(green))
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
+
 @app.route("/update", methods=['GET', 'POST'])
 def update():
   os.system("git pull origin master")
@@ -57,6 +62,7 @@ def home():
       <head>
         <title>Dry Electrics Delegator</title>
         <script>setTimeout(() => window.location = window.location, 60 * 1000);</script>
+        <link rel="shortcut icon" href="/favicon.ico">
       </head>
       <body bgcolor="#dddddd">
         <center>
