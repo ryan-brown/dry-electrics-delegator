@@ -57,11 +57,33 @@ def home():
       <head>
         <title>Dry Electrics Delegator</title>
         <script>setTimeout(() => window.location = window.location, 60 * 1000);</script>
+        <style type="text/css">
+          table {{
+            width: 50%;
+            border: 1px solid black;
+            border-collapse: collapse;
+          }}
+
+          td {{
+            padding: 1rem;
+            font-family: 'helvetica neue', helvetica, arial, sans-serif;
+            text-align: center;
+            border: none;
+            border-bottom: 1px solid black;
+          }}
+
+          th {{
+            font-size: larger;
+            padding: .5rem;
+            border: none;
+            border-bottom: 2px solid black;
+          }}
+        </style>
       </head>
       <body bgcolor="#dddddd">
         <center>
           <h1>Dry Electrics Delegator</h1>
-          <table border="1" style="width:25%">
+          <table border="1">
             <tr>
               <th>User</th>
               <th>Status</th>
