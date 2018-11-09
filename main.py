@@ -45,7 +45,7 @@ def getRowColor(percentage):
 
   return "#{}{}00".format(toHex(red), toHex(green))
 
-@app.route("/update")
+@app.route("/update", methods=['GET', 'POST'])
 def update():
   os.system("git pull origin master")
   return "Done"
