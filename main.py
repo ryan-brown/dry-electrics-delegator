@@ -55,6 +55,11 @@ def update():
   os.system("git pull origin master")
   return "Done"
 
+@app.route("/reset", methods=['GET'])
+def update():
+  user_data = {}
+  return "Done"
+
 @app.route("/")
 def home():
   html = """
