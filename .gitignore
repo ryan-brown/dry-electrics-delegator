@@ -115,3 +115,12 @@ dmypy.json
 
 # virtualenv
 virtualenv_*
+
+# Mac DS_STORE
+.DS_Store
+
+# Local testing script
+test.sh
+
+# Sqlite Database
+database.db
