@@ -15,7 +15,7 @@ def rowHTML():
     name = tup[0]
     percentage = tup[1]["percentage"]
     time = maya.parse(tup[1]["time"], timezone='US/Eastern').slang_time()
-    charging = "⚡" if tup[1]["charging"] else "💤"
+    charging = "🔌 ⚡" if tup[1]["charging"] else  "🔋 "
 
     html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
       getRowColor(percentage),
