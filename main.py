@@ -16,7 +16,7 @@ def rowHTML():
     name = tup[0]
     percentage = tup[1]["percentage"]
     time = maya.parse(tup[1]["time"], timezone='US/Eastern').slang_time()
-    charging = "🔌 ⚡" if tup[1]["charging"] else  "🔋 "
+    charging = "🔌 " if tup[1]["charging"] else  "🔋 "
 
     html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
       getRowColor(percentage),
@@ -63,11 +63,33 @@ def home():
         <title>Dry Electrics Delegator</title>
         <script>setTimeout(() => window.location = window.location, 60 * 1000);</script>
         <link rel="shortcut icon" href="/favicon.ico">
+        <style type="text/css">
+          table {{
+            width: 50%;
+            border: 1px solid black;
+            border-collapse: collapse;
+          }}
+
+          td {{
+            padding: 1rem;
+            font-family: 'helvetica neue', helvetica, arial, sans-serif;
+            text-align: center;
+            border: none;
+            border-bottom: 1px solid black;
+          }}
+
+          th {{
+            font-size: larger;
+            padding: .5rem;
+            border: none;
+            border-bottom: 2px solid black;
+          }}
+        </style>
       </head>
       <body bgcolor="#dddddd">
         <center>
           <h1>Dry Electrics Delegator</h1>
-          <table border="1" style="width:25%">
+          <table border="1">
             <tr>
               <th>User</th>
               <th>Status</th>
