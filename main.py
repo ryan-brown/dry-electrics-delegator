@@ -70,7 +70,6 @@ def home():
             </tr>
             {}
           </table>
-          TEST HOT RELOAD
         </center>
       </body>
     </html>""".format(rowHTML())
