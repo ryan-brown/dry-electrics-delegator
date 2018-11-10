@@ -1,9 +1,4 @@
-from flask import Flask, request, send_from_directory
-import maya
-import cgi
-import datetime
-import os
-import database
+from flask import Flask
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
