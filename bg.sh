@@ -1,7 +1,6 @@
 #!/bin/bash
 username=${1:-$USER}
-#server='https://electrics.fortheusers.org'
-server='http://localhost:5002'
+server='https://electrics.fortheusers.org'
 percentage=$(pmset -g batt | grep -Eho '([0-9]*)%' | xargs | sed 's/%//')
 
 discharging=$(pmset -g batt | grep 'discharging')

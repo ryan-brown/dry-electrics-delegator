@@ -3,8 +3,6 @@ import maya
 import cgi
 import datetime
 import os
-from flask import flash, redirect, render_template, url_for, request
-import database
 
 from . import home
 
