@@ -61,7 +61,7 @@ def update():
 
 @home.route("/")
 def real_home():
-    return render_template("base.html", rows=Markup(rowHTML()))
+    return render_template("home/index.html", rows=Markup(rowHTML()))
 
 @home.route("/percentage", methods=['POST'])
 def percentage():
