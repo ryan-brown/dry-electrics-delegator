@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block body %}
+<body bgcolor="#dddddd">
+  <center>
+    <h1>Dry Electrics Delegator</h1>
+    <table border="1">
+      <tr>
+        <th>User</th>
+        <th>Charging</th>
+        <th>Percentage</th>
+        <th>Updated At</th>
+      </tr>
+      {{
+        rows
+      }}
+    </table>
+  </center>
+</body>
+{% endblock %}
