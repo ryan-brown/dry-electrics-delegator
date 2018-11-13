@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <title>Dry Electrics Delegator - Home</title>
+  <script>
+    setTimeout(() => (window.location = window.location), 60 * 1000);
+  </script>
+{% endblock %}
+
+{% block content %}
+<body bgcolor="#dddddd">
+  <center>
+  <h1>Dry Electrics Delegator</h1>
+  <table border="1">
+    <tr>
+      <th>User</th>
+      <th>Charging</th>
+      <th>Percentage</th>
+      <th>Updated At</th>
+    </tr>
+    {% for row in rows %}
+      <tr bgcolor="{{row[0]}}">
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+        <td>{{ row[4] }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  </center>
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+

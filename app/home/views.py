@@ -7,29 +7,15 @@ import os
 
 from . import home
 
-def rowHTML():
+ERROR_500 = "An unexpected error has occurred, please try again later", 500
+
+def get_leaderboard():
   user_data = database.select_all()
   sorted_user_data = sorted(user_data, key=lambda tup: tup[2])
 
-  html = ""
-  for tup in sorted_user_data:
-    name = tup[1]
-    percentage = tup[2]
-    charging = "🔌 " if tup[3] else  "🔋 "
-    updated_at = maya.parse(tup[4], timezone='US/Eastern')
+  formatted_user_data = [(get_row_color(d[2]), d[1], d[2], "🔌 " if d[3] else  "🔋 ", maya.parse(d[4], timezone='US/Eastern')) for d in sorted_user_data]
+  return [(d[0], d[1], d[2], d[3], d[4].slang_time()) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]
 
-    seconds_since_update = (maya.now() - updated_at).total_seconds()
-    if seconds_since_update > 60*10:
-      continue
-
-    html += """<tr bgcolor="{}"><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
-      get_row_color(percentage),
-      name,
-      charging,
-      percentage,
-      updated_at.slang_time())
-
-  return html
 
 def to_hex(num):
   res = hex(num)[2:]
@@ -49,19 +35,41 @@ def get_row_color(percentage):
 
   return "#{}{}00".format(to_hex(red), to_hex(green))
 
+@home.route('/static/<filename>')
+def static(filename):
+  return send_from_directory(os.path.join(home.root_path, 'static'), filename)
+
 @home.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(home.root_path, 'static'),
+  return send_from_directory(os.path.join(home.root_path, 'static'),
                           'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 @home.route("/update", methods=['GET', 'POST'])
 def update():
-  os.system("git pull origin master")
-  return "Done", 200
+  try:
+    os.system("git pull origin master")
+    return "Done", 200
+  except Exception as e:
+    print(e)
+    return "An unexpected error has occurred, please try again later", 500
+
+@home.route("/user/<username>", methods=['GET'])
+def user(username):
+  try:
+    user_data = [d[2:] for d in database.get_user_data(username)]
+    return render_template("user.html", username=username, data=user_data)
+  except Exception as e:
+    print(e)
+    return "An unexpected error has occurred, please try again later", 500
 
 @home.route("/")
-def real_home():
-    return render_template("base.html", rows=Markup(rowHTML()))
+def homepage():
+  try:
+    leaderboard_rows = get_leaderboard()
+    return render_template("home.html", rows=leaderboard_rows)
+  except Exception as e:
+    print(e)
+    return ERROR_500
 
 @home.route("/percentage", methods=['POST'])
 def percentage():
@@ -78,6 +86,7 @@ def percentage():
     database.insert_update(username, percentage, charging, updated_at)
 
     return "Success", 200
-  except:
-    return "An unexpected error has occurred, please try again later", 500
+  except Exception as e:
+    print(e)
+    return ERROR_500
 
