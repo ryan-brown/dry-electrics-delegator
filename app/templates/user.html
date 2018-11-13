@@ -23,9 +23,10 @@
   var g = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var x = d3.scaleLinear()
+  var x = d3.scaleTime()
     .domain([Date.parse(data[0][2]), Date.parse(data[data.length - 1][2])])
     .range([0, width]);
+
   var y = d3.scaleLinear()
       .domain([0, 100])
       .range([height, 0]);
