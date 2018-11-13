@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <title>Dry Electrics Delegator - {{username}}</title>
+{% endblock %}
+
+{% block content %}
+<body bgcolor="#dddddd">
+  <center>
+  <h1>{{username}}</h1>
+  <table border="1">
+    <tr>
+      <th>Charging</th>
+      <th>Percentage</th>
+      <th>Updated At</th>
+    </tr>
+    {% for row in data %}
+      <tr>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[2] }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  </center>
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+

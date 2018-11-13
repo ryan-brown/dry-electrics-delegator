@@ -1,32 +1,8 @@
 <html>
-  <head>
-    <title>Dry Electrics Delegator</title>
-    <script>
-      setTimeout(() => (window.location = window.location), 60 * 1000);
-    </script>
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <style type="text/css">
-      table {
-        width: 50%;
-        border: 1px solid black;
-        border-collapse: collapse;
-      }
-
-      td {
-        padding: 1rem;
-        font-family: "helvetica neue", helvetica, arial, sans-serif;
-        text-align: center;
-        border: none;
-        border-bottom: 1px solid black;
-      }
-
-      th {
-        font-size: larger;
-        padding: 0.5rem;
-        border: none;
-        border-bottom: 2px solid black;
-      }
-    </style>
-  </head>
-  {% block body %} {% endblock %}
+    <head>
+      {% block header %}{% endblock %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      <link rel="shortcut icon" href="/favicon.ico" />
+    </head>
+      {% block content %}{% endblock %}
 </html>

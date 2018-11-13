@@ -14,3 +14,10 @@ def select_all():
       WHERE updated_at = (SELECT MAX(updated_at) FROM updates WHERE updates.username = temp.username)""")
 
     return cursor.fetchall()
+
+def get_user_data(username):
+  with sqlite3.connect("database.db") as conn:
+    cursor= conn.cursor()
+    cursor.execute("""SELECT * FROM updates where username = '{}' """.format(username))
+
+    return cursor.fetchall()
