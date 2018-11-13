@@ -2,34 +2,54 @@
 
 {% block header %}
   <title>Dry Electrics Delegator - {{username}}</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
 {% endblock %}
 
 {% block content %}
 <body bgcolor="#dddddd">
   <center>
-  <h1>{{username}}</h1>
-  <table border="1">
-    <tr>
-      <th>Charging</th>
-      <th>Percentage</th>
-      <th>Updated At</th>
-    </tr>
-    {% for row in data %}
-      <tr>
-        <td>{{ row[1] }}</td>
-        <td>{{ row[0] }}</td>
-        <td>{{ row[2] }}</td>
-      </tr>
-    {% endfor %}
-  </table>
+  <h1>{{username}} Charge History</h1>
   </center>
+  <script type="text/javascript">
+  var data = JSON.parse('{{data | safe}}')
+  var svgWidth = 800;
+  var svgHeight = 600;
+  var svg = d3.select("center").append("svg").attr("width", svgWidth).attr("height", svgHeight)
+
+  var margin = {top: 10, right: 10, bottom: 50, left: 50};
+  var width = +svg.attr("width") - margin.left - margin.right;
+  var height = +svg.attr("height") - margin.top - margin.bottom;
+
+  var g = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var x = d3.scaleLinear()
+    .domain([Date.parse(data[0][2]), Date.parse(data[data.length - 1][2])])
+    .range([0, width]);
+  var y = d3.scaleLinear()
+      .domain([0, 100])
+      .range([height, 0]);
+
+  var xAxisCall = d3.axisBottom(x)
+  var xAxis = g.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", "translate(" + 0 + "," + height + ")")
+      .call(xAxisCall);
+
+  var yAxisCall = d3.axisLeft(y)
+  var yAxis = g.append("g")
+      .attr("class", "y-axis")
+      .call(yAxisCall)
+
+  var circles = g.selectAll("circle").data(data);
+
+  circles.enter().append("circle")
+    .attr("cx", function(d){ return x(Date.parse(d[2])) })
+    .attr("cy", function(d){ return y(d[0]) })
+    .attr("r", 2)
+    .attr("fill", "green");
+
+  </script>
 </body>
+
 {% endblock %}
-
-
-
-
-
-
-
-
