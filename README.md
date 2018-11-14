@@ -12,9 +12,15 @@ Some Dry Electrics Delegation
 ```
 
 ## Server
+To create the database:
+```
+sqlite3 database.db < schema.sql
+```
+
+Running the server:
 ```
 pip3 install -r requirements.txt
 FLASK_APP=main.py FLASK_DEBUG=1 flask run --host=0.0.0.0 --port=5002
 ```
 
-Visit the `/reset` route to reset the server state
+Visit the `/update` route to hot-reload
