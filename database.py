@@ -10,8 +10,7 @@ def insert_update(username, percentage, charging, updated_at):
 def select_all():
   with sqlite3.connect("database.db") as conn:
     cursor= conn.cursor()
-    cursor.execute("""SELECT * FROM updates temp
-      WHERE updated_at = (SELECT MAX(updated_at) FROM updates WHERE updates.username = temp.username)""")
+    cursor.execute("""select id, username, percentage, charging, max(updated_at) from updates group by username""")
 
     return cursor.fetchall()
 
