@@ -9,9 +9,23 @@
 <body bgcolor="#dddddd">
   <center>
   <h1>{{username}} Charge History</h1>
+  <input type="datetime-local" id="start-time">
+  <input type="datetime-local" id="end-time">
+  <button id="reset-button">Reset</button><br />
   </center>
   <script type="text/javascript">
+
+  function formatDate(dt) {
+    return dt.substr(0,10) + "T" + dt.substr(11,5)
+  }
+
   var data = JSON.parse('{{data | safe}}')
+  document.getElementById("start-time").value = formatDate(data[0][2])
+  document.getElementById("end-time").value = formatDate(data[data.length - 1][2])
+
+  let startTime = document.getElementById("start-time").value
+  let endTime = document.getElementById("end-time").value
+
   var svgWidth = 800;
   var svgHeight = 600;
   var svg = d3.select("center").append("svg").attr("width", svgWidth).attr("height", svgHeight)
@@ -24,20 +38,20 @@
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var x = d3.scaleTime()
-    .domain([Date.parse(data[0][2]), Date.parse(data[data.length - 1][2])])
-    .range([0, width]);
+      .domain([Date.parse(startTime), Date.parse(endTime)])
+      .range([0, width]);
 
   var y = d3.scaleLinear()
       .domain([0, 100])
       .range([height, 0]);
 
-  var xAxisCall = d3.axisBottom(x)
+  var xAxisCall = d3.axisBottom(x).tickSize(-height);
   var xAxis = g.append("g")
       .attr("class", "x-axis")
       .attr("transform", "translate(" + 0 + "," + height + ")")
       .call(xAxisCall);
 
-  var yAxisCall = d3.axisLeft(y)
+  var yAxisCall = d3.axisLeft(y).tickSize(-width);
   var yAxis = g.append("g")
       .attr("class", "y-axis")
       .call(yAxisCall)
@@ -49,6 +63,41 @@
     .attr("cy", function(d){ return y(d[0]) })
     .attr("r", 2)
     .attr("fill", "green");
+
+
+  function updateChart() {
+    let startTime = Date.parse(document.getElementById("start-time").value)
+    let endTime = Date.parse(document.getElementById("end-time").value)
+    x.domain([startTime, endTime])
+    xAxisCall = d3.axisBottom(x).tickSize(-height);
+    xAxis.call(xAxisCall)
+
+    newData = data.filter(e =>  Date.parse(e[2]) <= endTime && Date.parse(e[2]) >= startTime)
+
+    //rejoin data
+    var circle = svg.select("g").selectAll("circle")
+        .data(newData);
+
+    circle.exit().remove();//remove unneeded circles
+    circle.enter().append("circle")
+        .attr("r",0);//create any new circles needed
+
+    //update all circles to new positions
+    circle.transition()
+        //.duration(500)
+        .attr("cx", function(d){ return x(Date.parse(d[2])) })
+        .attr("cy", function(d){ return y(d[0]) })
+        .attr("r", 2)
+        .attr("fill", "green");
+  }
+
+  document.getElementById("start-time").addEventListener("change", updateChart)
+  document.getElementById("end-time").addEventListener("change", updateChart)
+  document.getElementById("reset-button").addEventListener("click", function() {
+    document.getElementById("start-time").value = formatDate(data[0][2])
+    document.getElementById("end-time").value = formatDate(data[data.length - 1][2])
+    updateChart()
+  })
 
   </script>
 </body>
