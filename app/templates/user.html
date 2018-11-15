@@ -107,7 +107,7 @@
     .attr("cx", function(d){ return x(Date.parse(d[2])) })
     .attr("cy", function(d){ return y(d[0]) })
     .attr("r", 3)
-    .attr("fill", "green")
+    .attr("fill", function(d) { return getPointColor(d[0]) })
     .on("mouseover", pointMouseOver)
     .on("mouseout", pointMouseOut)
   }
