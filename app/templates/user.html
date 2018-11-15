@@ -11,7 +11,8 @@
   <h1>{{username}} Charge History</h1>
   <input type="datetime-local" id="start-time">
   <input type="datetime-local" id="end-time">
-  <button id="reset-button">Reset</button><br />
+  <button id="today-button">Today</button>
+  <button id="all-button">All</button><br />
   </center>
   <script type="text/javascript">
 
@@ -74,28 +75,32 @@
 
     newData = data.filter(e =>  Date.parse(e[2]) <= endTime && Date.parse(e[2]) >= startTime)
 
-    //rejoin data
-    var circle = svg.select("g").selectAll("circle")
-        .data(newData);
+    var newCircles = g.selectAll("circle")
+          .remove()
+          .exit()
+          .data(newData)
 
-    circle.exit().remove();//remove unneeded circles
-    circle.enter().append("circle")
-        .attr("r",0);//create any new circles needed
-
-    //update all circles to new positions
-    circle.transition()
-        //.duration(500)
-        .attr("cx", function(d){ return x(Date.parse(d[2])) })
-        .attr("cy", function(d){ return y(d[0]) })
-        .attr("r", 2)
-        .attr("fill", "green");
+    newCircles.enter().append("circle")
+    .attr("cx", function(d){ return x(Date.parse(d[2])) })
+    .attr("cy", function(d){ return y(d[0]) })
+    .attr("r", 2)
+    .attr("fill", "green");
   }
 
   document.getElementById("start-time").addEventListener("change", updateChart)
   document.getElementById("end-time").addEventListener("change", updateChart)
-  document.getElementById("reset-button").addEventListener("click", function() {
+  document.getElementById("all-button").addEventListener("click", function() {
     document.getElementById("start-time").value = formatDate(data[0][2])
     document.getElementById("end-time").value = formatDate(data[data.length - 1][2])
+    updateChart()
+  })
+
+  document.getElementById("today-button").addEventListener("click", function() {
+    let today = new Date()
+    let datePrefix = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    document.getElementById("start-time").value = datePrefix+"T09:00"
+    document.getElementById("end-time").value = datePrefix+"T18:00"
     updateChart()
   })
 
