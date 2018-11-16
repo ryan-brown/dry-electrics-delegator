@@ -17,7 +17,7 @@ def driest():
     print(lowest)
     return jsonify({"payload": {
         "google": {
-        "expectUserResponse": True,
+        "expectUserResponse": False,
         "richResponse": {
         "items": [
         {
