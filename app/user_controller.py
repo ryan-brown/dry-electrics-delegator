@@ -10,19 +10,20 @@ user = Blueprint('user', __name__)
 @user.route("/driest", methods=['GET', 'POST'])
 def driest():
     all_users = get_leaderboard()
-    if len(all_users) < 1:
-        return "No data", 204
+    human_text = "no one"
+    if len(all_users) >= 1:
+        human_text = "%s at %d percent" % (lowest[1], lowest[2])
     
     lowest = all_users[0]
     print(lowest)
-    return jsonify({"payload": {
+return jsonify({"fulfillmentText": human_text, payload": {
         "google": {
         "expectUserResponse": False,
         "richResponse": {
         "items": [
         {
         "simpleResponse": {
-        "textToSpeech": "%s at %d percent" % (lowest[1], lowest[2])
+        "textToSpeech": human_text
         }
         }
         ]
