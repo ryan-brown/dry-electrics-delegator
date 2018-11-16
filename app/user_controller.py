@@ -15,8 +15,7 @@ def driest():
         human_text = "%s at %d percent" % (lowest[1], lowest[2])
     
     lowest = all_users[0]
-    print(lowest)
-return jsonify({"fulfillmentText": human_text, "payload": {
+    return jsonify({"fulfillmentText": human_text, "payload": {
         "google": {
         "expectUserResponse": False,
         "richResponse": {
