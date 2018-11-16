@@ -16,7 +16,7 @@ def driest():
     
     lowest = all_users[0]
     print(lowest)
-return jsonify({"fulfillmentText": human_text, payload": {
+return jsonify({"fulfillmentText": human_text, "payload": {
         "google": {
         "expectUserResponse": False,
         "richResponse": {
