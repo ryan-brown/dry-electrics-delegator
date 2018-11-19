@@ -1,7 +1,12 @@
+body {
+  background-color: #dddddd;
+}
+
 table {
   width: 50%;
   border: 1px solid black;
   border-collapse: collapse;
+  background-color: #dddddd;
 }
 
 td {
