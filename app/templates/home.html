@@ -3,15 +3,14 @@
 {% block header %}
   <title>Dry Electrics Delegator - Home</title>
   <script>
-    //setTimeout(() => (window.location = window.location), 60 * 1000);
+    setTimeout(() => (window.location = window.location), 60 * 1000);
     const keyNumber = 33919128 * 4;
-    const keyword = keyNumber.toString(26);
-    let entry = '';
-    document.addEventListener('keydown', (event) => {
-      entry += event.key;
-      if (entry == keyword) {
-        console.log('WINNER WINNER CHICKEN DINNER');
-        document.getElementsByTagName('body')[0].setAttribute('style', 'background-image: url(static/special.png)');
+    const translation = keyNumber.toString(26);
+    let concatenation = '';
+    document.addEventListener(atob('a2V5ZG93bg=='), (e) => {
+      concatenation += e[atob('a2V5')];
+      if (concatenation == translation) {
+        document.getElementsByTagName('body')[0].setAttribute(atob('c3R5bGU='), atob('YmFja2dyb3VuZC1pbWFnZTogdXJsKHN0YXRpYy9zcGVjaWFsLnBuZyk='));
       }
     } );
   </script>
