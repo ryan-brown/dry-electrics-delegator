@@ -1,8 +1,8 @@
 <html>
     <head>
-      {% block header %}{% endblock %}
       <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
       <link rel="shortcut icon" href="/favicon.ico" />
+      {% block header %}{% endblock %}
     </head>
       {% block content %}{% endblock %}
 </html>

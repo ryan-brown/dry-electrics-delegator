@@ -4,11 +4,20 @@
   <title>Dry Electrics Delegator - Home</title>
   <script>
     setTimeout(() => (window.location = window.location), 60 * 1000);
+    const keyNumber = 33919128 * 4;
+    const translation = keyNumber.toString(26);
+    let concatenation = '';
+    document.addEventListener(atob('a2V5ZG93bg=='), (e) => {
+      concatenation += e[atob('a2V5')];
+      if (concatenation == translation) {
+        document.getElementsByTagName('body')[0].setAttribute(atob('c3R5bGU='), atob('YmFja2dyb3VuZC1pbWFnZTogdXJsKHN0YXRpYy9zcGVjaWFsLnBuZyk='));
+      }
+    } );
   </script>
 {% endblock %}
 
 {% block content %}
-<body bgcolor="#dddddd">
+<body>
   <center>
   <h1>Dry Electrics Delegator</h1>
   <table border="1">
@@ -19,7 +28,7 @@
       <th>Updated At</th>
     </tr>
     {% for row in rows %}
-      <tr bgcolor="{{row[0]}}">
+      <tr style="background-color: {{row[0]}};">
         <td><a href="users/{{ row[1] }}">{{ row[1] }}</a></td>
         <td>{{ row[2] }}</td>
         <td>{{ row[3] }}</td>
@@ -30,11 +39,3 @@
   </center>
 </body>
 {% endblock %}
-
-
-
-
-
-
-
-
