@@ -1,5 +1,6 @@
 # dry-electrics-delegator
 Some Dry Electrics Delegation
+![wet elecs](https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/app/static/logo.png)
 
 ## Client
 
@@ -20,7 +21,7 @@ sqlite3 database.db < schema.sql
 Running the server:
 ```
 pip3 install -r requirements.txt
-FLASK_APP=main.py FLASK_DEBUG=1 flask run --host=0.0.0.0 --port=5002
+FLASK_APP=main.py FLASK_DEBUG=1 python3 -m flask run --host=0.0.0.0 --port=5002
 ```
 
 Visit the `/update` route to hot-reload

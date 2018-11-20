@@ -49,4 +49,8 @@ def get_db():
 def db_size():
   return str(os.path.getsize("database.db"))
 
+@home.route("/privacy-policy")
+def policy():
+  return render_template("privacy.html")
+
 
