@@ -1,6 +1,7 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, send_file
 import database
 import maya
+import os
 
 home = Blueprint('home', __name__)
 
@@ -38,5 +39,14 @@ def homepage():
   except Exception as e:
     print(e)
     return "An unexpected error has occurred, please try again later", 500
+
+@home.route("/db")
+def get_db():
+  return send_file("../database.db", as_attachment=True)
+
+  
+@home.route("/db_size")
+def db_size():
+  return str(os.path.getsize("database.db"))
 
 
