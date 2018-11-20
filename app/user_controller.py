@@ -1,8 +1,33 @@
 from flask import Blueprint, render_template
 import database
 import json
+from flask import jsonify
+
+from .home_controller import get_leaderboard
 
 user = Blueprint('user', __name__)
+
+@user.route("/driest", methods=['GET', 'POST'])
+def driest():
+    all_users = get_leaderboard()
+    human_text = "no one"
+    if len(all_users) >= 1:
+        lowest = all_users[0]
+        human_text = "%s at %d percent" % (lowest[1], lowest[2])
+    
+    return jsonify({"fulfillmentText": human_text, "payload": {
+        "google": {
+        "expectUserResponse": False,
+        "richResponse": {
+        "items": [
+        {
+        "simpleResponse": {
+        "textToSpeech": human_text
+        }
+        }
+        ]
+        }
+        }}})
 
 @user.route("/<username>", methods=['GET'])
 def show_user(username):
@@ -12,3 +37,6 @@ def show_user(username):
   except Exception as e:
     print(e)
     return "An unexpected error has occurred, please try again later", 500
+
+
+

@@ -1,11 +1,15 @@
+body {
+  background-color: #dddddd;
+}
+
 table {
   width: 50%;
   border: 1px solid black;
   border-collapse: collapse;
+  background-color: #dddddd;
 }
 
 td {
-  padding: 1rem;
   font-family: "helvetica neue", helvetica, arial, sans-serif;
   text-align: center;
   border: none;
@@ -13,8 +17,28 @@ td {
 }
 
 th {
-  font-size: larger;
-  padding: 0.5rem;
   border: none;
   border-bottom: 2px solid black;
+}
+
+@media all and (min-width: 600px) {
+  td {
+    padding: 1rem;
+  }
+
+  th {
+    font-size: larger;
+    padding: 0.5rem;
+  }
+}
+
+@media all and (max-width: 599px) {
+  td {
+    padding: 2px;
+  }
+
+  th {
+    font-size: smaller;
+    padding: 2px;
+  }
 }
