@@ -14,8 +14,6 @@
   <button id="all-button">All</button><br />
   </center>
   <script type="text/javascript">
-
-
   function toHex(num) {
     return (num < 16) ? "0"+num.toString(16) : num.toString(16)
   }
@@ -38,128 +36,152 @@
     return dt.substr(0,10) + "T" + dt.substr(11,5)
   }
 
-  var data = JSON.parse('{{data | safe}}')
-  document.getElementById("start-time").value = formatDate(data[0][2])
-  document.getElementById("end-time").value = formatDate(data[data.length - 1][2])
+  function setDates(startTime, endTime) {
+    document.getElementById("start-time").value = formatDate(startTime)
+    document.getElementById("end-time").value = formatDate(endTime)
+  }
 
-  let startTime = document.getElementById("start-time").value
-  let endTime = document.getElementById("end-time").value
+  function initializeSVG(width, height) {
+    return d3.select("center").append("svg").attr("width", width).attr("height", height)
+  }
 
-  var svgWidth = 800;
-  var svgHeight = 600;
-  var svg = d3.select("center").append("svg").attr("width", svgWidth).attr("height", svgHeight)
+  let data = JSON.parse('{{data | safe}}')
+  let firstTime = data[0][2]
+  let lastTime = data[data.length - 1][2]
 
-  var margin = {top: 10, right: 10, bottom: 50, left: 50};
-  var width = +svg.attr("width") - margin.left - margin.right;
-  var height = +svg.attr("height") - margin.top - margin.bottom;
+  setDates(firstTime, lastTime)
 
-  var g = svg.append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  let svg = initializeSVG(800, 600)
 
-  var x = d3.scaleTime()
-      .domain([Date.parse(startTime), Date.parse(endTime)])
-      .range([0, width]);
+  let margin = {top: 25, right: 25, bottom: 25, left: 25};
+  let graphWidth = +svg.attr("width") - margin.left - margin.right;
+  let graphHeight = +svg.attr("height") - margin.top - margin.bottom;
 
-  var y = d3.scaleLinear()
+  let graph = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  let xScale = d3.scaleTime()
+      .domain([Date.parse(firstTime), Date.parse(lastTime)])
+      .range([0, graphWidth]);
+
+  let yScale = d3.scaleLinear()
       .domain([0, 100])
-      .range([height, 0]);
+      .range([graphHeight, 0]);
 
-  var xAxisCall = d3.axisBottom(x).tickSize(-height);
-  var xAxis = g.append("g")
-      .attr("class", "x-axis")
-      .attr("transform", "translate(" + 0 + "," + height + ")")
+  let xAxisCall = d3.axisBottom(xScale).tickSize(-graphHeight);
+  let xAxis = graph.append("g")
+      .attr("transform", "translate(" + 0 + "," + graphHeight + ")")
       .call(xAxisCall);
 
-  var yAxisCall = d3.axisLeft(y).tickSize(-width);
-  var yAxis = g.append("g")
-      .attr("class", "y-axis")
+  let yAxisCall = d3.axisLeft(yScale).tickSize(-graphWidth)
+  let yAxis = graph.append("g")
       .call(yAxisCall)
 
-  var circles = g.selectAll("circle").data(data);
+  let lineGenerator = d3.line()
+    .x(function(d) { return xScale(Date.parse(d[2])) })
+    .y(function(d) { return yScale(d[0]) })
 
-
-
-  circles.enter().append("circle")
-    .attr("cx", function(d){ return x(Date.parse(d[2])) })
-    .attr("cy", function(d){ return y(d[0]) })
-    .attr("r", 3)
-    .attr("fill", function(d) { return getPointColor(d[0]) })
-    .on("mouseover", pointMouseOver)
-    .on("mouseout", pointMouseOut)
-
+  addCircles(data)
 
   function updateChart() {
     let startTime = Date.parse(document.getElementById("start-time").value)
     let endTime = Date.parse(document.getElementById("end-time").value)
-    x.domain([startTime, endTime])
-    xAxisCall = d3.axisBottom(x).tickSize(-height);
+
+    xScale.domain([startTime, endTime])
+    xAxisCall = d3.axisBottom(xScale).tickSize(-graphHeight);
     xAxis.call(xAxisCall)
 
-    newData = data.filter(e =>  Date.parse(e[2]) <= endTime && Date.parse(e[2]) >= startTime)
+    newData = data.filter(d =>  Date.parse(d[2]) <= endTime && Date.parse(d[2]) >= startTime)
 
-    var newCircles = g.selectAll("circle")
-          .remove()
-          .exit()
-          .data(newData)
+    addCircles(newData)
+  }
 
-    newCircles.enter().append("circle")
-    .attr("cx", function(d){ return x(Date.parse(d[2])) })
-    .attr("cy", function(d){ return y(d[0]) })
-    .attr("r", 3)
-    .attr("fill", function(d) { return getPointColor(d[0]) })
-    .on("mouseover", pointMouseOver)
-    .on("mouseout", pointMouseOut)
+  function addCircles(data) {
+    graph.selectAll("circle")
+      .remove()
+      .exit()
+      .data(data)
+      .enter().append("circle")
+      .attr("cx", function(d){ return xScale(Date.parse(d[2])) })
+      .attr("cy", function(d){ return yScale(d[0]) })
+      .attr("r", 3)
+      .attr("fill", function(d) { return getPointColor(d[0]) })
+      .on("mouseover", pointMouseOver)
+      .on("mouseout", pointMouseOut)
   }
 
   document.getElementById("start-time").addEventListener("change", updateChart)
   document.getElementById("end-time").addEventListener("change", updateChart)
+
   document.getElementById("all-button").addEventListener("click", function() {
-    document.getElementById("start-time").value = formatDate(data[0][2])
-    document.getElementById("end-time").value = formatDate(data[data.length - 1][2])
+    setDates(firstTime, lastTime)
     updateChart()
   })
 
   document.getElementById("today-button").addEventListener("click", function() {
     let today = new Date()
     let datePrefix = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let startTime = datePrefix+"T09:00"
+    let endTime = datePrefix+"T18:00"
 
-    document.getElementById("start-time").value = datePrefix+"T09:00"
-    document.getElementById("end-time").value = datePrefix+"T18:00"
+    setDates(startTime, endTime)
     updateChart()
   })
 
   function pointMouseOver(d, i) {
-    d3.select(this)
-      .attr("fill", "blue")
-      .attr("r", 6)
-
     svg.append("rect")
       .attr("id", "idrect"+i)
-      .attr("x", x(Date.parse(d[2])) - 45)
-      .attr("y", y(d[0])-20)
+      .attr("x", xScale(Date.parse(d[2])) - 70)
+      .attr("y", yScale(d[0]) - 10)
       .attr("width", 200)
       .attr("height", 20)
       .attr("fill", "black")
       .attr("fill-opacity", 0.5)
       .text(function() {
-      return d[0]+"% @ "+d[2].substr(0,10) + " " + d[2].substr(11,8)
+        return d[0]+"% @ "+d[2].substr(0,10) + " " + d[2].substr(11,8)
       })
 
     svg.append("text")
       .attr("id", "idtext"+i)
-      .attr("x", x(Date.parse(d[2])) - 40)
-      .attr("y", y(d[0]) - 5)
+      .attr("x", xScale(Date.parse(d[2])) - 65)
+      .attr("y", yScale(d[0]) + 5)
       .attr("fill", "white")
       .text(function() {
-      return d[0]+"% @ "+d[2].substr(0,10) + " " + d[2].substr(11,8)
+        return d[0]+"% @ "+d[2].substr(0,10) + " " + d[2].substr(11,8)
       })
+
+    svg.append("line")
+      .attr("id", "lineX")
+      .attr("x1", margin.left + xScale(Date.parse(d[2])))
+      .attr("y1", margin.top+graphHeight)
+      .attr("x2", margin.left +xScale(Date.parse(d[2])))
+      .attr("y2", margin.top+graphHeight-yScale(100-d[0]))
+      .attr("stroke-width", 1)
+      .attr("stroke-dasharray", "3, 3")
+      .attr("stroke", "black");
+
+    svg.append("line")
+      .attr("id", "lineY")
+      .attr("x1", margin.left)
+      .attr("y1", margin.top+graphHeight-yScale(100-d[0]))
+      .attr("x2", margin.left+xScale(Date.parse(d[2])))
+      .attr("y2", margin.top+graphHeight-yScale(100-d[0]))
+      .attr("stroke-width", 1)
+      .attr("stroke-dasharray", "3, 3")
+      .attr("stroke", "black");
+
+    d3.select(this)
+      .attr("stroke-width", "1")
+      .attr("stroke", "#000000")
+      .attr("r", 6)
   }
 
   function pointMouseOut(d, i) {
     d3.select(this)
-      .attr("fill", function(d) { return getPointColor(d[0]) })
+      .attr("stroke", "none")
       .attr("r", 3)
 
+    d3.select("#lineX").remove()
+    d3.select("#lineY").remove()
     d3.select("#idrect"+i).remove()
     d3.select("#idtext"+i).remove()
   }

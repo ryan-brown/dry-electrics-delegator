@@ -82,3 +82,8 @@ th {
     padding: 2px;
   }
 }
+
+.tick line{
+    opacity: 0.2;
+    stroke-dasharray: 5 5;
+}
