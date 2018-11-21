@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard@1x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="11.3623904%" y1="34.2590332%" x2="80.0877193%" y2="84.230957%" id="linearGradient-1">
+            <stop stop-color="#77DFFF" offset="0%"></stop>
+            <stop stop-color="#0093EA" offset="65.4850072%"></stop>
+            <stop stop-color="#0088FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="21.7208615%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFFA00" offset="0%"></stop>
+            <stop stop-color="#FFA000" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="wet_electrics_logo" transform="translate(7.000000, 1.000000)">
+            <g id="Group">
+                <path d="M18.5,47.6 C8.28478261,47.6 0,39.68 0,30 C0,21.04 15.2826087,3.6 18.5,0 C21.3799423,3.3125 36.8422724,21.04 36.8422724,30 C36.8422724,39.6 28.7152174,47.6 18.5,47.6 Z" id="Shape" stroke="#000000" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                <path d="M32.7530457,35.3490168 C31.6182549,38.6626559 29.0818773,41.4260509 25.143913,43.6392019" id="Path-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M11.6630435,12.96 C11.2608696,12.72 10.7782609,12.8 10.5369565,13.2 L6.51521739,19.6 C6.27391304,20 6.35434783,20.48 6.75652174,20.72 C6.9173913,20.8 7.07826087,20.8 7.23913043,20.8 C7.48043478,20.8 7.80217391,20.64 7.8826087,20.4 L11.9043478,14 C12.1456522,13.68 12.0652174,13.12 11.6630435,12.96 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <path d="M12.8695652,12 C13.1108696,12 13.3521739,11.84 13.5130435,11.68 L15.1217391,9.28 C15.3630435,8.88 15.2826087,8.4 14.8804348,8.16 C14.4782609,7.92 13.9956522,8 13.7543478,8.4 L12.1456522,10.8 C11.9043478,11.2 11.9847826,11.68 12.3869565,11.92 C12.5478261,11.92 12.7086957,12 12.8695652,12 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <path d="M28.1521739,24.8 C28.473913,24.8 28.7956522,24.96 28.7956522,25.28 C28.9565217,25.6 28.876087,25.92 28.6347826,26.16 L13.3521739,42.16 C13.1913043,42.32 13.0304348,42.4 12.7891304,42.4 C12.7086957,42.4 12.5478261,42.32 12.3869565,42.24 C12.0652174,42.08 11.9043478,41.6 12.0652174,41.28 L16.4891304,30.4 L8.84782609,30.4 C8.52608696,30.4 8.28478261,30.16 8.12391304,29.92 C7.96304348,29.68 8.04347826,29.36 8.20434783,29.12 L20.2695652,13.12 C20.5108696,12.8 20.9130435,12.72 21.2347826,12.88 C21.6369565,13.04 21.7978261,13.36 21.7173913,13.76 L19.4652174,24.8 L28.1521739,24.8 Z" id="Shape" stroke="#000000" fill="url(#linearGradient-2)" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

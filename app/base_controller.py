@@ -12,10 +12,6 @@ def static(filename):
 def favicon():
   return send_from_directory(os.path.join(base.root_path, 'static'), 'favicon.png',mimetype='image/png')
 
-@base.route('/logo.png')
-def logo():
-  return send_from_directory(os.path.join(base.root_path, 'static'), 'logo.png',mimetype='image/png')
-
 @base.route("/update", methods=['GET', 'POST'])
 def update():
   try:

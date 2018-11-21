@@ -2,7 +2,10 @@
     <head>
       <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
       <link rel="shortcut icon" href="/favicon.ico" />
-      {% block header %}{% endblock %}
+      {% block head %}{% endblock %}
     </head>
+    {% include 'header.html' %}
+    <body>
       {% block content %}{% endblock %}
+    </body>
 </html>

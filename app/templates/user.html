@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
-{% block header %}
+{% block head %}
   <title>Dry Electrics Delegator - {{username}}</title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
 {% endblock %}
 
 {% block content %}
-<body bgcolor="#dddddd">
   <center>
   <h1>{{username}} Charge History</h1>
   <input type="datetime-local" id="start-time">
@@ -165,6 +164,4 @@
     d3.select("#idtext"+i).remove()
   }
   </script>
-</body>
-
 {% endblock %}

@@ -1,5 +1,44 @@
+@font-face {
+  font-family: Raleway;
+  src: url('Raleway-Regular.ttf');
+}
+
 body {
   background-color: #dddddd;
+  margin: 0px;
+}
+
+div.header {
+  display: flex;
+  align-content: center;
+  background-color: darkgrey;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid black;
+  justify-content: center;
+}
+
+div.header img {
+  align-self: center;
+  padding: 10px;
+  border: 2px solid white;
+  margin-right: 10px;
+}
+
+div.header a.title {
+  flex: 1;
+  vertical-align: middle;
+  color: white;
+  font-size: 24px;
+  font-family: 'Raleway', sans-serif;;
+  line-height: 26px;
+  text-decoration: none;
+}
+
+div.header div.title-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: -2px;
 }
 
 table {
@@ -19,6 +58,7 @@ td {
 th {
   border: none;
   border-bottom: 2px solid black;
+  font-family: sans-serif;
 }
 
 @media all and (min-width: 600px) {
@@ -27,7 +67,7 @@ th {
   }
 
   th {
-    font-size: larger;
+    font-size: large;
     padding: 0.5rem;
   }
 }
