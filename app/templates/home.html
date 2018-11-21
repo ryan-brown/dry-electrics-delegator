@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block header %}
+{% block head %}
   <title>Dry Electrics Delegator - Home</title>
   <script>
     setTimeout(() => (window.location = window.location), 60 * 1000);
@@ -17,9 +17,6 @@
 {% endblock %}
 
 {% block content %}
-<body>
-  <center>
-  <h1>Dry Electrics Delegator</h1>
   <table border="1">
     <tr>
       <th>User</th>
@@ -36,6 +33,4 @@
       </tr>
     {% endfor %}
   </table>
-  </center>
-</body>
 {% endblock %}
