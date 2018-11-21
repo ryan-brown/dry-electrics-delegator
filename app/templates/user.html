@@ -33,8 +33,12 @@
     return "#" + toHex(red) + toHex(green) + "00"
   }
 
+  function addZero(num) {
+    return (num < 10) ? "0"+num : num
+  }
+
   function formatDate(dt) {
-    return dt.substr(0,10) + "T" + dt.substr(11,5)
+    return dt.replace(" ", "T").substr(0,16)
   }
 
   function setDates(startTime, endTime) {
@@ -46,11 +50,30 @@
     return d3.select("center").append("svg").attr("width", width).attr("height", height)
   }
 
+  function initializeTimeWindow(data) {
+    const hash = window.location.hash
+
+    if (hash === "") {
+      return [data[0][2], data[data.length - 1][2]]
+    } else {
+      let fromHash = hash.substr(1).split(",").map(e => (new Date(parseInt(e))))
+
+      return fromHash.map(d => {
+        let datePrefix = d.getFullYear()+'-'+(addZero(d.getMonth())+1)+'-'+addZero(d.getDate());
+        let dateTime = addZero(d.getHours())+":"+addZero(d.getMinutes())
+
+        return datePrefix + " " + dateTime
+      })
+    }
+  }
+
   let data = JSON.parse('{{data | safe}}')
   let firstTime = data[0][2]
   let lastTime = data[data.length - 1][2]
 
-  setDates(firstTime, lastTime)
+  let [initialFirstTime, initialLastTime] = initializeTimeWindow(data)
+
+  setDates(initialFirstTime, initialLastTime)
 
   let svg = initializeSVG(800, 600)
 
@@ -61,7 +84,7 @@
   let graph = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   let xScale = d3.scaleTime()
-      .domain([Date.parse(firstTime), Date.parse(lastTime)])
+      .domain([Date.parse(initialFirstTime), Date.parse(initialLastTime)])
       .range([0, graphWidth]);
 
   let yScale = d3.scaleLinear()
@@ -81,11 +104,13 @@
     .x(function(d) { return xScale(Date.parse(d[2])) })
     .y(function(d) { return yScale(d[0]) })
 
-  addCircles(data)
+  updateChart()
 
   function updateChart() {
     let startTime = Date.parse(document.getElementById("start-time").value)
     let endTime = Date.parse(document.getElementById("end-time").value)
+
+    window.location.hash = startTime+","+endTime
 
     xScale.domain([startTime, endTime])
     xAxisCall = d3.axisBottom(xScale).tickSize(-graphHeight);
