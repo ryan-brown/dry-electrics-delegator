@@ -2,17 +2,19 @@
 
 {% block head %}
   <title>Dry Electrics Delegator - {{username}}</title>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="{{ url_for('static', filename='d3.v5.min.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-  <center>
   <h1>{{username}} Charge History</h1>
-  <input type="datetime-local" id="start-time">
-  <input type="datetime-local" id="end-time">
-  <button id="today-button">Today</button>
-  <button id="all-button">All</button><br />
-  </center>
+  <div class="chart">
+    <div class="chart-controls">
+      <input type="datetime-local" id="start-time">
+      <input type="datetime-local" id="end-time">
+      <button id="today-button">Today</button>
+      <button id="all-button">All</button><br />
+    </div>
+  </div>
   <script type="text/javascript">
   function toHex(num) {
     return (num < 16) ? "0"+num.toString(16) : num.toString(16)
@@ -42,7 +44,7 @@
   }
 
   function initializeSVG(width, height) {
-    return d3.select("center").append("svg").attr("width", width).attr("height", height)
+    return d3.select("div.chart").append("svg").attr("width", width).attr("height", height)
   }
 
   let data = JSON.parse('{{data | safe}}')

@@ -47,6 +47,7 @@ header div.title-container {
 
 h1,h2,h3,h4,h5 {
   font-family: sans-serif;
+  text-align: center;
 }
 
 div.content {
@@ -54,6 +55,7 @@ div.content {
   margin: 0px 120px 0px 120px;
   flex-direction: column;
   align-content: center;
+  justify-content: center;
 }
 
 footer {
@@ -92,10 +94,31 @@ td {
   border-bottom: 1px solid black;
 }
 
+td a {
+  color: black;
+}
+
 th {
   border: none;
   border-bottom: 2px solid black;
   font-family: sans-serif;
+}
+
+div.chart {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div.chart div.chart-controls {
+  display: flex;
+  justify-content: center;
+}
+
+.tick line{
+  opacity: 0.2;
+  stroke-dasharray: 5 5;
 }
 
 @media all and (min-width: 600px) {
@@ -112,15 +135,51 @@ th {
 @media all and (max-width: 599px) {
   td {
     padding: 2px;
+    font-size: larger;
   }
 
   th {
-    font-size: smaller;
+    height: 2rem;
+    font-size: larger;
     padding: 2px;
   }
-}
 
-.tick line{
-    opacity: 0.2;
-    stroke-dasharray: 5 5;
+  div.content {
+    margin: 0px 5px 0px 5px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  div.chart {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div.chart div.chart-controls {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  div.chart div.chart-controls input, button {
+    height: 3rem;
+    font-size: larger;
+    margin-bottom: 2rem;
+  }
+
+  div.chart svg {
+    width: 100%;
+  }
+
+  div.content p {
+    font-size: x-large;
+  }
+
+  footer {
+    font-size: x-large;
+  }
 }
