@@ -13,7 +13,48 @@
   <button id="today-button">Today</button>
   <button id="all-button">All</button><br />
   </center>
+  <style>
+    html,
+    body{
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
   <script type="text/javascript">
+    function timeConverter(UNIX_timestamp){
+      var a = new Date(UNIX_timestamp);
+      var year = `${a.getFullYear()}`.padStart(4, '0');
+      var month = `${a.getMonth()+1}`.padStart(2, '0');
+      var date = `${a.getDate()}`.padStart(2, '0');
+      var hours = `${a.getHours()}`.padStart(2, '0');
+      var min = `${a.getMinutes()}`.padStart(2, '0');
+      var time = `${year}-${month}-${date}T${hours}:${min}`;
+      return time;
+    }
+
+    window.addEventListener('wheel', (e) => {
+
+    const interval = 40*60;
+
+    let startTime = parseInt(Date.parse(document.getElementById("start-time").value));
+    let endTime = parseInt(Date.parse(document.getElementById("end-time").value));
+
+    var delta;
+
+    if (event.wheelDelta){
+      delta = event.wheelDelta;
+    } else {
+      delta = -1 * event.deltaY;
+    }
+
+      startTime += delta*interval;
+      endTime += delta*interval;
+
+      setDateDirectly(timeConverter(startTime), timeConverter(endTime));
+      updateChart();
+  });
+
   function toHex(num) {
     return (num < 16) ? "0"+num.toString(16) : num.toString(16)
   }
@@ -34,6 +75,12 @@
 
   function formatDate(dt) {
     return dt.substr(0,10) + "T" + dt.substr(11,5)
+  }
+
+  function setDateDirectly(startTime, endTime)
+  {
+    document.getElementById("start-time").value = startTime;
+    document.getElementById("end-time").value = endTime;
   }
 
   function setDates(startTime, endTime) {
