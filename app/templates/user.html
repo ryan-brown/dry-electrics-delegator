@@ -14,6 +14,7 @@
       <button id="today-button">Today</button>
       <button id="all-button">All</button><br />
     </div>
+    <div class="inner-chart"></div>
   </div>
   <script type="text/javascript">
     function timeConverter(UNIX_timestamp){
@@ -28,12 +29,12 @@
     }
 
     document.body.onload = () => {
-      document.getElementsByClassName('chart')[0].addEventListener('mouseenter', () => {
+      document.getElementsByClassName('inner-chart')[0].addEventListener('mouseenter', () => {
         document.documentElement.style.overflow = "hidden";
         document.body.style.overflow = "auto";
       });
 
-      document.getElementsByClassName('chart')[0].addEventListener('mouseleave', () => {
+      document.getElementsByClassName('inner-chart')[0].addEventListener('mouseleave', () => {
         document.documentElement.style.overflow = "initial";
         document.body.style.overflow = "initial";
       });
@@ -98,7 +99,7 @@
   }
 
   function initializeSVG(width, height) {
-    return d3.select("div.chart").append("svg").attr("width", width).attr("height", height)
+    return d3.select("div.inner-chart").append("svg").attr("width", width).attr("height", height)
   }
 
   let data = JSON.parse('{{data | safe}}')
