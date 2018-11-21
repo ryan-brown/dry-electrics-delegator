@@ -45,8 +45,15 @@ header div.title-container {
   margin-top: -2px;
 }
 
+h1,h2,h3,h4,h5 {
+  font-family: sans-serif;
+}
+
 div.content {
   flex: 1;
+  margin: 0px 120px 0px 120px;
+  flex-direction: column;
+  align-content: center;
 }
 
 footer {
@@ -70,10 +77,12 @@ footer a:hover {
 }
 
 table {
-  width: 50%;
+  width: 60%;
   border: 1px solid black;
   border-collapse: collapse;
   background-color: #dddddd;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 td {
