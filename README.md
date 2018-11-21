@@ -1,7 +1,7 @@
 # dry-electrics-delegator
 Some Dry Electrics Delegation
 
-![wet elecs](https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/app/static/logo.png)
+![wet elecs](https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/app/static/logo.svg)
 
 ## Client
 
