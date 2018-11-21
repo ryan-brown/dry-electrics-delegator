@@ -6,9 +6,12 @@
 body {
   background-color: #dddddd;
   margin: 0px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-div.header {
+header {
   display: flex;
   align-content: center;
   background-color: darkgrey;
@@ -18,14 +21,15 @@ div.header {
   justify-content: center;
 }
 
-div.header img {
+header img {
   align-self: center;
   padding: 10px;
   border: 2px solid white;
   margin-right: 10px;
+  background-image: linear-gradient( to bottom right, white 33%, darkgrey 80% );
 }
 
-div.header a.title {
+header a.title {
   flex: 1;
   vertical-align: middle;
   color: white;
@@ -35,17 +39,50 @@ div.header a.title {
   text-decoration: none;
 }
 
-div.header div.title-container {
+header div.title-container {
   display: flex;
   flex-direction: column;
   margin-top: -2px;
 }
 
+h1,h2,h3,h4,h5 {
+  font-family: sans-serif;
+}
+
+div.content {
+  flex: 1;
+  margin: 0px 120px 0px 120px;
+  flex-direction: column;
+  align-content: center;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  justify-self: flex-end;
+  background-color: darkgrey;
+  border-top: 2px solid black;
+  padding: 10px;
+}
+
+footer a {
+  font-family: sans-serif;
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
 table {
-  width: 50%;
+  width: 60%;
   border: 1px solid black;
   border-collapse: collapse;
   background-color: #dddddd;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 td {
