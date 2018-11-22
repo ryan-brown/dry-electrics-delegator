@@ -25,14 +25,14 @@
         <th>Charging</th>
         <th>Updated At</th>
       </tr>
-        {% for row in rows %}
-          <tr style="background-color: {{row[0]}};">
-            <td><a href="users/{{ row[1] }}">{{ row[1] }}</a></td>
-            <td>{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
-            <td>{{ row[4] }}</td>
-          </tr>
-        {% endfor %}
+      {% for row in rows %}
+        <tr style="background-color: {{row[0]}};">
+          <td><a href="users/{{ row[1] }}">{{ row[1] }}</a></td>
+          <td>{{ row[2] }}</td>
+          <td>{{ row[3] }}</td>
+          <td>{{ row[4] }}</td>
+        </tr>
+      {% endfor %}
     </table>
   {% else %}
     <h2>Nobody is currently reporting charging data.</h2>
