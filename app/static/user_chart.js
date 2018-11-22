@@ -71,17 +71,20 @@ const pointMouseOut = (d, i) => {
 }
 
 const addCircles = (data) => {
-  graph.selectAll("circle")
-    .remove()
-    .exit()
-    .data(data)
-    .enter().append("circle")
+  const selection = graph.selectAll("circle").data(data)
+    .attr("cx", (d) => { return xScale(d[3]) })
+    .attr("cy", (d) => { return yScale(d[0]) })
+    .attr("r", 3)
+    .attr("fill", (d) => { return getPointColor(d[0]) });
+  selection.enter()
+    .append("circle")
     .attr("cx", (d) => { return xScale(d[3]) })
     .attr("cy", (d) => { return yScale(d[0]) })
     .attr("r", 3)
     .attr("fill", (d) => { return getPointColor(d[0]) })
     .on("mouseover", pointMouseOver)
     .on("mouseout", pointMouseOut)
+  selection.exit().remove();
 }
 
 const updateChart = () => {
@@ -114,10 +117,11 @@ document.body.onload = () => {
 window.addEventListener('wheel', (event) => {
   if (document.documentElement.style.overflow !== "hidden") return;
 
-  const interval = 40*60;
-
   let startTime = parseInt(Date.parse(document.getElementById("start-time").value));
   let endTime = parseInt(Date.parse(document.getElementById("end-time").value));
+
+  // Scale scroll interval relative to time interval
+  const interval = (endTime - startTime) / 500;
 
   let delta;
 
