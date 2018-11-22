@@ -114,72 +114,31 @@ document.body.onload = () => {
   });
 }
 
-// Shamelessly stolen from lodash and then slightly modified
-const throttle = (func, wait, options) => {
-  let timeout, context, args, result;
-  let previous = 0;
-  if (!options) options = {};
+window.addEventListener('wheel', (event) => {
+  window.requestAnimationFrame(() => {
+    if (document.documentElement.style.overflow !== "hidden") return;
 
-  const later = function() {
-    previous = options.leading === false ? 0 : Date.now();
-    timeout = null;
-    result = func.apply(context, args);
-    if (!timeout) context = args = null;
-  };
+    let startTime = parseInt(Date.parse(document.getElementById("start-time").value));
+    let endTime = parseInt(Date.parse(document.getElementById("end-time").value));
 
-  const throttled = function() {
-    const now = Date.now();
-    if (!previous && options.leading === false) previous = now;
-    const remaining = wait - (now - previous);
-    context = this;
-    args = arguments;
-    if (remaining <= 0 || remaining > wait) {
-        if (timeout) {
-          clearTimeout(timeout);
-          timeout = null;
-        }
-        previous = now;
-        result = func.apply(context, args);
-        if (!timeout) context = args = null;
-      } else if (!timeout && options.trailing !== false) {
-        timeout = setTimeout(later, remaining);
-      }
-    return result;
-  };
+    // Scale scroll interval relative to time interval
+    const interval = (endTime - startTime) / 500;
 
-  throttled.cancel = function() {
-    clearTimeout(timeout);
-    previous = 0;
-    timeout = context = args = null;
-  };
+    let delta;
 
-  return throttled;
-};
+    if (event.wheelDelta){
+      delta = event.wheelDelta;
+    } else {
+      delta = -1 * event.deltaY;
+    }
 
-// Throttle to every 16 ms, ~60fps
-window.addEventListener('wheel', throttle((event) => {
-  if (document.documentElement.style.overflow !== "hidden") return;
+    startTime += delta*interval;
+    endTime += delta*interval;
 
-  let startTime = parseInt(Date.parse(document.getElementById("start-time").value));
-  let endTime = parseInt(Date.parse(document.getElementById("end-time").value));
-
-  // Scale scroll interval relative to time interval
-  const interval = (endTime - startTime) / 500;
-
-  let delta;
-
-  if (event.wheelDelta){
-    delta = event.wheelDelta;
-  } else {
-    delta = -1 * event.deltaY;
-  }
-
-  startTime += delta*interval;
-  endTime += delta*interval;
-
-  setDateDirectly(timeConverter(startTime), timeConverter(endTime));
-  updateChart();
-}, 16));
+    setDateDirectly(timeConverter(startTime), timeConverter(endTime));
+    updateChart();
+  });
+});
 
 const toHex = (num) => (num < 16) ? `0${num.toString(16)}` : num.toString(16)
 
