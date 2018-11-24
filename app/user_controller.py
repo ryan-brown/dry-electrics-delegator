@@ -14,7 +14,7 @@ def driest():
     if len(all_users) >= 1:
         lowest = all_users[0]
         human_text = "%s at %d percent" % (lowest[1], lowest[2])
-    
+
     return jsonify({"fulfillmentText": human_text, "payload": {
         "google": {
         "expectUserResponse": False,
@@ -37,6 +37,3 @@ def show_user(username):
   except Exception as e:
     print(e)
     return "An unexpected error has occurred, please try again later", 500
-
-
-

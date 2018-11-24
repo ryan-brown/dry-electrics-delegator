@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title>Dry Electrics Delegator - Page Not Found</title>
+{% endblock %}
+
+{% block content %}
+<div class="missing-page">
+  <img height="200" width="200" src="{{ url_for('static', filename='electrics_404.svg') }}" alt="Battery Problem" />
+  <div class="missing-page-text">
+    <h2>Yikes, this page is out of power!</h2>
+    <p>Or, well, we couldn't find the page you were looking for.</p>
+    <p>Double-check that the URL is correct, otherwise <a href="/">click here to go to the homepage</a>.</p>
+  </div>
+</div>
+{% endblock %}

@@ -126,6 +126,22 @@ div.chart div.chart-controls {
   stroke-dasharray: 5 5;
 }
 
+div.missing-page {
+  display: flex;
+  justify-content: center;
+  margin-left: -100px;
+}
+
+div.missing-page-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.missing-page-text h2 {
+  text-align: left;
+}
+
 @media all and (min-width: 600px) {
   td {
     padding: 1rem;
@@ -186,5 +202,15 @@ div.chart div.chart-controls {
 
   footer {
     font-size: x-large;
+  }
+
+  div.missing-page {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0px;
+  }
+
+  div.missing-page-text h2 {
+    text-align: center;
   }
 }
