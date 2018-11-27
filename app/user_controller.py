@@ -7,7 +7,7 @@ from .home_controller import get_leaderboard
 
 user = Blueprint('user', __name__)
 
-@user.route("/driest", methods=['GET', 'POST'])
+@user.route("/driest", methods=['POST'])
 def driest():
     all_users = get_leaderboard()
     human_text = "no one"
