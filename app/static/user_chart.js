@@ -9,7 +9,7 @@ const timeConverter = (unixTimestamp) => {
   return time;
 }
 
-const pointMouseOver = (d, i) => {
+const pointMouseOver = (pnt, d, i) => {
   svg.append("rect")
     .attr("id", "idrect"+i)
     .attr("x", xScale(d[3]) - 70)
@@ -47,22 +47,16 @@ const pointMouseOver = (d, i) => {
     .attr("stroke-dasharray", "3, 3")
     .attr("stroke", "black");
 
-  /*
-  // TODO: This was breaking: what is "this" supposed to be?
-  d3.select(this)
+  d3.select(pnt)
     .attr("stroke-width", "1")
     .attr("stroke", "#000000")
     .attr("r", 6)
-  */
 }
 
-const pointMouseOut = (d, i) => {
-  /*
-  // TODO: This was breaking: what is "this" supposed to be?
-  d3.select(this)
+const pointMouseOut = (pnt, d, i) => {
+  d3.select(pnt)
     .attr("stroke", "none")
     .attr("r", 3)
-  */
 
   d3.select("#lineX").remove()
   d3.select("#lineY").remove()
@@ -82,8 +76,8 @@ const addCircles = (data) => {
     .attr("cy", (d) => { return yScale(d[0]) })
     .attr("r", 3)
     .attr("fill", (d) => { return getPointColor(d[0]) })
-    .on("mouseover", pointMouseOver)
-    .on("mouseout", pointMouseOut)
+    .on("mouseover", function(d, i) {pointMouseOver(this, d, i)})
+    .on("mouseout", function(d, i) {pointMouseOut(this, d, i)})
   selection.exit().remove();
 }
 
