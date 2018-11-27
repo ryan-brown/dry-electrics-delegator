@@ -91,7 +91,7 @@ const updateChart = () => {
   const startTime = Date.parse(document.getElementById("start-time").value);
   const endTime = Date.parse(document.getElementById("end-time").value);
 
-  history.replaceState(undefined, undefined, `${startTime},${endTime}`);
+  history.replaceState(undefined, undefined, `#${startTime},${endTime}`);
 
   xScale.domain([startTime, endTime]);
   xAxisCall = d3.axisBottom(xScale).tickSize(-graphHeight);
