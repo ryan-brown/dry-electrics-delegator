@@ -277,11 +277,18 @@ document.getElementById("all-button").addEventListener("click", () => {
 });
 
 document.getElementById("today-button").addEventListener("click", () => {
-  const today = new Date();
-  const datePrefix = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
-  const startTime = `${datePrefix}T09:00`;
-  const endTime = `${datePrefix}T23:00`;
+  const today = moment().format("YYYY-MM-DD")
+  const startTime = `${today}T09:00`;
+  const endTime = `${today}T19:00`;
 
   setDates(startTime, endTime);
+  updateChart();
+});
+
+document.getElementById("week-button").addEventListener("click", () => {
+  const sunday = moment().day(0).startOf('day').format("YYYY-MM-DD")+"T00:00"
+  const saturday = moment().day(6).startOf('day').format("YYYY-MM-DD")+"T00:00"
+
+  setDates(sunday, saturday);
   updateChart();
 });
