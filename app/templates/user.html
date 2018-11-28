@@ -4,9 +4,18 @@
   <title>Dry Electrics Delegator - {{username}}</title>
   <script src="{{ url_for('static', filename='d3.v5.min.js') }}" /></script>
   <script type="text/javascript">
+    const polyDateParse = (datestring) => {
+      let parsedDate = Date.parse(datestring);
+      if(isNaN(parsedDate)){
+        let newDate = datestring.replace(/-/g, '/');
+        newDate = newDate.replace("T"," ");
+        parsedDate = Date.parse(newDate);
+      }
+      return parsedDate;
+    }
     let data = JSON.parse('{{data | safe}}')
     // Convert datestring to unix timestamp once now so we don't have to many times later
-    data = data.map(d => [ ...d, Date.parse(d[2]) ]);
+    data = data.map(d => [ ...d, polyDateParse(d[2]) ]);
   </script>
 {% endblock %}
 
