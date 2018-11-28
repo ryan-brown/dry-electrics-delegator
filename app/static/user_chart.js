@@ -82,8 +82,8 @@ const addCircles = (data) => {
 }
 
 const updateChart = () => {
-  const startTime = Date.parse(document.getElementById("start-time").value);
-  const endTime = Date.parse(document.getElementById("end-time").value);
+  const startTime = moment(document.getElementById("start-time").value).valueOf();
+  const endTime = moment(document.getElementById("end-time").value).valueOf();
 
   history.replaceState(undefined, undefined, `#${startTime},${endTime}`);
 
@@ -156,8 +156,8 @@ window.addEventListener('wheel', throttle((event) => {
   window.requestAnimationFrame(() => {
     if (document.documentElement.style.overflow !== "hidden") return;
 
-    let startTime = parseInt(Date.parse(document.getElementById("start-time").value));
-    let endTime = parseInt(Date.parse(document.getElementById("end-time").value));
+    let startTime = parseInt(moment(document.getElementById("start-time").value).valueOf());
+    let endTime = parseInt(moment(document.getElementById("end-time").value).valueOf());
 
     // Scale scroll interval relative to time interval
     const interval = (endTime - startTime) / 500;
@@ -245,7 +245,7 @@ const graphHeight = +svg.attr("height") - margin.top - margin.bottom;
 const graph = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
 const xScale = d3.scaleTime()
-    .domain([Date.parse(initialFirstTime), Date.parse(initialLastTime)])
+    .domain([moment(initialFirstTime).valueOf(), moment(initialLastTime).valueOf()])
     .range([0, graphWidth]);
 
 const yScale = d3.scaleLinear()
@@ -280,7 +280,7 @@ document.getElementById("today-button").addEventListener("click", () => {
   const today = new Date();
   const datePrefix = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
   const startTime = `${datePrefix}T09:00`;
-  const endTime = `${datePrefix}T18:00`;
+  const endTime = `${datePrefix}T23:00`;
 
   setDates(startTime, endTime);
   updateChart();
