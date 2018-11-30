@@ -3,31 +3,7 @@ import database
 import json
 from flask import jsonify
 
-from .home_controller import get_leaderboard
-
 user = Blueprint('user', __name__)
-
-@user.route("/driest", methods=['POST'])
-def driest():
-    all_users = get_leaderboard()
-    human_text = "no one"
-    if len(all_users) >= 1:
-        lowest = all_users[0]
-        human_text = "%s at %d percent" % (lowest[1], lowest[2])
-
-    return jsonify({"fulfillmentText": human_text, "payload": {
-        "google": {
-        "expectUserResponse": False,
-        "richResponse": {
-        "items": [
-        {
-        "simpleResponse": {
-        "textToSpeech": human_text
-        }
-        }
-        ]
-        }
-        }}})
 
 @user.route("/<username>", methods=['GET'])
 def show_user(username):

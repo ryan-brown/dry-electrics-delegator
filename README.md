@@ -26,3 +26,19 @@ FLASK_APP=main.py FLASK_DEBUG=1 python3 -m flask run --host=0.0.0.0 --port=5002
 ```
 
 Visit the `/update` route to hot-reload
+
+## API
+```
+/api/driest
+```
+Fetch the user who needs energy the most badly in Google Home Action format.
+
+```
+/api/stats
+```
+Get a summary of all active users in json format
+
+```
+/api/database
+```
+Download the database file from the server
