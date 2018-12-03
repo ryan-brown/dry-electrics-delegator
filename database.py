@@ -20,3 +20,10 @@ def get_user_data(username):
     cursor.execute("""SELECT * FROM updates where username = '{}' """.format(username))
 
     return cursor.fetchall()
+
+def select_everything():
+  with sqlite3.connect("database.db") as conn:
+    cursor= conn.cursor()
+    cursor.execute("""select * from updates""")
+
+    return cursor.fetchall()
