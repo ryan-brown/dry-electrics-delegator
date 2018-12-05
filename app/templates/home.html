@@ -14,6 +14,7 @@
       }
     } );
   </script>
+  <script src="{{ url_for('static', filename='moment.min.js') }}" /></script>
 {% endblock %}
 
 {% block content %}
@@ -30,11 +31,27 @@
           <td><a href="users/{{ row[1] }}">{{ row[1] }}</a></td>
           <td>{{ row[2] }}</td>
           <td>{{ row[3] }}</td>
-          <td>{{ row[4] }}</td>
+          <td class="human-time">{{ row[4] }}</td>
         </tr>
       {% endfor %}
     </table>
   {% else %}
     <h2>Nobody is currently reporting charging data.</h2>
   {% endif %}
+  <script>
+    moment.relativeTimeThreshold('s', 60);
+    moment.relativeTimeThreshold('ss', 1);
+    moment.relativeTimeThreshold('m', 60);
+    const updateTime = (setData = false) => {
+      Array.from(document.getElementsByClassName("human-time")).map(el => {
+        if(setData) {
+          el.setAttribute('data-timestamp', el.innerHTML);
+	}
+	const originalTime = el.getAttribute('data-timestamp');
+        el.innerHTML = moment(originalTime).fromNow();
+      });
+      setTimeout(updateTime, 1000);
+    }
+    updateTime(true);
+  </script>
 {% endblock %}

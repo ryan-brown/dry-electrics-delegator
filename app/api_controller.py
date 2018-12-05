@@ -29,7 +29,7 @@ def get_leaderboard():
   user_data = database.select_all()
   sorted_user_data = sorted(user_data, key=lambda tup: tup[2])
   formatted_user_data = [(get_row_color(d[2]), d[1], d[2], "🔌 " if d[3] else  "🔋 ", maya.parse(d[4], timezone='US/Eastern')) for d in sorted_user_data]
-  return [(d[0], d[1], d[2], d[3], d[4].slang_time()) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]
+  return [(d[0], d[1], d[2], d[3], d[4]) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]
 
 @api.route("/driest")
 def driest():
