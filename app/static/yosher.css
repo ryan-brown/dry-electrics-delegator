@@ -1,0 +1,7 @@
+body {
+  background-color: green;
+}
+
+div.content::after {
+  content:url('yoshus.png');
+}

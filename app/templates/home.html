@@ -38,11 +38,18 @@
   {% else %}
     <h2>Nobody is currently reporting charging data.</h2>
   {% endif %}
+  <audio id="ystory"
+        src="{{ url_for('static', filename='yosher.webm') }}">
+            Sssshhhhhhh...
+  </audio>
   <script>
     moment.relativeTimeThreshold('s', 60);
     moment.relativeTimeThreshold('ss', 1);
     moment.relativeTimeThreshold('m', 60);
-    const updateTime = (setData = false) => {
+    const liveStuff = (setData = false) => {
+      if (document.selectedStyleSheetSet === "Yosher!") {
+        document.getElementById('ystory').setAttribute('autoplay', true);
+      }
       Array.from(document.getElementsByClassName("human-time")).map(el => {
         if(setData) {
           el.setAttribute('data-timestamp', el.innerHTML);
@@ -50,8 +57,8 @@
 	const originalTime = el.getAttribute('data-timestamp');
         el.innerHTML = moment(originalTime).fromNow();
       });
-      setTimeout(updateTime, 1000);
+      setTimeout(liveStuff, 1000);
     }
-    updateTime(true);
+    liveStuff(true);
   </script>
 {% endblock %}
