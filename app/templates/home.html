@@ -38,8 +38,7 @@
   {% else %}
     <h2>Nobody is currently reporting charging data.</h2>
   {% endif %}
-  <audio id="ystory"
-        src="{{ url_for('static', filename='yosher.webm') }}">
+  <audio id="music">
             Sssshhhhhhh...
   </audio>
   <script>
@@ -48,7 +47,17 @@
     moment.relativeTimeThreshold('m', 60);
     const liveStuff = (setData = false) => {
       if (document.selectedStyleSheetSet === "Yosher!") {
-        document.getElementById('ystory').setAttribute('autoplay', true);
+	if (!document.getElementById('music').getAttribute('autoplay')) {
+          document.getElementById('music').setAttribute('autoplay', true);
+          document.getElementById('music').setAttribute('src', "{{ url_for('static', filename='yosher.webm') }}");
+	}
+      } else if (document.selectedStyleSheetSet === "It's Nookmas!") {
+	if (!document.getElementById('music').getAttribute('autoplay')) {
+          document.getElementById('music').setAttribute('autoplay', true);
+          document.getElementById('music').setAttribute('src', "{{ url_for('static', filename='nookmas_tunes.webm') }}");
+        }
+      } else {
+        document.getElementById('music').setAttribute('muted', true);
       }
       Array.from(document.getElementsByClassName("human-time")).map(el => {
         if(setData) {

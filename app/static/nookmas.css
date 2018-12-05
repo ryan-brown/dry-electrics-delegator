@@ -54,6 +54,7 @@ body {
 	-moz-animation: snow 20s linear infinite;
 	-ms-animation: snow 20s linear infinite;
 	animation: snow 20s linear infinite;
+  background-color: lightblue;
 }
 
 div.content::after {
