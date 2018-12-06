@@ -9,8 +9,18 @@
     let concatenation = '';
     document.addEventListener(atob('a2V5ZG93bg=='), (e) => {
       concatenation += e[atob('a2V5')];
-      if (concatenation == translation) {
-        document.getElementsByTagName('body')[0].setAttribute(atob('c3R5bGU='), atob('YmFja2dyb3VuZC1pbWFnZTogdXJsKHN0YXRpYy9zcGVjaWFsLnBuZyk='));
+      switch (concatenation) {
+        case translation:
+          document.getElementsByTagName('body')[0].setAttribute(atob('c3R5bGU='), atob('YmFja2dyb3VuZC1pbWFnZTogdXJsKHN0YXRpYy9zcGVjaWFsLnBuZyk='));
+          break;
+        case 'nookmas':
+          document.selectedStyleSheetSet = "It's Nookmas!";
+          break;
+        case 'yosh':
+          document.selectedStyleSheetSet = "Yosher!";
+          break;
+        default:
+          break;
       }
     } );
   </script>
@@ -46,24 +56,34 @@
     moment.relativeTimeThreshold('ss', 1);
     moment.relativeTimeThreshold('m', 60);
     const liveStuff = (setData = false) => {
-      if (document.selectedStyleSheetSet === "Yosher!") {
-	if (!document.getElementById('music').getAttribute('autoplay')) {
-          document.getElementById('music').setAttribute('autoplay', true);
-          document.getElementById('music').setAttribute('src', "{{ url_for('static', filename='yosher.webm') }}");
-	}
-      } else if (document.selectedStyleSheetSet === "It's Nookmas!") {
-	if (!document.getElementById('music').getAttribute('autoplay')) {
-          document.getElementById('music').setAttribute('autoplay', true);
-          document.getElementById('music').setAttribute('src', "{{ url_for('static', filename='nookmas_tunes.webm') }}");
-        }
-      } else {
-        document.getElementById('music').setAttribute('muted', true);
+      switch (document.selectedStyleSheetSet) {
+        case "Yosher!":
+          if (!document.getElementById('music').getAttribute('autoplay')) {
+            document.getElementById('music').setAttribute('autoplay', true);
+            document.getElementById('music').setAttribute('src', "{{ url_for('static', filename='yosher.webm') }}");
+          }
+          break;
+        case "It's Nookmas!":
+          if (!document.getElementById('music').getAttribute('autoplay')) {
+            document.getElementById('music').setAttribute('autoplay', true);
+            document.getElementById('music').setAttribute('src', "{{ url_for('static', filename='nookmas_tunes.webm') }}");
+          }
+          break;
+        case "KKB!":
+          if (!document.getElementById('music').getAttribute('autoplay')) {
+            document.getElementById('music').setAttribute('autoplay', true);
+            document.getElementById('music').setAttribute('src', "{{ url_for('static', filename='flam.webm') }}");
+          }
+          break;
+        default:
+          document.getElementById('music').setAttribute('muted', true);
+          break;
       }
       Array.from(document.getElementsByClassName("human-time")).map(el => {
         if(setData) {
           el.setAttribute('data-timestamp', el.innerHTML);
-	}
-	const originalTime = el.getAttribute('data-timestamp');
+        }
+        const originalTime = el.getAttribute('data-timestamp');
         el.innerHTML = moment(originalTime).fromNow();
       });
       setTimeout(liveStuff, 1000);

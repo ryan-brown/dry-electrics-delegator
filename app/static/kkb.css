@@ -1,0 +1,15 @@
+body {
+  background-image: url('shrimpy.png');
+  background-size: 10%;
+}
+
+header::after {
+  background-image: url('kkb.jpeg');
+  background-size: 70px 70px;
+  display: inline-block;
+  width: 70px; 
+  height: 70px;
+  content:"";
+  margin-left: 10px;
+  border: 2px solid white;
+}
