@@ -9,8 +9,7 @@ home = Blueprint('home', __name__)
 @home.route("/")
 def homepage():
   try:
-    leaderboard_rows = get_leaderboard()
-    return render_template("home.html", rows=leaderboard_rows)
+    return render_template("home.html")
   except Exception as e:
     print(e)
     return "An unexpected error has occurred, please try again later", 500
