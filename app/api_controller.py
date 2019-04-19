@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, send_file
 import database
+import qq 
 import json
 import maya
 from flask import jsonify
@@ -26,10 +27,17 @@ def get_row_color(percentage):
   return "#{}{}00".format(to_hex(red), to_hex(green))
 
 def get_leaderboard():
-  user_data = database.select_all()
-  sorted_user_data = sorted(user_data, key=lambda tup: tup[2])
-  formatted_user_data = [(get_row_color(d[2]), d[1], d[2], "🔌 " if d[3] else  "🔋 ", maya.parse(d[4], timezone='US/Eastern')) for d in sorted_user_data]
-  return [(d[0], d[1], d[2], d[3], d[4].epoch) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]
+    all_users = qq.get_all_users()
+    print(all_users)
+    user_data = { name: qq.get_user_data(str(name)) for name in all_users }
+    print(user_data)
+    user_data_items = user_data.items()
+    print(user_data_items)
+    sorted_user_data = [item[1] for item in sorted(user_data.items(), key=lambda kv: kv[0][1])]
+    print(sorted_user_data)
+    formatted_user_data = [(get_row_color(d['percentage']), d['username'], d['percentage'], "🔌 " if d['charging'] else  "🔋 ", maya.parse(d['updated_at'], timezone='US/Eastern')) for d in sorted_user_data]
+    print(formatted_user_data)
+    return [(d[0], d[1], d[2], d[3], d[4].epoch) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]
 
 @api.route("/driest")
 def driest():

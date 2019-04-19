@@ -1,5 +1,12 @@
 import sqlite3
 
+def batch_insert_update(updates):
+  with sqlite3.connect("database.db") as conn:
+    cursor = conn.cursor()
+    cursor.executemany("INSERT INTO updates (username, percentage, charging, updated_at) VALUES (?, ?, ?, ?)",
+      ((update['username'], update['percentage'], update['charging'], update['updated_at']) for update in updates))
+    conn.commit()
+
 def insert_update(username, percentage, charging, updated_at):
   with sqlite3.connect("database.db") as conn:
     cursor = conn.cursor()
