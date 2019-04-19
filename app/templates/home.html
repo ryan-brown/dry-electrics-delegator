@@ -26,10 +26,10 @@
       }
     }
 
-function notifySwitch(username, percent) {
-  const message = `${username} is at ${percent}% on battery power! Help a brother out if you can.`;
-	var notification = new Notification(message, {icon: "/static/logo.svg"});
-}
+    function notifySwitch(username, percent) {
+	    const message = percent > 4? `${username} is at ${percent}% on battery power! Help a brother out if you can.`: `DANGER! ${username} needs charge now!!! ${percent}% left!!!`;
+      var notification = new Notification(message, {icon: "/static/logo.svg"});
+    }
 
     moment.relativeTimeThreshold('s', 60);
     moment.relativeTimeThreshold('ss', 1);
