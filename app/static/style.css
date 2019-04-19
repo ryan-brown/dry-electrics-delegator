@@ -61,6 +61,33 @@ div.content {
   flex-direction: column;
   align-content: center;
   justify-content: center;
+  text-align: center;
+}
+
+#notify-me {
+  margin-top: 20px;
+  font-size: 100px;
+  border: none;
+  background: none;
+  animation: colorchange 0.5s infinite;
+  -webkit-animation: colorchange 0.5s infinite;
+}
+
+@keyframes colorchange
+{
+	0%   {color: deepskyblue;}
+	25%  {color: magenta;}
+	50%  {color: violet;}
+	75%  {color: turquoise;}
+	100%  {color: pink;}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+	0%   {color: deepskyblue;}
+	25%  {color: magenta;}
+	50%  {color: violet;}
+	75%  {color: turquoise;}
 }
 
 footer {
