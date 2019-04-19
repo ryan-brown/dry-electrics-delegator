@@ -1,5 +1,4 @@
 from flask import Blueprint, send_from_directory
-import database
 import os
 
 base = Blueprint('base', __name__)
