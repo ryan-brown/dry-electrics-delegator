@@ -69,6 +69,7 @@ div.content {
   font-size: 100px;
   border: none;
   background: none;
+  cursor: pointer;
   animation: colorchange 0.5s infinite;
   -webkit-animation: colorchange 0.5s infinite;
 }
