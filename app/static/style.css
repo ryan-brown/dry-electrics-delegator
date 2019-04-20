@@ -182,6 +182,10 @@ div.missing-page-text h2 {
 }
 
 @media all and (max-width: 599px) {
+  #notify-me {
+    display: none;
+  }
+
   td {
     padding: 2px;
     font-size: larger;
