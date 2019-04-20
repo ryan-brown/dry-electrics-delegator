@@ -65,3 +65,8 @@ def db():
 @api.route("/stats")
 def stats():
   return json.dumps(get_leaderboard())
+
+@api.route("/stats/<username>")
+def user_stats(username):
+  user_data = [[d[2], d[3], str(d[4])] for d in database.get_user_data(username)]
+  return json.dumps(user_data)

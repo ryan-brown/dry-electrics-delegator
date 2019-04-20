@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title>Dry Electrics Delegator - VR Graphs</title>
+  <script src="{{ url_for('static', filename='moment.min.js') }}" /></script>
+  <script src="{{ url_for('static', filename='aframe.min.js') }}" /></script>
+{% endblock %}
+
+{% block content %}
+  <a-scene id="graph-scene">
+		<a-sky color="#DDD"></a-sky>
+	</a-scene>
+  <script type="text/javascript">
+    // TODO: Add controls for range, interval
+    fetch(`/api/stats/{{username}}`)
+			.then(function(response) {
+				return response.json();
+			})
+			.then(function(data) {
+        console.log(data);
+				const sceneEl = document.querySelector('a-scene');
+        let start = moment({hour: 0});  // TODO: switch to 9
+				const end = moment({hour: 24}); // TODO: switch to 19
+        data = data.filter((entry) => moment(entry[2]).isBetween(start, end));
+        console.log(data);
+
+        const points = [];
+
+        while (start < end) {
+          const tenMinutesLater = start.clone().add(10, 'minutes');
+          const rangeData = data.filter((entry) => moment(entry[2]).isBetween(start, end));
+					let intervalAverage = rangeData.reduce((acc, current) => current[0] + acc, 0) / rangeData.length;
+          points.push(intervalAverage);
+          start = tenMinutesLater;
+				}
+        console.log(points);
+        points.forEach((point, index) => {
+					const entityEl = document.createElement('a-box');
+          const height = 10 * (point/100);
+					entityEl.setAttribute('geometry', {
+						height: height || 0,
+						width: 0.1,
+						depth: 0.1
+					});
+					entityEl.setAttribute('material', {
+						color: 'tomato'
+					});
+					entityEl.setAttribute('position', {
+						x: index - (points.length / 2),
+						y: height / 2,
+						z: -4
+					});
+					sceneEl.appendChild(entityEl);
+				})
+				const planeEl = document.createElement('a-plane');
+				planeEl.setAttribute('geometry', {
+					height: 5,
+					width: points.length + 1,
+				});
+				planeEl.setAttribute('material', {
+					color: 'darkgrey'
+				});
+				planeEl.setAttribute('position', {
+					x: 0,
+					y: 0,
+					z: -4
+				});
+				planeEl.setAttribute('rotation', {
+					x: -90,
+					y: 0,
+					z: 0 
+				});
+				sceneEl.appendChild(planeEl);
+			})
+  </script>
+{% endblock %}
