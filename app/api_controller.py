@@ -58,6 +58,15 @@ def driest():
       }
     }})
 
+@api.route("v2/driest")
+def driest2():
+    all_users = get_leaderboard()
+    human_text = "no one"
+    if len(all_users) >= 1:
+        lowest = all_users[0]
+        human_text = "%s at %d percent" % (lowest[1], lowest[2])
+    return human_text
+
 @api.route("/database")
 def db():
   return send_file("../database.db", as_attachment=True)
