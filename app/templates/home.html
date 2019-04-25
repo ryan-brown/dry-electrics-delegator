@@ -14,7 +14,7 @@
 		    },
 		    body: JSON.stringify(data)
 	    }).then(() => {
-		    window.location="/";
+		    window.location="?lol=true";
 	    });
 	    return false;
     }
@@ -167,6 +167,11 @@
   <script>
     if ("Notification" in window && Notification.permission == "granted") {
       document.getElementById("notify-me").setAttribute("style", "display:none;")
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const lol = urlParams.get('lol');
+    if (lol) {
+      document.getElementById("shitposts").setAttribute("style", "display:initial;")
     }
   </script>
 {% endblock %}
