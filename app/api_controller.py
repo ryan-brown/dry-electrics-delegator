@@ -1,9 +1,8 @@
-from flask import Blueprint, render_template, send_file
+from flask import Blueprint, render_template, send_file, jsonify, request
 import database
 import qq 
 import json
 import maya
-from flask import jsonify
 
 api = Blueprint('api', __name__)
 
@@ -74,3 +73,9 @@ def db():
 @api.route("/stats")
 def stats():
   return json.dumps(get_leaderboard())
+
+@api.route("/shitpost", methods=['POST'])
+def shitpost():
+    shit = request.get_json()
+    qq.add_shit(shit)
+    return 'nice one'

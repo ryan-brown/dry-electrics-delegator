@@ -170,6 +170,13 @@ div.missing-page-text h2 {
   text-align: left;
 }
 
+#shitposts {
+  align-self: center;
+  overflow-y: auto;
+  max-height: 250px;
+  display: none;
+}
+
 @media all and (min-width: 600px) {
   td {
     padding: 1rem;

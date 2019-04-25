@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 
 import redis
@@ -32,3 +33,12 @@ def get_user_data(username):
 
 def get_all_users():
     return redis_db.keys('user_*')
+
+def add_shit(shit):
+    now = datetime.now().timestamp()
+    redis_db.set('shit_%s' % now, shit['content'])
+    return get_shitposts()
+
+def get_shitposts():
+    shitposts = [redis_db.get(key) for key in reversed(sorted(redis_db.keys('shit_*')))]
+    return shitposts

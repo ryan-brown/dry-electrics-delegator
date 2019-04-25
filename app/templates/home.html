@@ -4,6 +4,20 @@
   <title>Dry Electrics Delegator - Home</title>
   <script src="{{ url_for('static', filename='moment.min.js') }}" /></script>
   <script>
+    function shitpost() {
+	    const data = { content: document.getElementById("shit").value };
+	    console.log(data);
+	    fetch('/api/shitpost', {
+		    method: "POST",
+		    headers: {
+			"Content-Type": "application/json"
+		    },
+		    body: JSON.stringify(data)
+	    }).then(() => {
+		    window.location="/";
+	    });
+	    return false;
+    }
     let notifiedRecently = false;
     function notifyMe() {
       // Let's check if the browser supports notifications
@@ -96,6 +110,8 @@
         case 'kkb':
           document.selectedStyleSheetSet = "KKB!";
           break;
+	case 'chat':
+	  document.getElementById("shitposts").setAttribute("style", "display:initial;")
         default:
           break;
       }
@@ -108,6 +124,14 @@
     <h2><object width="200px" data="static/loader.svg" type="image/svg+xml"></object></h2>
   </div>
   <button id="notify-me" onClick="notifyMe()"> ✉ </div>
+  <ul id="shitposts">
+	  <form onSubmit="return shitpost()">
+		  <input id="shit"/>
+	  </form>
+    {% for shitpost in shitposts %}
+      <li>{{ shitpost }}</li>
+    {% endfor %}
+  </ul>
   <audio id="music">
             Sssshhhhhhh...
   </audio>
