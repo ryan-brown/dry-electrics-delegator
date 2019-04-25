@@ -61,6 +61,34 @@ div.content {
   flex-direction: column;
   align-content: center;
   justify-content: center;
+  text-align: center;
+}
+
+#notify-me {
+  margin-top: 20px;
+  font-size: 100px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  animation: colorchange 0.5s infinite;
+  -webkit-animation: colorchange 0.5s infinite;
+}
+
+@keyframes colorchange
+{
+	0%   {color: deepskyblue;}
+	25%  {color: magenta;}
+	50%  {color: violet;}
+	75%  {color: turquoise;}
+	100%  {color: pink;}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+	0%   {color: deepskyblue;}
+	25%  {color: magenta;}
+	50%  {color: violet;}
+	75%  {color: turquoise;}
 }
 
 footer {
@@ -142,6 +170,13 @@ div.missing-page-text h2 {
   text-align: left;
 }
 
+#shitposts {
+  align-self: center;
+  overflow-y: auto;
+  max-height: 250px;
+  display: none;
+}
+
 @media all and (min-width: 600px) {
   td {
     padding: 1rem;
@@ -154,6 +189,10 @@ div.missing-page-text h2 {
 }
 
 @media all and (max-width: 599px) {
+  #notify-me {
+    display: none;
+  }
+
   td {
     padding: 2px;
     font-size: larger;

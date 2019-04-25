@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 import maya
 import cgi
-import database
+import qq
 
 percentage = Blueprint('percentage', __name__)
 
@@ -17,7 +17,7 @@ def percentage_update():
     charging = bool(data["charging"])
     updated_at = maya.now().datetime(to_timezone='US/Eastern')
 
-    database.insert_update(username, percentage, charging, updated_at)
+    qq.insert_update(username, percentage, charging, updated_at)
 
     return "Success", 200
   except Exception as e:

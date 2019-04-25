@@ -4,6 +4,48 @@
   <title>Dry Electrics Delegator - Home</title>
   <script src="{{ url_for('static', filename='moment.min.js') }}" /></script>
   <script>
+    function shitpost() {
+	    const data = { content: document.getElementById("shit").value };
+	    console.log(data);
+	    fetch('/api/shitpost', {
+		    method: "POST",
+		    headers: {
+			"Content-Type": "application/json"
+		    },
+		    body: JSON.stringify(data)
+	    }).then(() => {
+		    window.location="?lol=true";
+	    });
+	    return false;
+    }
+    let notifiedRecently = false;
+    function notifyMe() {
+      // Let's check if the browser supports notifications
+      if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+      } else if (Notification.permission === "granted") {
+	// Let's check whether notification permissions have already been granted
+        // If it's okay let's create a notification
+        var notification = new Notification("Zesty!", {icon: "/static/logo.svg"});
+      } else if (Notification.permission !== "denied") {
+	// Otherwise, we need to ask the user for permission
+        Notification.requestPermission().then(function (permission) {
+          // If the user accepts, let's create a notification
+          if (permission === "granted") {
+            var notification = new Notification("Thanks for subscribing to electrics facts!", {icon: "/static/logo.svg"});
+	    document.getElementById("notify-me").setAttribute("style", "display:none;")
+          }
+        });
+      } else if (Notification.permission === "denied") {
+        alert("Enable notifications in your browser if you want to get notified when your comrades are low on electrics.");
+      }
+    }
+
+    function notifySwitch(username, percent) {
+	    const message = percent > 4? `${username} is at ${percent}% on battery power! Help a brother out if you can.`: `DANGER! ${username} needs charge now!!! ${percent}% left!!!`;
+      var notification = new Notification(message, {icon: "/static/logo.svg"});
+    }
+
     moment.relativeTimeThreshold('s', 60);
     moment.relativeTimeThreshold('ss', 1);
     moment.relativeTimeThreshold('m', 60);
@@ -27,7 +69,13 @@
                 </tr>'
 
             for (let i = 0; i < json.length; i++) {
-              const user = json[i]
+	      // TODO: if user is below threshold and needs charge, call notifySwitch
+              const user = json[i];
+	      if (user[2] < 20 && user[3] === "🔋 " && !notifiedRecently) {
+	        notifySwitch(user[1], user[2]);
+		notifiedRecently = true;
+		setTimeout(() => notifiedRecently = false, 1000 * 60 * 2);
+	      }
               tableHTML += '<tr style="background-color: ' + user[0] + '">'
               tableHTML += '<td><a href="users/' + user[1] + '">' + user[1] + '</a></td>'
               tableHTML += '<td>' + user[2] + '</td>'
@@ -62,6 +110,8 @@
         case 'kkb':
           document.selectedStyleSheetSet = "KKB!";
           break;
+	case 'chat':
+	  document.getElementById("shitposts").setAttribute("style", "display:initial;")
         default:
           break;
       }
@@ -73,6 +123,15 @@
   <div id="tableDiv">
     <h2><object width="200px" data="static/loader.svg" type="image/svg+xml"></object></h2>
   </div>
+  <button id="notify-me" onClick="notifyMe()"> ✉ </div>
+  <ul id="shitposts">
+	  <form onSubmit="return shitpost()">
+		  <input id="shit"/>
+	  </form>
+    {% for shitpost in shitposts %}
+      <li>{{ shitpost }}</li>
+    {% endfor %}
+  </ul>
   <audio id="music">
             Sssshhhhhhh...
   </audio>
@@ -104,5 +163,15 @@
       setTimeout(liveStuff, 1000);
     }
     liveStuff();
+  </script>
+  <script>
+    if ("Notification" in window && Notification.permission == "granted") {
+      document.getElementById("notify-me").setAttribute("style", "display:none;")
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const lol = urlParams.get('lol');
+    if (lol) {
+      document.getElementById("shitposts").setAttribute("style", "display:initial;")
+    }
   </script>
 {% endblock %}

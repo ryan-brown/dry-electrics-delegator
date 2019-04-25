@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, send_file
+from flask import Blueprint, render_template, send_file, jsonify, request
 import database
+import qq 
 import json
 import maya
-from flask import jsonify
 
 api = Blueprint('api', __name__)
 
@@ -26,10 +26,12 @@ def get_row_color(percentage):
   return "#{}{}00".format(to_hex(red), to_hex(green))
 
 def get_leaderboard():
-  user_data = database.select_all()
-  sorted_user_data = sorted(user_data, key=lambda tup: tup[2])
-  formatted_user_data = [(get_row_color(d[2]), d[1], d[2], "🔌 " if d[3] else  "🔋 ", maya.parse(d[4], timezone='US/Eastern')) for d in sorted_user_data]
-  return [(d[0], d[1], d[2], d[3], d[4].epoch) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]
+    all_users = qq.get_all_users()
+    user_data = { name: qq.get_user_data(str(name)) for name in all_users }
+    user_data_items = user_data.items()
+    sorted_user_data = [item[1] for item in sorted(user_data_items, key=lambda kv: kv[1]['percentage'])]
+    formatted_user_data = [(get_row_color(d['percentage']), d['username'], d['percentage'], "🔌 " if d['charging'] else  "🔋 ", maya.parse(d['updated_at'], timezone='US/Eastern')) for d in sorted_user_data]
+    return [(d[0], d[1], d[2], d[3], d[4].epoch) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]
 
 @api.route("/driest")
 def driest():
@@ -55,6 +57,15 @@ def driest():
       }
     }})
 
+@api.route("v2/driest")
+def driest2():
+    all_users = get_leaderboard()
+    human_text = "no one"
+    if len(all_users) >= 1:
+        lowest = all_users[0]
+        human_text = "%s at %d percent" % (lowest[1], lowest[2])
+    return human_text
+
 @api.route("/database")
 def db():
   return send_file("../database.db", as_attachment=True)
@@ -62,3 +73,9 @@ def db():
 @api.route("/stats")
 def stats():
   return json.dumps(get_leaderboard())
+
+@api.route("/shitpost", methods=['POST'])
+def shitpost():
+    shit = request.get_json()
+    qq.add_shit(shit)
+    return 'nice one'
