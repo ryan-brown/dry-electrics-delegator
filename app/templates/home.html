@@ -4,6 +4,10 @@
   <title>Dry Electrics Delegator - Home</title>
   <script src="{{ url_for('static', filename='moment.min.js') }}" /></script>
   <script>
+    function activateShitposts() {
+      document.getElementById("shitposts").setAttribute("style", "display:initial;")
+      document.getElementById("shit").focus();
+    }
     function shitpost() {
 	    const data = { content: document.getElementById("shit").value };
 	    console.log(data);
@@ -112,6 +116,7 @@
           break;
 	case 'chat':
 	  document.getElementById("shitposts").setAttribute("style", "display:initial;")
+	  document.getElementById("shit").focus();
         default:
           break;
       }
@@ -124,6 +129,7 @@
     <h2><object width="200px" data="static/loader.svg" type="image/svg+xml"></object></h2>
   </div>
   <button id="notify-me" onClick="notifyMe()"> ✉ </div>
+  <button id="shit-button" onClick="activateShitposts()"> 💩</button>
   <ul id="shitposts">
 	  <form onSubmit="return shitpost()">
 		  <input id="shit"/>
@@ -172,6 +178,7 @@
     const lol = urlParams.get('lol');
     if (lol) {
       document.getElementById("shitposts").setAttribute("style", "display:initial;")
+      document.getElementById("shit").focus();
     }
   </script>
 {% endblock %}
