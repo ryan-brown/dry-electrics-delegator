@@ -177,6 +177,10 @@ div.missing-page-text h2 {
   display: none;
 }
 
+#shit-button {
+  display: none;
+}
+
 @media all and (min-width: 600px) {
   td {
     padding: 1rem;
@@ -186,11 +190,16 @@ div.missing-page-text h2 {
     font-size: large;
     padding: 0.5rem;
   }
+
 }
 
 @media all and (max-width: 599px) {
   #notify-me {
     display: none;
+  }
+
+  #shit-button {
+    font-size: 50pt;
   }
 
   td {
