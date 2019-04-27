@@ -14,10 +14,15 @@ var menuBar = NSMenu()
 var appMenu = NSMenu()
 
 let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-statusItem.title = "⚡️"
+statusItem.title = "\(getPercent())% ⚡️"
 statusItem.menu = appMenu
 
-func setupMenuBar(users: Array<Array<Any>>)
+var enabled = true
+
+let utils = Utils()
+var users = [[]]
+
+func updateMenuBar(users: Array<Array<Any>>)
 {
     appMenu.removeAllItems()
     
@@ -30,11 +35,19 @@ func setupMenuBar(users: Array<Array<Any>>)
     {
         let info = ChargeInfo(user: user)
         
-        let entry = "\(info.user) (\(info.percent)%)"
-        let curUserButton = NSMenuItem(title: entry, action: Selector("terminate:"), keyEquivalent: "")
+        let view = ElecsRow(info)
+        let curUserButton = NSMenuItem(title: view.summary, action: #selector(Utils.toggleReporting), keyEquivalent: "")
+        curUserButton.view = view
+        curUserButton.target = Utils.self
         appMenu.addItem(curUserButton)
     }
 
+    let reporting = NSMenuItem(title: "Report Charge", action:#selector(Utils.toggleReporting), keyEquivalent: "")
+    reporting.target = Utils.self
+    reporting.state = enabled ? NSOnState : NSOffState
+    appMenu.addItem(reporting)
+    
+    appMenu.addItem(NSMenuItem(title: "Preferences…", action: Selector("terminate:"), keyEquivalent: ""))
     
     appMenu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: ""))
 }
@@ -50,7 +63,8 @@ func getCharges()
         
         do {
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
-            setupMenuBar(users: jsonResponse as! Array<Array<Any>>)
+            users = jsonResponse as! Array<Array<Any>>
+            updateMenuBar(users: users)
         } catch { }
     }
 }
