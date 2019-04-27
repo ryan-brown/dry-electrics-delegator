@@ -62,8 +62,3 @@ func hexStringToNSColor (hex:String) -> NSColor {
         alpha: CGFloat(1.0)
     )
 }
-
-class Utils
-{
-   
-}

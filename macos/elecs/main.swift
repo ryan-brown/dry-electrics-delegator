@@ -76,13 +76,33 @@ func getCharges()
 updateMenuTitle()
 getCharges()
 
-// schedule another refresh in a minute
+// update our own battery status locally in the UI every 10 seconds
 let dispatchQueue = DispatchQueue(label: "QueueIdentification")
 dispatchQueue.async{
     while (true)
     {
         updateMenuTitle()
         sleep(10)
+    }
+}
+
+// get the charges from the api every 30 seconds
+let dispatchQueue2 = DispatchQueue(label: "QueueIdentification")
+dispatchQueue2.async{
+    while (true)
+    {
+        getCharges()
+        sleep(30)
+    }
+}
+
+// post our own percent every 60 seconds
+let dispatchQueue3 = DispatchQueue(label: "QueueIdentification")
+dispatchQueue3.async{
+    while (true)
+    {
+        // TODO: this, use username from Settings
+        sleep(60)
     }
 }
 
