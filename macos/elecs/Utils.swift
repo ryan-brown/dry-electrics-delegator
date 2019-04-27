@@ -4,8 +4,9 @@ import AppKit
 
 enum BatteryError: Error { case error }
 
-func getPercent() -> Int
+func getOwnChargeInfo() -> ChargeInfo
 {
+    let cinfo = ChargeInfo()
     do {
         // Take a snapshot of all the power source info
         guard let snapshot = IOPSCopyPowerSourcesInfo()?.takeRetainedValue()
@@ -25,15 +26,19 @@ func getPercent() -> Int
             if let name = info[kIOPSNameKey] as? String,
                 let capacity = info[kIOPSCurrentCapacityKey] as? Double,
                 let max = info[kIOPSMaxCapacityKey] as? Double {
-                print("\(name): \(capacity) of \(max)")
-                
-                return Int(capacity / max * 100)
+                    cinfo.percent = Int(capacity / max * 100)
+                }
+            if let charging = info[kIOPSIsChargingKey] as? Bool {
+                cinfo.icon = charging ? "⚡️" : "🔋"
+                if (cinfo.percent < 20) {
+                    cinfo.icon = "🧧"
+                }
             }
         }
     } catch {
     }
     
-    return -1
+    return cinfo
 }
 
 func hexStringToNSColor (hex:String) -> NSColor {
@@ -60,9 +65,5 @@ func hexStringToNSColor (hex:String) -> NSColor {
 
 class Utils
 {
-    @objc static func toggleReporting()
-    {
-        enabled = !enabled
-        updateMenuBar(users: users)
-    }
+   
 }

@@ -14,14 +14,18 @@ var menuBar = NSMenu()
 var appMenu = NSMenu()
 
 let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-statusItem.title = "\(getPercent())% ⚡️"
 statusItem.menu = appMenu
 
 var enabled = true
 
-let utils = Utils()
+let settings = Settings()
 var users = [[]]
 
+func updateMenuTitle()
+{
+    let status = getOwnChargeInfo()
+    statusItem.title = "\(status.percent)% \(status.icon)"
+}
 func updateMenuBar(users: Array<Array<Any>>)
 {
     appMenu.removeAllItems()
@@ -36,14 +40,14 @@ func updateMenuBar(users: Array<Array<Any>>)
         let info = ChargeInfo(user: user)
         
         let view = ElecsRow(info)
-        let curUserButton = NSMenuItem(title: view.summary, action: #selector(Utils.toggleReporting), keyEquivalent: "")
+        let curUserButton = NSMenuItem(title: view.summary, action: #selector(Settings.toggleReporting), keyEquivalent: "")
         curUserButton.view = view
-        curUserButton.target = Utils.self
+        curUserButton.target = Settings.self
         appMenu.addItem(curUserButton)
     }
 
-    let reporting = NSMenuItem(title: "Report Charge", action:#selector(Utils.toggleReporting), keyEquivalent: "")
-    reporting.target = Utils.self
+    let reporting = NSMenuItem(title: "Report Charge", action:#selector(Settings.toggleReporting), keyEquivalent: "")
+    reporting.target = Settings.self
     reporting.state = enabled ? NSOnState : NSOffState
     appMenu.addItem(reporting)
     
@@ -69,7 +73,18 @@ func getCharges()
     }
 }
 
+updateMenuTitle()
 getCharges()
+
+// schedule another refresh in a minute
+let dispatchQueue = DispatchQueue(label: "QueueIdentification")
+dispatchQueue.async{
+    while (true)
+    {
+        updateMenuTitle()
+        sleep(10)
+    }
+}
 
 NSApp.activate(ignoringOtherApps: true)
 NSApp.run()

@@ -8,6 +8,14 @@ class ChargeInfo
     var color: NSColor
     var icon: String
     
+    init()
+    {
+        user = "N/A"
+        percent = 0
+        color = NSColor.clear
+        icon = "?"
+    }
+    
     // TODO: use dict
     init(user: Array<Any>)
     {
