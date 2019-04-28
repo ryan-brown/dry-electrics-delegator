@@ -143,3 +143,10 @@ Session.vim
 tags
 # Persistent undo
 [._]*.un~
+
+### Xcode ###
+xcuserdata
+*.xcodeproj/*
+*xcshareddata
+*xcworkspacedata
+
