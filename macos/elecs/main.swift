@@ -51,25 +51,86 @@ func updateMenuBar(users: Array<Array<Any>>)
     reporting.state = enabled ? NSOnState : NSOffState
     appMenu.addItem(reporting)
     
-    appMenu.addItem(NSMenuItem(title: "Preferences…", action: Selector("terminate:"), keyEquivalent: ""))
+    let prefs = NSMenuItem(title: "Preferences…", action: #selector(Settings.showSettingsWindow), keyEquivalent: "")
+    prefs.target = Settings.self
+    appMenu.addItem(prefs)
     
     appMenu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: ""))
 }
 
 func getCharges()
 {
-    let url = URL(string: "https://electrics.fortheusers.org/api/stats")!
+    let url = URL(string: "\(Settings.getServer())/api/stats")!
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
     
     NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {(response, data, error) in
-        guard let data = data else { return }
+        guard let data = data else {
+            updateMenuBar(users: [])
+            return
+        }
         
         do {
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
             users = jsonResponse as! Array<Array<Any>>
             updateMenuBar(users: users)
-        } catch { }
+        } catch {
+            updateMenuBar(users: [])
+        }
+    }
+}
+
+func postCharge()
+{
+    let user = Settings.getName()
+    let server = Settings.getServer()
+    
+    // no submissions while disabled
+    if (!enabled) {
+        return
+    }
+    
+    // no submissions for blank values
+    if (user == "" || server == "") {
+        return
+    }
+    
+    let info = getOwnChargeInfo()
+    let charging = info.charging
+    
+    let json = [ "username": user, "percentage": info.percent, "charging": charging] as [String : Any]
+    
+    let statusString = "[Percent: \(info.percent), charging: \(charging)]"
+    
+    do {
+        let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        
+        // create post request
+        let url = NSURL(string: "\(Settings.getServer())/percentage")!
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+        
+        // insert json data to the request
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            if error != nil{
+                NSLog("Error -> \(error), \(statusString)")
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                if (httpResponse.statusCode != 200) {
+                    // sending failed, TODO: queue up locally
+                    NSLog("Did not receive 200 OK from server, \(statusString)")
+                }
+            }
+        }
+        
+        task.resume()
+    } catch {
+        NSLog("Some error occurred, \(statusString)")
     }
 }
 
@@ -101,9 +162,18 @@ let dispatchQueue3 = DispatchQueue(label: "QueueIdentification")
 dispatchQueue3.async{
     while (true)
     {
-        // TODO: this, use username from Settings
-        sleep(60)
+        // sleep until next minute
+        let date = Date()
+        let seconds = calendar.component(.second, from: date)
+        sleep(60 - UInt32(seconds))
+
+        postCharge()
     }
+}
+
+if (Settings.getName() == "") {
+    // username is blank at launch, display settings
+    Settings.showSettingsWindow()
 }
 
 NSApp.activate(ignoringOtherApps: true)

@@ -4,6 +4,17 @@ import AppKit
 
 enum BatteryError: Error { case error }
 
+let calendar = Calendar.current
+
+extension StringProtocol {
+    var firstUppercased: String {
+        return prefix(1).uppercased() + dropFirst()
+    }
+    var firstCapitalized: String {
+        return String(prefix(1)).capitalized + dropFirst()
+    }
+}
+
 func getOwnChargeInfo() -> ChargeInfo
 {
     let cinfo = ChargeInfo()
@@ -30,9 +41,10 @@ func getOwnChargeInfo() -> ChargeInfo
                 }
             if let charging = info[kIOPSIsChargingKey] as? Bool {
                 cinfo.icon = charging ? "⚡️" : "🔋"
-                if (cinfo.percent < 20) {
+                if (!charging && cinfo.percent < 20) {
                     cinfo.icon = "🧧"
                 }
+                cinfo.charging = charging ? 1 : 0
             }
         }
     } catch {

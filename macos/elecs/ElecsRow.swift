@@ -35,7 +35,7 @@ class ElecsRow : NSTextField
     }
     
     override func mouseDown(with theEvent : NSEvent) {
-        if let url = URL(string: "https://electrics.fortheusers.org/users/\(username)") {
+        if let url = URL(string: "\(Settings.getServer())/users/\(username)") {
             NSWorkspace.shared().open(url)
         }
     }
