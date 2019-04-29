@@ -3,17 +3,17 @@ import AppKit
 import Cocoa
 
 // initialize the application
-NSApplication.shared()
+NSApplication.shared
 
 // hide the dock icon (same as LSUIElement true in Info.plist)
 NSApp.setActivationPolicy(.accessory)
 
-var app = NSApplication.shared()
+var app = NSApplication.shared
 var menuBar = NSMenu()
 
 var appMenu = NSMenu()
 
-let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 statusItem.menu = appMenu
 
 var enabled = true
@@ -48,7 +48,7 @@ func updateMenuBar(users: Array<Array<Any>>)
 
     let reporting = NSMenuItem(title: "Report Charge", action:#selector(Settings.toggleReporting), keyEquivalent: "")
     reporting.target = Settings.self
-    reporting.state = enabled ? NSOnState : NSOffState
+    reporting.state = enabled ? NSControl.StateValue.on :  NSControl.StateValue.off
     appMenu.addItem(reporting)
     
     let prefs = NSMenuItem(title: "Preferences…", action: #selector(Settings.showSettingsWindow), keyEquivalent: "")
@@ -173,7 +173,9 @@ dispatchQueue3.async{
 
 if (Settings.getName() == "") {
     // username is blank at launch, display settings
-    Settings.showSettingsWindow()
+    DispatchQueue.main.async {
+        Settings.showSettingsWindow()
+    }
 }
 
 NSApp.activate(ignoringOtherApps: true)
