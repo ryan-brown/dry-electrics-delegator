@@ -1,11 +1,10 @@
 import Foundation
-import Cocoa
 
 class ChargeInfo
 {
     var user: String
     var percent: Int
-    var color: NSColor
+    var color: Color
     var icon: String
     var charging: Int
     
@@ -13,7 +12,7 @@ class ChargeInfo
     {
         user = "N/A"
         percent = 0
-        color = NSColor.clear
+        color = Color.clear
         icon = "?"
         charging = -1
     }
@@ -21,7 +20,7 @@ class ChargeInfo
     // TODO: use dict
     init(user: Array<Any>)
     {
-        color = hexStringToNSColor(hex: user[0] as! String)
+        color = hexStringToColor(hex: user[0] as! String)
         self.user = user[1] as! String;
         percent = user[2] as! Int;
         icon = user[3] as! String;

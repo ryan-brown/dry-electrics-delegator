@@ -1,10 +1,3 @@
-//
-//  ElecsView.swift
-//  Elecs
-//
-//  Created by Ricky on 4/26/19.
-//
-
 import Foundation
 import AppKit
 
@@ -27,7 +20,6 @@ class ElecsRow : NSTextField
         self.layer?.backgroundColor = info.color.cgColor
 
         self.font = NSFont.systemFont(ofSize: 14)
-//        self.font = NSFont(name: "Raleway-Regular", size: 18)
         self.isEditable = false
         self.textColor = NSColor.black
         self.stringValue = summary

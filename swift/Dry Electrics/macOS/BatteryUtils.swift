@@ -1,23 +1,12 @@
 import Foundation
+
 import IOKit.ps
 import AppKit
-
-enum BatteryError: Error { case error }
-
-let calendar = Calendar.current
-
-extension StringProtocol {
-    var firstUppercased: String {
-        return prefix(1).uppercased() + dropFirst()
-    }
-    var firstCapitalized: String {
-        return String(prefix(1)).capitalized + dropFirst()
-    }
-}
 
 func getOwnChargeInfo() -> ChargeInfo
 {
     let cinfo = ChargeInfo()
+    
     do {
         // Take a snapshot of all the power source info
         guard let snapshot = IOPSCopyPowerSourcesInfo()?.takeRetainedValue()
@@ -37,8 +26,8 @@ func getOwnChargeInfo() -> ChargeInfo
             if let name = info[kIOPSNameKey] as? String,
                 let capacity = info[kIOPSCurrentCapacityKey] as? Double,
                 let max = info[kIOPSMaxCapacityKey] as? Double {
-                    cinfo.percent = Int(capacity / max * 100)
-                }
+                cinfo.percent = Int(capacity / max * 100)
+            }
             if let charging = info[kIOPSIsChargingKey] as? Bool {
                 cinfo.icon = charging ? "⚡️" : "🔋"
                 if (!charging && cinfo.percent < 20) {
@@ -51,26 +40,4 @@ func getOwnChargeInfo() -> ChargeInfo
     }
     
     return cinfo
-}
-
-func hexStringToNSColor (hex:String) -> NSColor {
-    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-    
-    if (cString.hasPrefix("#")) {
-        cString.remove(at: cString.startIndex)
-    }
-    
-    if ((cString.count) != 6) {
-        return NSColor.gray
-    }
-    
-    var rgbValue:UInt32 = 0
-    Scanner(string: cString).scanHexInt32(&rgbValue)
-    
-    return NSColor(
-        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-        alpha: CGFloat(1.0)
-    )
 }

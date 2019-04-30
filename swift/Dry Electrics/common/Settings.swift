@@ -6,33 +6,19 @@
 //
 
 import Foundation
-import AdSupport
+
+#if os(macOS)
 import AppKit
+#endif
 
 class Settings
 {
-    static var window: NSWindow? = nil
-    
     static let defaults = UserDefaults.standard
     
     static var defaultUser = ""
     static let defaultServer = "https://electrics.fortheusers.org"
-    
-    static var userText: NSTextField?
-    static var serverText: NSTextField?
 
     init() {
-//        if #available(OSX 10.14, *) {
-//            if let uuid = ASIdentifierManager.shared().advertisingIdentifier
-//            {
-//                Settings.adid = String(uuid.uuidString.split(separator: "-")[0]).lowercased()
-//            }
-//        }
-    }
-    @objc static func toggleReporting()
-    {
-        enabled = !enabled
-        updateMenuBar(users: users)
     }
     
     static func setUser(name: String) {
@@ -51,6 +37,18 @@ class Settings
         return defaults.string(forKey: "server") ?? defaultServer
     }
     
+    #if os(macOS)
+    static var window: NSWindow? = nil
+    
+    static var userText: NSTextField?
+    static var serverText: NSTextField?
+    
+    @objc static func toggleReporting()
+    {
+        enabled = !enabled
+        updateMenuBar(users: users)
+    }
+    
     @objc static func close() {
         if (window != nil) {
             Settings.setUser(name: userText?.stringValue ?? "")
@@ -64,6 +62,7 @@ class Settings
 
     @objc static func showSettingsWindow() {
         if Settings.window != nil {
+            Settings.window?.makeKey()
             return
         }
         
@@ -132,5 +131,8 @@ class Settings
         window.cascadeTopLeft(from: NSMakePoint(20, 20))
         window.title = "Dry Electrics Preferences"
         window.makeKeyAndOrderFront(nil)
+        
+        window.makeKey()
     }
+    #endif
 }

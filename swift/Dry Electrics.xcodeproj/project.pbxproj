@@ -13,6 +13,28 @@
 		9CD6277E227791D700BFA348 /* ElecsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD62779227791D600BFA348 /* ElecsRow.swift */; };
 		9CD6277F227791D700BFA348 /* ChargeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6277A227791D600BFA348 /* ChargeInfo.swift */; };
 		9CD62780227791D700BFA348 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6277B227791D700BFA348 /* Utils.swift */; };
+		9CD6278822779C2000BFA348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6278722779C2000BFA348 /* AppDelegate.swift */; };
+		9CD6278A22779C2000BFA348 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6278922779C2000BFA348 /* ViewController.swift */; };
+		9CD6278D22779C2000BFA348 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6278B22779C2000BFA348 /* Main.storyboard */; };
+		9CD6278F22779C2100BFA348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6278E22779C2100BFA348 /* Assets.xcassets */; };
+		9CD6279222779C2100BFA348 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6279022779C2100BFA348 /* LaunchScreen.storyboard */; };
+		9CD6279A2277DE2200BFA348 /* main.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD62777227791D600BFA348 /* main.swift */; };
+		9CD6279D2277DE2900BFA348 /* ChargeInfo.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6277A227791D600BFA348 /* ChargeInfo.swift */; };
+		9CD6279E2277DE2900BFA348 /* ElecsRow.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD62779227791D600BFA348 /* ElecsRow.swift */; };
+		9CD6279F2277DE2900BFA348 /* Settings.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD62778227791D600BFA348 /* Settings.swift */; };
+		9CD627A02277DE2900BFA348 /* Utils.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6277B227791D700BFA348 /* Utils.swift */; };
+		9CD627A12277DEDF00BFA348 /* AppDelegate.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6278722779C2000BFA348 /* AppDelegate.swift */; };
+		9CD627A22277DEDF00BFA348 /* ViewController.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6278922779C2000BFA348 /* ViewController.swift */; };
+		9CD627A32277DEF400BFA348 /* ChargeInfo.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6277A227791D600BFA348 /* ChargeInfo.swift */; };
+		9CD627A52277DEF400BFA348 /* Settings.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD62778227791D600BFA348 /* Settings.swift */; };
+		9CD627A62277DEF400BFA348 /* Utils.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6277B227791D700BFA348 /* Utils.swift */; };
+		9CD627A72277DF5B00BFA348 /* ChargeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6277A227791D600BFA348 /* ChargeInfo.swift */; };
+		9CD627A92277DF5B00BFA348 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD62778227791D600BFA348 /* Settings.swift */; };
+		9CD627AA2277DF5B00BFA348 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6277B227791D700BFA348 /* Utils.swift */; };
+		9CD627AC2277DFBC00BFA348 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD627AB2277DFBC00BFA348 /* Platform.swift */; };
+		9CD627AD2277DFBC00BFA348 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD627AB2277DFBC00BFA348 /* Platform.swift */; };
+		9CD627AF2277E6DD00BFA348 /* BatteryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD627AE2277E6DD00BFA348 /* BatteryUtils.swift */; };
+		9CD627B12277E6EA00BFA348 /* BatteryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD627B02277E6EA00BFA348 /* BatteryUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,10 +47,27 @@
 		9CD62779227791D600BFA348 /* ElecsRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElecsRow.swift; sourceTree = "<group>"; };
 		9CD6277A227791D600BFA348 /* ChargeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargeInfo.swift; sourceTree = "<group>"; };
 		9CD6277B227791D700BFA348 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		9CD6278522779C2000BFA348 /* Electrics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Electrics.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CD6278722779C2000BFA348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9CD6278922779C2000BFA348 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9CD6278C22779C2000BFA348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9CD6278E22779C2100BFA348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9CD6279122779C2100BFA348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9CD6279322779C2100BFA348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CD627AB2277DFBC00BFA348 /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
+		9CD627AE2277E6DD00BFA348 /* BatteryUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryUtils.swift; sourceTree = "<group>"; };
+		9CD627B02277E6EA00BFA348 /* BatteryUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9CD627632277908700BFA348 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CD6278222779C2000BFA348 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -50,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				9CD627662277908700BFA348 /* Dry Electrics.app */,
+				9CD6278522779C2000BFA348 /* Electrics.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -57,16 +97,49 @@
 		9CD627682277908700BFA348 /* Dry Electrics */ = {
 			isa = PBXGroup;
 			children = (
-				9CD6277A227791D600BFA348 /* ChargeInfo.swift */,
-				9CD62779227791D600BFA348 /* ElecsRow.swift */,
+				9CD627992277DDF200BFA348 /* common */,
+				9CD627982277DDBA00BFA348 /* macOS */,
+				9CD627972277DDB500BFA348 /* iOS */,
+			);
+			path = "Dry Electrics";
+			sourceTree = "<group>";
+		};
+		9CD627972277DDB500BFA348 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				9CD6278722779C2000BFA348 /* AppDelegate.swift */,
+				9CD6278922779C2000BFA348 /* ViewController.swift */,
+				9CD627B02277E6EA00BFA348 /* BatteryUtils.swift */,
+				9CD6278B22779C2000BFA348 /* Main.storyboard */,
+				9CD6278E22779C2100BFA348 /* Assets.xcassets */,
+				9CD6279022779C2100BFA348 /* LaunchScreen.storyboard */,
+				9CD6279322779C2100BFA348 /* Info.plist */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		9CD627982277DDBA00BFA348 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
 				9CD62777227791D600BFA348 /* main.swift */,
-				9CD62778227791D600BFA348 /* Settings.swift */,
-				9CD6277B227791D700BFA348 /* Utils.swift */,
+				9CD62779227791D600BFA348 /* ElecsRow.swift */,
+				9CD627AE2277E6DD00BFA348 /* BatteryUtils.swift */,
 				9CD6276B2277908800BFA348 /* Assets.xcassets */,
 				9CD627702277908800BFA348 /* Info.plist */,
 				9CD627712277908800BFA348 /* Dry_Electrics.entitlements */,
 			);
-			path = "Dry Electrics";
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		9CD627992277DDF200BFA348 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				9CD6277A227791D600BFA348 /* ChargeInfo.swift */,
+				9CD62778227791D600BFA348 /* Settings.swift */,
+				9CD6277B227791D700BFA348 /* Utils.swift */,
+				9CD627AB2277DFBC00BFA348 /* Platform.swift */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,6 +162,23 @@
 			productReference = 9CD627662277908700BFA348 /* Dry Electrics.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9CD6278422779C2000BFA348 /* Electrics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CD6279622779C2100BFA348 /* Build configuration list for PBXNativeTarget "Electrics" */;
+			buildPhases = (
+				9CD6278122779C2000BFA348 /* Sources */,
+				9CD6278222779C2000BFA348 /* Frameworks */,
+				9CD6278322779C2000BFA348 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Electrics;
+			productName = Electrics;
+			productReference = 9CD6278522779C2000BFA348 /* Electrics.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -101,6 +191,14 @@
 				TargetAttributes = {
 					9CD627652277908700BFA348 = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					9CD6278422779C2000BFA348 = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -118,6 +216,7 @@
 			projectRoot = "";
 			targets = (
 				9CD627652277908700BFA348 /* Dry Electrics */,
+				9CD6278422779C2000BFA348 /* Electrics */,
 			);
 		};
 /* End PBXProject section */
@@ -127,7 +226,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CD6279D2277DE2900BFA348 /* ChargeInfo.swift in Resources */,
+				9CD6279E2277DE2900BFA348 /* ElecsRow.swift in Resources */,
+				9CD6279F2277DE2900BFA348 /* Settings.swift in Resources */,
+				9CD627A02277DE2900BFA348 /* Utils.swift in Resources */,
+				9CD6279A2277DE2200BFA348 /* main.swift in Resources */,
 				9CD6276C2277908800BFA348 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CD6278322779C2000BFA348 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CD627A32277DEF400BFA348 /* ChargeInfo.swift in Resources */,
+				9CD627A52277DEF400BFA348 /* Settings.swift in Resources */,
+				9CD627A62277DEF400BFA348 /* Utils.swift in Resources */,
+				9CD627A12277DEDF00BFA348 /* AppDelegate.swift in Resources */,
+				9CD627A22277DEDF00BFA348 /* ViewController.swift in Resources */,
+				9CD6279222779C2100BFA348 /* LaunchScreen.storyboard in Resources */,
+				9CD6278F22779C2100BFA348 /* Assets.xcassets in Resources */,
+				9CD6278D22779C2000BFA348 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +257,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CD627AF2277E6DD00BFA348 /* BatteryUtils.swift in Sources */,
+				9CD627AC2277DFBC00BFA348 /* Platform.swift in Sources */,
 				9CD6277D227791D700BFA348 /* Settings.swift in Sources */,
 				9CD6277E227791D700BFA348 /* ElecsRow.swift in Sources */,
 				9CD6277F227791D700BFA348 /* ChargeInfo.swift in Sources */,
@@ -146,7 +267,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9CD6278122779C2000BFA348 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CD627B12277E6EA00BFA348 /* BatteryUtils.swift in Sources */,
+				9CD627AD2277DFBC00BFA348 /* Platform.swift in Sources */,
+				9CD627A72277DF5B00BFA348 /* ChargeInfo.swift in Sources */,
+				9CD627A92277DF5B00BFA348 /* Settings.swift in Sources */,
+				9CD627AA2277DF5B00BFA348 /* Utils.swift in Sources */,
+				9CD6278A22779C2000BFA348 /* ViewController.swift in Sources */,
+				9CD6278822779C2000BFA348 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9CD6278B22779C2000BFA348 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9CD6278C22779C2000BFA348 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9CD6279022779C2100BFA348 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9CD6279122779C2100BFA348 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		9CD627722277908800BFA348 /* Debug */ = {
@@ -271,7 +425,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9UDT7LSCEF;
-				INFOPLIST_FILE = "Dry Electrics/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Dry Electrics/macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -289,7 +443,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9UDT7LSCEF;
-				INFOPLIST_FILE = "Dry Electrics/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Dry Electrics/macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -297,6 +451,49 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dry.Dry-Electrics";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		9CD6279422779C2100BFA348 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9UDT7LSCEF;
+				INFOPLIST_FILE = "$(SRCROOT)/Dry Electrics/iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dry.Electrics;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9CD6279522779C2100BFA348 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9UDT7LSCEF;
+				INFOPLIST_FILE = "$(SRCROOT)/Dry Electrics/iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dry.Electrics;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -317,6 +514,15 @@
 			buildConfigurations = (
 				9CD627752277908800BFA348 /* Debug */,
 				9CD627762277908800BFA348 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CD6279622779C2100BFA348 /* Build configuration list for PBXNativeTarget "Electrics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CD6279422779C2100BFA348 /* Debug */,
+				9CD6279522779C2100BFA348 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
