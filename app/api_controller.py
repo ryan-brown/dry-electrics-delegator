@@ -6,24 +6,51 @@ import maya
 
 api = Blueprint('api', __name__)
 
+COLOR_RED = {
+    "red": 196,
+    "green": 2,
+    "blue": 51
+  }
+COLOR_YELLOW = {
+    "red": 255,
+    "green": 211,
+    "blue": 0
+  }
+COLOR_GREEN = {
+    "red": 0,
+    "green": 159,
+    "blue": 107
+  }
 
-def to_hex(num):
-  res = hex(num)[2:]
+def rbg_to_hex(r,g,b):
+  r = hex(int(r))[2:]
+  g = hex(int(g))[2:]
+  b = hex(int(b))[2:]
 
-  if num < 16:
-    res = "0"+res
+  if (len(r) == 1):
+    r = "0" + r
+  if (len(g) == 1):
+    g = "0" + g
+  if (len(b) == 1):
+    b = "0" + b
 
-  return res
+  return "#" + r + g + b
 
 def get_row_color(percentage):
-  if percentage <= 50:
-    red = 255
-    green = round(255 * percentage * 2 / 100)
+  if (percentage < 0.5):
+    color1 = COLOR_RED
+    color2 = COLOR_YELLOW
+    percentage *= 2
   else:
-    red = round(255 * (1 - (percentage - 50) * 2 / 100))
-    green = 255
+    color1 = COLOR_YELLOW
+    color2 = COLOR_GREEN
+    percentage = 2 * (percentage - 0.5)
 
-  return "#{}{}00".format(to_hex(red), to_hex(green))
+  red = color1["red"] + percentage * (color2["red"] - color1["red"])
+  green = color1["green"] + percentage * (color2["green"] - color1["green"])
+  blue = color1["blue"] + percentage * (color2["blue"] - color1["blue"])
+  
+  return rbg_to_hex(red, green, blue)
 
 def get_leaderboard():
     all_users = qq.get_all_users()
