@@ -38,7 +38,7 @@ def rbg_to_hex(r,g,b):
 
 def get_row_color(percentage):
   percentage /= 100
-  
+
   if (percentage < 0.5):
     color1 = COLOR_RED
     color2 = COLOR_YELLOW
@@ -60,7 +60,7 @@ def get_leaderboard():
     user_data_items = user_data.items()
     sorted_user_data = [item[1] for item in sorted(user_data_items, key=lambda kv: kv[1]['percentage'])]
     formatted_user_data = [(get_row_color(d['percentage']), d['username'], d['percentage'], "🔌 " if d['charging'] else  "🔋 ", maya.parse(d['updated_at'], timezone='US/Eastern')) for d in sorted_user_data]
-    return [(d[0], d[1], d[2], d[3], d[4].epoch) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]
+    return [(d[0], d[1], d[2], d[3], d[4].epoch) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*1000]
 
 @api.route("/driest")
 def driest():
