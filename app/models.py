@@ -19,6 +19,7 @@ class Updates(Base, UserMixin):
  
     id = Column(Integer, primary_key=True)
     username = Column(String(64))
+    percentage = Column(Integer)
     charging = Column(Integer)
     updated_at = Column(String(128))
 
