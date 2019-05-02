@@ -7,4 +7,13 @@
     <a href="/" class="title">Electrics</a>
     <a href="/" class="title">Delegator</a>
   </div>
+  <div>
+    {% if current_user.is_authenticated %}
+      <h2>Stay Wet, {{ current_user.username }}</h2>
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login">Login</a>
+      <a href="/signup">Sign Up</a>
+    {% endif %}
+  </div>
 </header>
