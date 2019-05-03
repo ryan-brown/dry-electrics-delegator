@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import Column, Integer, String, create_engine, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_login import UserMixin
@@ -6,27 +6,44 @@ from flask_login import UserMixin
 engine = create_engine('sqlite:///database.db', echo=True)
 Base = declarative_base(engine)
 
-class Users(Base, UserMixin):
-    __tablename__ = 'users'
- 
-    id = Column(Integer, primary_key=True)
-    username = Column(String(64))
-    password = Column(String(64))
-    zap_token = Column(String(64))
-
-class Updates(Base, UserMixin):
-    __tablename__ = 'updates'
- 
-    id = Column(Integer, primary_key=True)
-    username = Column(String(64))
-    percentage = Column(Integer)
-    charging = Column(Integer)
-    updated_at = Column(String(128))
-
-
-def load_session():
+class DBSession():
+  def __enter__(self):
     metadata = Base.metadata
     Session = sessionmaker(bind=engine)
-    session = Session()
-    return session
+    self.session = Session()
+    return self.session
+
+  def __exit__(self, exc_type, exc_value, traceback):
+    self.session.close()
+
+class User(Base, UserMixin):
+  __tablename__ = 'users'
+
+  id = Column(Integer, primary_key=True)
+  email = Column(String(64), nullable=False)
+  username = Column(String(64), nullable=False)
+  password = Column(String(64), nullable=False)
+  zap_token = Column(String(64), nullable=False)
+
+  def __repr__(self):
+    return "<User id={}, username={}, email={}>".format(self.id, self.username, self.email)
+
+class Update(Base):
+  __tablename__ = 'updates'
+
+  id = Column(Integer, primary_key=True)
+  user_id = Column(Integer, nullable=False)
+  percentage = Column(Integer, nullable=False)
+  charging = Column(Integer, nullable=False)
+  updated_at = Column(String(64), nullable=False)
+
+  def __repr__(self):
+    return "<Update id={}, user_id={}, percentage={}, charging={}, updated_at={}>".format(
+      self.id, self.user_id, self.percentage, self.charging, self.updated_at)
+
+  def toDict(self):
+    valid_keys = ["id", "user_id", "percentage", "charging", "updated_at"]
+    return {k:v for k,v in self.__dict__.items() if k in valid_keys}
+
+
 

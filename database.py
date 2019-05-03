@@ -1,36 +1,12 @@
-import sqlite3
+from app.models import User, Update, DBSession
 
 def batch_insert_update(updates):
-  with sqlite3.connect("database.db") as conn:
-    cursor = conn.cursor()
-    cursor.executemany("INSERT INTO updates (username, percentage, charging, updated_at) VALUES (?, ?, ?, ?)",
-      ((update['username'], update['percentage'], update['charging'], update['updated_at']) for update in updates))
-    conn.commit()
+  with DBSession() as session:
+    session.bulk_save_objects([Update(**{k:v for k,v in update.items() if k !="username"}) for update in updates])
+    session.commit()
 
-def insert_update(username, percentage, charging, updated_at):
-  with sqlite3.connect("database.db") as conn:
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO updates (username, percentage, charging, updated_at) VALUES (?, ?, ?, ?)",
-      (username, percentage, charging, updated_at))
-    conn.commit()
+def get_user_updates(username):
+  with DBSession() as session:
+    user = session.query(User).filter(User.username == username).first()
+    return session.query(Update).filter(Update.user_id == user.id).all()
 
-def select_all():
-  with sqlite3.connect("database.db") as conn:
-    cursor= conn.cursor()
-    cursor.execute("""select id, username, percentage, charging, max(updated_at) from updates group by username""")
-
-    return cursor.fetchall()
-
-def get_user_data(username):
-  with sqlite3.connect("database.db") as conn:
-    cursor= conn.cursor()
-    cursor.execute("""SELECT * FROM updates where username = '{}' """.format(username))
-
-    return cursor.fetchall()
-
-def select_everything():
-  with sqlite3.connect("database.db") as conn:
-    cursor= conn.cursor()
-    cursor.execute("""select * from updates""")
-
-    return cursor.fetchall()

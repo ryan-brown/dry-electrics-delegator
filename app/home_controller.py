@@ -1,10 +1,6 @@
 from flask import render_template, Blueprint
-from flask_login import login_required, current_user
-import database
-import os
+from flask_login import login_required
 from qq import get_shitposts
-
-from .api_controller import get_leaderboard
 
 home = Blueprint('home', __name__)
 
