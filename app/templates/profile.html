@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title>Dry Electrics Delegator - {{current_user.username}}</title>
+{% endblock %}
+
+{% block content %}
+  <h2>{{current_user.username}} Profile</h2>
+  Your zap token: {{current_user.zap_token}}
+{% endblock %}

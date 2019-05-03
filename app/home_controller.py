@@ -1,4 +1,5 @@
 from flask import render_template, Blueprint
+from flask_login import login_required, current_user
 import database
 import os
 from qq import get_shitposts
@@ -14,6 +15,11 @@ def homepage():
   except Exception as e:
     print(e)
     return "An unexpected error has occurred, please try again later", 500
+
+@home.route("/profile", methods=['GET'])
+@login_required
+def show_profile():
+  return render_template("profile.html")
 
 
 @home.route("/privacy-policy")

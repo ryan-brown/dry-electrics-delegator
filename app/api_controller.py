@@ -38,7 +38,7 @@ def rbg_to_hex(r,g,b):
 
 def get_row_color(percentage):
   percentage /= 100
-  
+
   if (percentage < 0.5):
     color1 = COLOR_RED
     color2 = COLOR_YELLOW
