@@ -58,7 +58,7 @@ getCharges()
 
 startAsyncThreads()
 
-if (Settings.getName() == "") {
+if (Settings.getZapToken() == "") {
     // username is blank at launch, display settings
     DispatchQueue.main.async {
         Settings.showSettingsWindow()

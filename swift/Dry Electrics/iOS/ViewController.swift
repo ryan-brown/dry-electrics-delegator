@@ -9,7 +9,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textArea: UITextView!
     
     @IBAction func updateClick(_ sender: Any) {
-        Settings.setUser(name: userField.text ?? "")
+        Settings.setZapToken(token: userField.text ?? "")
         Settings.setServer(server: serverField.text ?? "")
     }
     
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         
         ViewController.textArea = textArea
         
-        userField.text = Settings.getName()
+        userField.text = Settings.getZapToken()
         serverField.text = Settings.getServer()
     UIDevice.current.isBatteryMonitoringEnabled = true
         

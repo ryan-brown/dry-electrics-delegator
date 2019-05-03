@@ -15,18 +15,18 @@ class Settings
 {
     static let defaults = UserDefaults.standard
     
-    static var defaultUser = ""
+    static var defaultZapToken = ""
     static let defaultServer = "https://electrics.fortheusers.org"
 
     init() {
     }
     
-    static func setUser(name: String) {
-        defaults.set(name, forKey: "name")
+    static func setZapToken(token: String) {
+        defaults.set(token, forKey: "zap_token")
     }
     
-    static func getName() -> String {
-        return defaults.string(forKey: "name") ?? defaultUser
+    static func getZapToken() -> String {
+        return defaults.string(forKey: "zap_token") ?? defaultZapToken
     }
     
     static func setServer(server: String) {
@@ -38,10 +38,45 @@ class Settings
     }
     
     #if os(macOS)
+    
+    class MTextField: NSTextField {
+        
+        private let commandKey = NSEvent.ModifierFlags.command.rawValue
+        private let commandShiftKey = NSEvent.ModifierFlags.command.rawValue | NSEvent.ModifierFlags.shift.rawValue
+        
+        override func performKeyEquivalent(with event: NSEvent) -> Bool {
+            if event.type == NSEvent.EventType.keyDown {
+                if (event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue) == commandKey {
+                    switch event.charactersIgnoringModifiers! {
+                    case "x":
+                        if NSApp.sendAction(#selector(NSText.cut(_:)), to:nil, from:self) { return true }
+                    case "c":
+                        if NSApp.sendAction(#selector(NSText.copy(_:)), to:nil, from:self) { return true }
+                    case "v":
+                        if NSApp.sendAction(#selector(NSText.paste(_:)), to:nil, from:self) { return true }
+                    case "z":
+                        if NSApp.sendAction(Selector(("undo:")), to:nil, from:self) { return true }
+                    case "a":
+                        if NSApp.sendAction(#selector(NSResponder.selectAll(_:)), to:nil, from:self) { return true }
+                    default:
+                        break
+                    }
+                }
+                else if (event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue) == commandShiftKey {
+                    if event.charactersIgnoringModifiers == "Z" {
+                        if NSApp.sendAction(Selector(("redo:")), to:nil, from:self) { return true }
+                    }
+                }
+            }
+            return super.performKeyEquivalent(with: event)
+        }
+        
+    }
+    
     static var window: NSWindow? = nil
     
-    static var userText: NSTextField?
-    static var serverText: NSTextField?
+    static var userText: MTextField?
+    static var serverText: MTextField?
     
     @objc static func toggleReporting()
     {
@@ -51,7 +86,7 @@ class Settings
     
     @objc static func close() {
         if (window != nil) {
-            Settings.setUser(name: userText?.stringValue ?? "")
+            Settings.setZapToken(token: userText?.stringValue ?? "")
             Settings.setServer(server: serverText?.stringValue ?? "")
             
             let windowCopy = window!
@@ -77,21 +112,21 @@ class Settings
         let view = NSView()
         
         let userTextLabel = NSTextField()
-        userTextLabel.stringValue = "User"
+        userTextLabel.stringValue = "Zap Token"
         userTextLabel.isEditable = false
         userTextLabel.drawsBackground = false
         userTextLabel.isBezeled = false
         userTextLabel.frame = CGRect(origin: CGPoint(x: 20, y: 110), size: CGSize(width: 100, height: 25))
         view.addSubview(userTextLabel)
         
-        let userText = NSTextField()
-        let name = Settings.getName()
-        userText.stringValue = name == "" ? NSUserName().firstUppercased : name
-        userText.frame = CGRect(origin: CGPoint(x: 80, y: 110), size: CGSize(width: 250, height: 25))
+        let userText = MTextField()
+        let name = Settings.getZapToken()
+        userText.stringValue = name
+        userText.frame = CGRect(origin: CGPoint(x: 100, y: 110), size: CGSize(width: 230, height: 25))
         userText.cell?.wraps = false
         userText.cell?.isScrollable = true
         if #available(OSX 10.10, *) {
-            userText.placeholderString = "Username"
+            userText.placeholderString = "Zap Token"
         }
         view.addSubview(userText)
         Settings.userText = userText
@@ -104,13 +139,13 @@ class Settings
         nameTextLabel.frame = CGRect(origin: CGPoint(x: 20, y: 70), size: CGSize(width: 100, height: 25))
         view.addSubview(nameTextLabel)
 
-        let serverText = NSTextField()
+        let serverText = MTextField()
         serverText.stringValue = Settings.getServer()
         serverText.cell?.wraps = false
         serverText.cell?.isScrollable = true
-        serverText.frame = CGRect(origin: CGPoint(x: 80, y: 70), size: CGSize(width: 250, height: 25))
+        serverText.frame = CGRect(origin: CGPoint(x: 100, y: 70), size: CGSize(width: 230, height: 25))
         if #available(OSX 10.10, *) {
-            serverText.placeholderString = "Org (blank for default)"
+            serverText.placeholderString = "Server"
         }
         view.addSubview(serverText)
         Settings.serverText = serverText

@@ -68,7 +68,7 @@ func getCharges()
 
 func postCharge()
 {
-    let user = Settings.getName()
+    let zap_token = Settings.getZapToken()
     let server = Settings.getServer()
     
     // no submissions while disabled
@@ -77,14 +77,14 @@ func postCharge()
     }
     
     // no submissions for blank values
-    if (user == "" || server == "") {
+    if (zap_token == "" || server == "") {
         return
     }
     
     let info = getOwnChargeInfo()
     let charging = info.charging
     
-    let json = [ "username": user, "percentage": info.percent, "charging": charging] as [String : Any]
+    let json = [ "zap_token": zap_token, "percentage": info.percent, "charging": charging] as [String : Any]
     
     let statusString = "[Percent: \(info.percent), charging: \(charging)]"
     
