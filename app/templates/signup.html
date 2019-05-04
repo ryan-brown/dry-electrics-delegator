@@ -5,7 +5,9 @@
 {% with messages = get_flashed_messages() %}
 {% if messages %}
     <div>
-        {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+    {% for message in messages %}
+        {{ message }}<br />
+    {% endfor %}
     </div>
 {% endif %}
 {% endwith %}

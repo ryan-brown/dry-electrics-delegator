@@ -57,7 +57,7 @@ def get_row_color(percentage):
 
 def get_leaderboard():
     all_users = qq.get_all_users()
-    user_data = [qq.get_user_data(str(name)) for name in all_users]
+    user_data = [qq.get_user_data(name) for name in all_users]
     sorted_user_data = sorted(user_data, key=lambda k: k['percentage']) 
     formatted_user_data = [(get_row_color(d['percentage']), d['username'], d['percentage'], "🔌 " if d['charging'] else  "🔋 ", maya.parse(d['updated_at'], timezone='US/Eastern')) for d in sorted_user_data]
     return [(d[0], d[1], d[2], d[3], d[4].epoch) for d in formatted_user_data if (maya.now() - d[4]).total_seconds() < 60*10]

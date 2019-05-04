@@ -13,7 +13,7 @@ def percentage_update():
 
   try:
     percentage = int(data["percentage"])
-    if percentage < 0 or percentage > 100 or len(zap_token) > 64:
+    if percentage < 0 or percentage > 100:
       return "Reported percentage out of bounds", 400
 
     charging = bool(data["charging"])
@@ -23,7 +23,7 @@ def percentage_update():
       user = session.query(User).filter(User.zap_token == zap_token).first()
 
     if not user:
-      return "Zap token not recognized", 400
+      return "Zap token not recognized", 401
 
     new_update = Update(user_id=user.id, percentage=percentage, charging=charging, updated_at=updated_at)
     qq.insert_update(new_update, user.username)

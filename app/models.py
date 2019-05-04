@@ -1,15 +1,14 @@
-from sqlalchemy import Column, Integer, String, create_engine, ForeignKey
+from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_login import UserMixin
  
 engine = create_engine('sqlite:///database.db', echo=True)
 Base = declarative_base(engine)
+Session = sessionmaker(bind=engine)
 
 class DBSession():
   def __enter__(self):
-    metadata = Base.metadata
-    Session = sessionmaker(bind=engine)
     self.session = Session()
     return self.session
 

@@ -37,10 +37,14 @@ def signup_post():
   password = request.form.get('password')
 
   with DBSession() as session:
-    user = session.query(User).filter(User.email == email or User.username == username).first()
-
-    if user:
-      flash('Email or Username already exists.')
+    email_exists = session.query(User).filter(User.email == email).first()
+    username_exists = session.query(User).filter(User.username == username).first()
+    
+    if email_exists or username_exists:
+      if email_exists:
+        flash('Email already in use.')
+      if username_exists:
+        flash('Username already in use.')
       return redirect(url_for('auth.signup'))
 
     new_user = User(
