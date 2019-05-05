@@ -18,8 +18,14 @@ class ChargeInfo
     }
     
     // TODO: use dict
-    init(user: Array<Any>)
+    convenience init(user: Array<Any>)
     {
+        self.init()
+        
+        if user.count < 4 {
+            return
+        }
+        
         color = hexStringToColor(hex: user[0] as! String)
         self.user = user[1] as! String;
         percent = user[2] as! Int;

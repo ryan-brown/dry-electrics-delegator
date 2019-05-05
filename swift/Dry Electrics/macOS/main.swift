@@ -56,6 +56,7 @@ func updateMenuBar(users: Array<Array<Any>>)
 updateMenuTitle()
 getCharges()
 
+updateUI(users: [])
 startAsyncThreads()
 
 if (Settings.getZapToken() == "") {
