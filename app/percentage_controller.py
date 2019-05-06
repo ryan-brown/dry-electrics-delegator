@@ -9,9 +9,9 @@ percentage = Blueprint('percentage', __name__)
 @percentage.route("/percentage", methods=['POST'])
 def percentage_update():
   data = request.get_json()
-  zap_token = data["zap_token"]
 
   try:
+    zap_token = data["zap_token"]
     percentage = int(data["percentage"])
     if percentage < 0 or percentage > 100:
       return "Reported percentage out of bounds", 400
