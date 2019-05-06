@@ -8,13 +8,14 @@ from .stats_controller import stats
 from .api_controller import api
 from .auth_controller import auth
 from .models import User, DBSession
+import os
 
 from flask_login import LoginManager
 
 def create_app():
   app = Flask(__name__, instance_relative_config=True)
 
-  app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO2'
+  app.config['SECRET_KEY'] = os.environ['FLASK_SECRET']
 
   login_manager = LoginManager()
   login_manager.login_view = 'auth.login'
