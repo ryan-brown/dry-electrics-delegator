@@ -51,7 +51,7 @@ docker-compose up
 Running the server:
 ```
 pip3 install -r requirements.txt
-FLASK_APP=main.py FLASK_DEBUG=1 python3 -m flask run --host=0.0.0.0 --port=5002
+FLASK_APP=main.py FLASK_SECRET=SECRET FLASK_DEBUG=1 python3 -m flask run --host=0.0.0.0 --port=5002
 ```
 
 Adding processor to a crontab on the server (every 5 minutes):
