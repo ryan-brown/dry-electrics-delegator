@@ -24,6 +24,12 @@ class User(Base, UserMixin):
   password = Column(String(64), nullable=False)
   zap_token = Column(String(64), nullable=False)
 
+  def public(self):
+    return {
+      "username": self.username,
+      "email": self.email
+    }
+
   def __repr__(self):
     return "<User id={}, username={}, email={}>".format(self.id, self.username, self.email)
 
