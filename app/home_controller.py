@@ -1,10 +1,6 @@
 from flask import render_template, Blueprint
-from flask_login import login_required, current_user
-import database
-import os
+from flask_login import login_required
 from qq import get_shitposts
-
-from .api_controller import get_leaderboard
 
 home = Blueprint('home', __name__)
 
@@ -16,10 +12,10 @@ def homepage():
     print(e)
     return "An unexpected error has occurred, please try again later", 500
 
-@home.route("/profile", methods=['GET'])
+@home.route("/settings", methods=['GET'])
 @login_required
-def show_profile():
-  return render_template("profile.html")
+def show_settings():
+  return render_template("settings.html")
 
 
 @home.route("/privacy-policy")

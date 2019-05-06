@@ -1,19 +1,26 @@
 <header>
-  <a href="/">
-    <img height="50" width="50" src="{{ url_for('static', filename='logo.svg') }}" alt="Dry Electrics Delegator Logo">
-  </a>
-  <div class="title-container">
-    <a href="/" class="title">Dry</a>
-    <a href="/" class="title">Electrics</a>
-    <a href="/" class="title">Delegator</a>
+  <div class="banner-container">
+    <a href="/">
+      <img height="50" width="50" src="{{ url_for('static', filename='logo.svg') }}" alt="Dry Electrics Delegator Logo">
+    </a>
+    <div class="title-container">
+      <a href="/" class="title">Dry</a>
+      <a href="/" class="title">Electrics</a>
+      <a href="/" class="title">Delegator</a>
+    </div>
   </div>
-  <div>
+  <div class="profile-container">
     {% if current_user.is_authenticated %}
-      <h2>Stay Wet, {{ current_user.username }}</h2>
-      <a href="/logout">Logout</a>
+      <div>Stay Wet, {{ current_user.username }}</div>
+      <div>
+        <a href="/settings">Settings</a>
+        <a href="/users/{{current_user.username}}">Profile</a>
+        <a href="/logout">Logout</a>
+      </div>
     {% else %}
       <a href="/login">Login</a>
       <a href="/signup">Sign Up</a>
     {% endif %}
   </div>
+
 </header>

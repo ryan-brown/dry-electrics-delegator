@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title>Dry Electrics Delegator - {{current_user.username}}</title>
+{% endblock %}
+
+{% block content %}
+  <h2>{{current_user.username}} Settings</h2>
+  <table>
+  	<tr>
+  		<td>Email</td>
+  		<td>{{current_user.email}}</td>
+  	</tr>
+  	<tr>
+  		<td>Username</td>
+  		<td>{{current_user.username}}</td>
+  	</tr>
+  	<tr>
+  		<td>Zap Token</td>
+  		<td>{{current_user.zap_token}}</td>
+  	</tr>
+  </table>
+{% endblock %}

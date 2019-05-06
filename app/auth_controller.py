@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, jsonify, send_file, redirect, url_for, request, flash
 from flask_login import login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import load_session, Users
+from .models import DBSession, User
 from sqlalchemy.orm import Session
+import uuid
 
 auth = Blueprint('auth', __name__)
 
@@ -12,19 +13,15 @@ def login():
 
 @auth.route('/login', methods=['POST'])
 def login_post():
-  username = request.form.get('username')
+  email = request.form.get('email')
   password = request.form.get('password')
 
-  session = load_session()
-
-  user = session.query(Users).filter(Users.username == username).first()
-
-  session.close()
+  with DBSession() as session:
+    user = session.query(User).filter(User.email == email).first()
 
   if not user or not check_password_hash(user.password, password): 
       flash('Please check your login details and try again.')
       return redirect(url_for('auth.login'))
-
 
   login_user(user, True)
   return redirect(url_for('home.homepage'))
@@ -35,23 +32,29 @@ def signup():
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
+  email = request.form.get('email')
   username = request.form.get('username')
   password = request.form.get('password')
 
-  session = load_session()
+  with DBSession() as session:
+    email_exists = session.query(User).filter(User.email == email).first()
+    username_exists = session.query(User).filter(User.username == username).first()
+    
+    if email_exists or username_exists:
+      if email_exists:
+        flash('Email already in use.')
+      if username_exists:
+        flash('Username already in use.')
+      return redirect(url_for('auth.signup'))
 
-  if session.query(Users).filter(Users.username == username).first():
-    flash('Email address already exists')
-    return redirect(url_for('auth.signup'))
+    new_user = User(
+      email=email, 
+      username=username, 
+      password=generate_password_hash(password, method='sha256'), 
+      zap_token=str(uuid.uuid4()))
 
-  new_user = Users(
-    username=username, 
-    password=generate_password_hash(password, method='sha256'), 
-    zap_token="zap"+username)
-
-  session.add(new_user)
-  session.commit()
-  session.close()
+    session.add(new_user)
+    session.commit()
 
   return redirect(url_for('auth.login'))
 

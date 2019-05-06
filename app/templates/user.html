@@ -1,27 +1,22 @@
 {% extends "base.html" %}
 
 {% block head %}
-  <title>Dry Electrics Delegator - {{username}}</title>
-  <script src="{{ url_for('static', filename='d3.v5.min.js') }}" /></script>
-  <script src="{{ url_for('static', filename='moment.min.js') }}" /></script>
-  <script type="text/javascript">
-    let data = JSON.parse('{{data | safe}}')
-    // Convert datestring to unix timestamp once now so we don't have to many times later
-    data = data.map(d => [ ...d, moment(d[2]).valueOf() ]);
-  </script>
+  <title>Dry Electrics Delegator - {{user.username}} Profile</title>
 {% endblock %}
 
 {% block content %}
-  <h2>{{username}} Charge History</h2>
-  <div class="chart">
-    <div class="chart-controls">
-      <input type="datetime-local" id="start-time">
-      <input type="datetime-local" id="end-time">
-      <button id="today-button">Today</button>
-      <button id="week-button">This Week</button>
-      <button id="all-button">All Data</button><br />
-    </div>
-    <div class="inner-chart"></div>
-  </div>
-  <script src="{{ url_for('static', filename='user_chart.js') }}"></script>
+  <h2>{{user.username}} Profile</h2>
+  <table>
+    <tr>
+      <td>Email</td>
+      <td>{{user.email}}</td>
+    </tr>
+    <tr>
+      <td>Username</td>
+      <td>{{user.username}}</td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="/users/{{user.username}}/history">History</a></td>
+    </tr>
+  </table>
 {% endblock %}

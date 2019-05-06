@@ -7,14 +7,15 @@ from .user_controller import user
 from .stats_controller import stats
 from .api_controller import api
 from .auth_controller import auth
-from .models import Users, load_session
+from .models import User, DBSession
+import os
 
 from flask_login import LoginManager
 
 def create_app():
   app = Flask(__name__, instance_relative_config=True)
 
-  app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
+  app.config['SECRET_KEY'] = os.environ['FLASK_SECRET']
 
   login_manager = LoginManager()
   login_manager.login_view = 'auth.login'
@@ -22,10 +23,8 @@ def create_app():
 
   @login_manager.user_loader
   def load_user(user_id):
-      session = load_session()
-      user = session.query(Users).filter(Users.id == user_id).first()
-      session.close()
-      return user
+    with DBSession() as session:
+      return session.query(User).filter(User.id == user_id).first()
 
   app.register_blueprint(base)
   app.register_blueprint(home)
