@@ -13,17 +13,20 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* overflow: auto; */
+  font-family: sans-serif;
 }
 
 header {
   display: flex;
-  align-content: center;
   background-color: darkgrey;
   padding: 10px;
   margin-bottom: 20px;
   border-bottom: 2px solid black;
-  justify-content: center;
+}
+
+header:before {
+  flex: 1;
+  content: '';
 }
 
 header img {
@@ -39,7 +42,7 @@ header a.title {
   vertical-align: middle;
   color: white;
   font-size: 24px;
-  font-family: 'Raleway', sans-serif;;
+  font-family: 'Raleway', sans-serif;
   line-height: 26px;
   text-decoration: none;
 }
@@ -50,9 +53,27 @@ header div.title-container {
   margin-top: -2px;
 }
 
-h1,h2,h3,h4,h5 {
-  font-family: sans-serif;
-  text-align: center;
+header div.banner-container {
+  display: flex;
+  flex-direction: row;
+}
+
+header div.profile-container {
+  flex: 1;
+  display: flex;
+  text-align: right;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  color: white;
+  font-size: 18px;
+  font-family: 'Raleway', sans-serif;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+header div.profile-container a {
+  color: #4444ff;
 }
 
 div.content {
