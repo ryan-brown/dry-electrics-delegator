@@ -7,7 +7,7 @@ from .user_controller import user
 from .stats_controller import stats
 from .api_controller import api
 from .auth_controller import auth
-from .models import Users, load_session
+from .models import User, DBSession
 
 from flask_login import LoginManager
 
@@ -22,10 +22,8 @@ def create_app():
 
   @login_manager.user_loader
   def load_user(user_id):
-      session = load_session()
-      user = session.query(Users).filter(Users.id == user_id).first()
-      session.close()
-      return user
+    with DBSession() as session:
+      return session.query(User).filter(User.id == user_id).first()
 
   app.register_blueprint(base)
   app.register_blueprint(home)

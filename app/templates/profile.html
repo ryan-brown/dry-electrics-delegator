@@ -6,5 +6,18 @@
 
 {% block content %}
   <h2>{{current_user.username}} Profile</h2>
-  Your zap token: {{current_user.zap_token}}
+  <table>
+  	<tr>
+  		<td>Email</td>
+  		<td>{{current_user.email}}</td>
+  	</tr>
+  	<tr>
+  		<td>Username</td>
+  		<td>{{current_user.username}}</td>
+  	</tr>
+  	<tr>
+  		<td>Zap Token</td>
+  		<td>{{current_user.zap_token}}</td>
+  	</tr>
+  </table>
 {% endblock %}
