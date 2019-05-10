@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "semi": ["error", "always"],
+    "quotes": ["error", "double"],
+    "react/prop-types": 0,
+    "react/destructuring-assignment": 0,
+    "prettier/prettier": "error"
+  },
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "globals": {
+    "window": true,
+    "document": true
+  }
+}
