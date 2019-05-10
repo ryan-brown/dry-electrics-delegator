@@ -25,6 +25,7 @@ wheels/
 *.egg
 MANIFEST
 js/node_modules/
+app/static/bundle-*
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
