@@ -14,7 +14,7 @@ def show_user(username):
     if not user:
       return render_template('404.html'), 404
 
-    return render_template("user.html", user=user.public())
+    return render_template("user.html", user=user)
   except Exception as e:
     print(e)
     return "An unexpected error has occurred, please try again later", 500

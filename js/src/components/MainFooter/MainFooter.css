@@ -1,0 +1,19 @@
+.MainFooter {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  background-color: darkgrey;
+  border-top: 2px solid black;
+  font-size: x-large;
+}
+
+.MainFooter a {
+  font-family: sans-serif;
+  color: white;
+  text-decoration: none;
+}
+
+.MainFooter a:hover {
+  text-decoration: underline;
+}
