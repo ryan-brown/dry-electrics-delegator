@@ -219,9 +219,8 @@ const initializeTimeWindow = (data) => {
     return [data[0][2], data[data.length - 1][2]]
   } else {
     const fromHash = hash.substr(1).split(",").map(e => (new Date(parseInt(e))))
-
     return fromHash.map(d => {
-      const datePrefix = `${d.getFullYear()}-${addZero(d.getMonth())+1}-${addZero(d.getDate())}`;
+      const datePrefix = `${d.getFullYear()}-${addZero(d.getMonth()+1)}-${addZero(d.getDate())}`;
       const dateTime = `${addZero(d.getHours())}:${addZero(d.getMinutes())}`;
 
       return `${datePrefix} ${dateTime}`;
