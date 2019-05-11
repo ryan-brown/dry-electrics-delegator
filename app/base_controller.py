@@ -15,6 +15,7 @@ def favicon():
 def update():
   try:
     os.system("git pull origin master")
+    os.system(f"kill -HUP {os.getpid()}")
     return "Done", 200
   except Exception as e:
     print(e)
