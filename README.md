@@ -62,6 +62,8 @@ Running redis:
 docker-compose up
 ```
 
+You should also put: `127.0.0.1  redis` in your `/etc/hosts` file, or edit [qq.py](https://github.com/ryan-brown/dry-electrics-delegator/blob/master/qq.py#L5) to have `host="localhost"`.
+
 Running the server (development):
 ```
 pip3 install -r requirements.txt
