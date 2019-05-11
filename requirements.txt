@@ -3,3 +3,4 @@ maya
 redis
 flask-sqlalchemy
 flask-login
+gunicorn

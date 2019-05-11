@@ -49,6 +49,8 @@ Cloning the repo and running `docker-compose up` should be enough to get the con
 
 If a `database.db` file does not exist, an empty one will be created. If using in production, a `FLASK_SECRET` should be exported as an environment variable on the host.
 
+The `PRODUCTION` environment variable can be set to a non-empty string before bringing up the containers to use gunicorn instead of flask.
+
 ### Running Manually
 To create the database:
 ```
@@ -60,10 +62,15 @@ Running redis:
 docker-compose up
 ```
 
-Running the server:
+Running the server (development):
 ```
 pip3 install -r requirements.txt
 FLASK_APP=main.py FLASK_SECRET=SECRET FLASK_DEBUG=1 python3 -m flask run --host=0.0.0.0 --port=5002
+```
+
+Running the server (production):
+```
+gunicorn wsgi:app --bind 0.0.0.0:5002
 ```
 
 Adding processor to a crontab on the server (every 5 minutes):
