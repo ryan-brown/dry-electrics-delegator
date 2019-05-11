@@ -45,7 +45,7 @@ The server can be executed via docker-compose or manually, and consists of:
 - `processor.py` which moves data from the queue into the sqlite file
 
 ### Using docker-compose
-Cloning the repo and running `docker-compose up` should be enough to get the containers to build and services to come up. If you make changes to the images in (Dockerfiles)[https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/], you may have to run `docker-compose build`.
+Cloning the repo and running `docker-compose up` should be enough to get the containers to build and services to come up. If you make changes to the images in [Dockerfiles](https://github.com/ryan-brown/dry-electrics-delegator/blob/master/Dockerfiles), you may have to run `docker-compose build`.
 
 If a `database.db` file does not exist, an empty one will be created.
 
