@@ -1,5 +1,3 @@
-matplotlib
-pandas
 flask
 maya
 redis

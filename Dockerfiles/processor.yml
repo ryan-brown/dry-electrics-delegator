@@ -1,0 +1,8 @@
+FROM jfloff/alpine-python:latest-onbuild
+
+WORKDIR /home/app
+
+RUN echo -e "* * * * * cd /home/app && python3 processor.py\n" >> /etc/crontabs/root
+
+CMD crond -f
+
