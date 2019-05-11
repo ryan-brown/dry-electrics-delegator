@@ -3,17 +3,23 @@ Some Dry Electrics Delegation
 
 ![wet elecs](https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/app/static/logo.png)
 
-## Client
+## Clients
+A client will report your battery percentage autotmatically to the server every minute or display information about other people's battery percents. You should only choose one for reporting.
 
+### Mac Menubar App
+Download the latest Mac .app file from the [releases](https://github.com/ryan-brown/dry-electrics-delegator/releases) page. You will need to enter your zap token from the server after running it for the first time.
+
+### Mac/Linux cron job
 - Download the latest [bg.sh](https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/bg.sh) script to `/some/path/bg.sh`
 - Run `crontab -e`
 - Enter the following with correct path and name, and save:
 
 ```
-* * * * * sh /some/path/bg.sh YourName
+* * * * * sh /some/path/bg.sh YourZapToken
 ```
 
-- If you'd like to use DED in conjunction with MTMR, you can use the following config to create a touchbar item that displays the driest user.  Just plug in the location of the ded.scpt file (from this repository):
+### Mac Touchbar
+Using [MTMR](https://github.com/Toxblh/MTMR), you can use the following config to create a touchbar item that displays the driest user.  Just plug in the location of the ded.scpt file (from this repository):
 ```
   {
     "type": "appleScriptTitledButton",
@@ -31,13 +37,19 @@ Some Dry Electrics Delegation
 ```
 
 ## Server
-The server consists of:
+The server can be executed via docker-compose or manually, and consists of:
 
 - a sqlite file `database.db` where all offline data is stored
 - a redis instance where cache/queue data is stored
 - flask server `run.py` that collects datapoints and displays them from redis
 - `processor.py` which moves data from the queue into the sqlite file
 
+### Using docker-compose
+Cloning the repo and running `docker-compose up` should be enough to get the containers to build and services to come up. If you make changes to the images in (Dockerfiles)[https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/], you may have to run `docker-compose build`.
+
+If a `database.db` file does not exist, an empty one will be created.
+
+### Running Manually
 To create the database:
 ```
 sqlite3 database.db < schema.sql
@@ -56,27 +68,19 @@ FLASK_APP=main.py FLASK_SECRET=SECRET FLASK_DEBUG=1 python3 -m flask run --host=
 
 Adding processor to a crontab on the server (every 5 minutes):
 ```
-*/5 * * * * user cd /path/to/dry-elecs/ && python3 processor.py
+* * * * * cd /path/to/dry-elecs/ && python3 processor.py
 ```
 
-## API
-```
-/api/driest
-```
-Fetch the user who needs energy the most badly in Google Home Action format.
+## Public API
+` /api/v2/driest`
+Fetch the user who needs energy the most badly
 
-```
-/api/stats
-```
+`/api/stats`
 Get a summary of all active users in json format
 
-```
-/api/database
-```
+`/api/database`
 Download the database file from the server
 
-```
-/update
-```
+`/update`
 Force a hot-reload and restart of the flask server
-```
+
