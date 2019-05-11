@@ -2,5 +2,7 @@ FROM jfloff/alpine-python:latest-onbuild
 
 WORKDIR /home/app
 
-CMD python3 -m flask run --host=0.0.0.0 --port=5002
+RUN apk add sqlite
+
+CMD if [ ! -f "database.db" ]; then sqlite3 database.db < schema.sql; fi;  python3 -m flask run --host=0.0.0.0 --port=5002
 
