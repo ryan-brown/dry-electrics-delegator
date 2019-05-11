@@ -7,9 +7,12 @@ import os
 db_uri = 'sqlite:///database.db'
 env = os.environ
 
-if env['POSTGRES_DB']:
-  db_uri = f"postgresql://{env['POSTGRES_USER']}:{env['POSTGRES_PASSWORD']}@postgres:5432/{env['POSTGRES_DB']}"
- 
+try:
+  if env['POSTGRES_DB'] and env['USE_POSTGRES']:
+    db_uri = f"postgresql://{env['POSTGRES_USER']}:{env['POSTGRES_PASSWORD']}@postgres:5432/{env['POSTGRES_DB']}"
+except:
+  print("Using sqlite database, to use postgres export USE_POSTGRES and POSTGRES_DB environment variables")
+
 engine = create_engine(db_uri, echo=True)
 Base = declarative_base(engine)
 Session = sessionmaker(bind=engine)
