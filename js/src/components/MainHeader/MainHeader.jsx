@@ -39,8 +39,8 @@ const LoggedInView = props => (
       {props.username}
     </div>
     <div>
-      <a href="/settings">Settings</a>
-      <a href={`/users/${props.username}`}>Profile</a>
+      <a href="/settings">Settings</a>{" "}
+      <a href={`/users/${props.username}`}>Profile</a>{" "}
       <a href="/logout">Logout</a>
     </div>
   </Fragment>
