@@ -1,7 +1,6 @@
-matplotlib
-pandas
 flask
 maya
 redis
 flask-sqlalchemy
 flask-login
+gunicorn

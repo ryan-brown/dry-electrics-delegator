@@ -1,0 +1,15 @@
+FROM jfloff/alpine-python:latest-onbuild
+
+WORKDIR /home/app
+
+# install psycopg2
+RUN apk update \
+    && apk add --virtual build-deps gcc python3-dev musl-dev \
+    && apk add postgresql-dev \
+    && pip install psycopg2 \
+    && apk del build-deps
+
+RUN echo -e "* * * * * cd /home/app && python3 processor.py\n" >> /etc/crontabs/root
+
+CMD crond -f
+
