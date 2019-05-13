@@ -1,0 +1,17 @@
+.HistoryChart {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.HistoryChart input, button {
+  height: 3rem;
+  font-size: larger;
+  margin-bottom: 2rem;
+}
+
+.tick line {
+  opacity: 0.2;
+  stroke-dasharray: 5 5;
+}

@@ -1,29 +1,16 @@
-{% extends "base.html" %}
-
-{% block head %}
-  <title>Dry Electrics Delegator - {{username}} Charge History</title>
-  <script src="{{ url_for('static', filename='d3.v5.min.js') }}" /></script>
-  <script src="{{ url_for('static', filename='moment.min.js') }}" /></script>
-  <script type="text/javascript">
-    let data = JSON.parse('{{data | safe}}');
-
+<div id="root"></div>
+<script src="/static/d3.v5.min.js" /></script>
+<script src="/static/moment.min.js" /></script>
+<script type="text/javascript">
+  window.gon = {
+    currentUser: {
+      isAuthenticated: "{{current_user.is_authenticated}}" == "True",
+      username: "{{current_user.username}}"
+    },
     // Convert datestring to unix timestamp once now so we don't have to many times later
     // Dictionary -> Array backwards compatability. TODO: Rewrite user_chart.js to use updated ORM structure
-    data = data.map(d => [ d['percentage'], d['charging'], d['updated_at'], moment(d['updated_at']).valueOf()]);
-  </script>
-{% endblock %}
-
-{% block content %}
-  <h2>{{username}} Charge History</h2>
-  <div class="chart">
-    <div class="chart-controls">
-      <input type="datetime-local" id="start-time">
-      <input type="datetime-local" id="end-time">
-      <button id="today-button">Today</button>
-      <button id="week-button">This Week</button>
-      <button id="all-button">All Data</button><br />
-    </div>
-    <div class="inner-chart"></div>
-  </div>
-  <script src="/static/user-chart.js"></script>
-{% endblock %}
+    data: JSON.parse('{{data | safe}}').map(d => [ d['percentage'], d['charging'], d['updated_at'], moment(d['updated_at']).valueOf()])
+  }
+</script>
+<script src="/static/bundle-history.js"></script>
+<script src="/static/user-chart.js"></script>
