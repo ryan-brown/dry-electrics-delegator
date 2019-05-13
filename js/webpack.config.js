@@ -3,11 +3,12 @@ const path = require("path")
 const config = {
   devtool: "eval-source-map",
   entry: {
-    privacy: __dirname + "/src/PrivacyPolicy.jsx",
-    login: __dirname + "/src/Login.jsx",
-    signup: __dirname + "/src/SignUp.jsx",
-    settings: __dirname + "/src/Settings.jsx",
-    user: __dirname + "/src/User.jsx",
+    privacy: __dirname + "/src/pages/PrivacyPolicy/PrivacyPolicy.jsx",
+    login: __dirname + "/src/pages/Login/Login.jsx",
+    signup: __dirname + "/src/pages/SignUp/SignUp.jsx",
+    settings: __dirname + "/src/pages/Settings/Settings.jsx",
+    user: __dirname + "/src/pages/User/User.jsx",
+    notfound: __dirname + "/src/pages/NotFound/NotFound.jsx",
   },
   output: {
     path: path.join(__dirname, "../app/static"),

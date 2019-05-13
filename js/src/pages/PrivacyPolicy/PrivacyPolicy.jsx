@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
-import Page from "./components/Page/Page";
+import Page from "../../components/Page/Page";
 
 const PrivacyPolicyPage = () => (
   <Page>

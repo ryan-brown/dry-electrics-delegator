@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Page from "./components/Page/Page";
-import TableForm from "./components/TableForm/TableForm";
-import FlashMessage from "./components/FlashMessage/FlashMessage";
+import Page from "../../components/Page/Page";
+import TableForm from "../../components/TableForm/TableForm";
+import FlashMessage from "../../components/FlashMessage/FlashMessage";
 
 const signupFormData = [
   {
