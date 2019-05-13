@@ -26,6 +26,12 @@ const settingsFormData = [
     title: "Confirm Password",
     name: "confirm",
     type: "password"
+  },
+  {
+    title: `Reset Zap Token (${window.gon.currentUser.zapToken})`,
+    name: "new_zap",
+    type: "checkbox",
+    default: "checked"
   }
 ];
 

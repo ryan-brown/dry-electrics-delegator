@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
 from qq import get_shitposts
 from .models import User, DBSession
+import uuid
 
 home = Blueprint('home', __name__)
 
@@ -26,6 +27,7 @@ def save_settings():
   username = request.form.get('username')
   password = request.form.get('password')
   confirm = request.form.get('confirm')
+  new_zap = request.form.get('new_zap')
 
   passwords_dont_match = not (password == confirm)
 
@@ -47,6 +49,8 @@ def save_settings():
     user.username = username
     if password:
       user.password = generate_password_hash(password, method='sha256')
+    if new_zap:
+      user.zap_token = str(uuid.uuid4())
     session.commit()
 
   flash('Setting saved!')
