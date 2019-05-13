@@ -10,3 +10,8 @@
   font-size: larger;
   margin-bottom: 2rem;
 }
+
+.tick line {
+  opacity: 0.2;
+  stroke-dasharray: 5 5;
+}
