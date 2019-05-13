@@ -1,41 +1,18 @@
-{% extends "base.html" %}
-
-{% block head %}
-  <title>Dry Electrics Delegator - {{current_user.username}}</title>
-{% endblock %}
-
-{% block content %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div>
-    {% for message in messages %}
-        {{ message }}<br />
+<div id="root"></div>
+<script>
+window.gon = {
+  currentUser: {
+    isAuthenticated: "{{current_user.is_authenticated}}" == "True",
+    email: "{{current_user.email}}",
+    username: "{{current_user.username}}",
+    zapToken: "{{current_user.zap_token}}"
+  },
+  flashMessages: [
+    {% for message in get_flashed_messages() %}
+      "{{message}}",
     {% endfor %}
-    </div>
-{% endif %}
-{% endwith %}
-  <h2>{{current_user.username}} Settings</h2>
-  <form action="/settings" method="POST">
-    <table>
-    	<tr>
-    		<td>Email</td>
-    		<td><input type="email" name="email" value="{{current_user.email}}"></td>
-    	</tr>
-    	<tr>
-    		<td>Username</td>
-    		<td><input type="text" name="username" value="{{current_user.username}}"></td>
-    	</tr>
-      <tr>
-        <td>Password</td>
-        <td><input type="password" name="password"></td>
-      </tr>
-    	<tr>
-    		<td>Zap Token</td>
-    		<td>{{current_user.zap_token}}</td>
-    	</tr>
-      <tr>
-        <td colspan="2"><button>Save Settings</button></td>
-      </tr>
-    </table>
-  </form>
-{% endblock %}
+  ]
+}
+</script>
+<script src="static/bundle-settings.js"></script>
+

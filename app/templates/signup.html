@@ -1,31 +1,15 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h3>Sign Up</h3>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div>
-    {% for message in messages %}
-        {{ message }}<br />
+<div id="root"></div>
+<script>
+window.gon = {
+  currentUser: {
+    isAuthenticated: false,
+  },
+  flashMessages: [
+    {% for message in get_flashed_messages() %}
+      "{{message}}",
     {% endfor %}
-    </div>
-{% endif %}
-{% endwith %}
-<div>
-    <form method="POST" action="/signup">
-            <div>
-                <input type="email" name="email" placeholder="Email" autofocus="">
-            </div>
+  ]
+}
+</script>
+<script src="static/bundle-signup.js"></script>
 
-            <div>
-                <input type="text" name="username" placeholder="Username">
-            </div>
-
-            <div >
-                <input type="password" name="password" placeholder="Password">
-            </div>
-
-        <button>Sign Up</button>
-    </form>
-</div>
-{% endblock %}

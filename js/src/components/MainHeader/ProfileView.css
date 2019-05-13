@@ -1,0 +1,17 @@
+.ProfileView {
+  flex: 1;
+  display: flex;
+  text-align: right;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  color: white;
+  font-size: 18px;
+  font-family: 'Raleway', sans-serif;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.ProfileView a {
+  color: #4444ff;
+}

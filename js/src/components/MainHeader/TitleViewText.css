@@ -1,0 +1,15 @@
+.TitleViewText {
+  display: flex;
+  flex-direction: column;
+  margin-top: -2px;
+}
+
+.TitleViewText a {
+  flex: 1;
+  vertical-align: middle;
+  color: white;
+  font-size: 24px;
+  font-family: 'Raleway', sans-serif;
+  line-height: 26px;
+  text-decoration: none;
+}

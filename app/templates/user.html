@@ -1,22 +1,15 @@
-{% extends "base.html" %}
+<div id="root"></div>
+<script>
+window.gon = {
+  currentUser: {
+    isAuthenticated: "{{current_user.is_authenticated}}" == "True",
+    username: "{{current_user.username}}"
+  },
+  user: {
+    email: "{{user.email}}",
+    username: "{{user.username}}"
+  }
+}
+</script>
+<script src="/static/bundle-user.js"></script>
 
-{% block head %}
-  <title>Dry Electrics Delegator - {{user.username}} Profile</title>
-{% endblock %}
-
-{% block content %}
-  <h2>{{user.username}} Profile</h2>
-  <table>
-    <tr>
-      <td>Email</td>
-      <td>{{user.email}}</td>
-    </tr>
-    <tr>
-      <td>Username</td>
-      <td>{{user.username}}</td>
-    </tr>
-    <tr>
-      <td colspan="2"><a href="/users/{{user.username}}/history">History</a></td>
-    </tr>
-  </table>
-{% endblock %}

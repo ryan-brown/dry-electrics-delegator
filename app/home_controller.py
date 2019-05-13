@@ -25,16 +25,21 @@ def save_settings():
   email = request.form.get('email')
   username = request.form.get('username')
   password = request.form.get('password')
+  confirm = request.form.get('confirm')
+
+  passwords_dont_match = not (password == confirm)
 
   with DBSession() as session:
     email_exists = session.query(User).filter(User.id != current_user.id).filter(User.email == email).first()
     username_exists = session.query(User).filter(User.id != current_user.id).filter(User.username == username).first()
 
-    if email_exists or username_exists:
+    if email_exists or username_exists or passwords_dont_match:
       if email_exists:
         flash('Email already in use.')
       if username_exists:
         flash('Username already in use.')
+      if passwords_dont_match:
+        flash('Passwords do not match.')
       return redirect(url_for('home.show_settings'))
 
     user = session.query(User).filter(User.id == current_user.id).first()
