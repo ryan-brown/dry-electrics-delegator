@@ -5,12 +5,6 @@
   align-items: center;
 }
 
-.HistoryChart #chart-controls {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-}
-
 .HistoryChart input, button {
   height: 3rem;
   font-size: larger;
