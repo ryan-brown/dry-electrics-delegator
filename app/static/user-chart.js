@@ -97,12 +97,12 @@ const updateChart = () => {
 }
 
 document.body.onload = () => {
-  document.getElementsByClassName('inner-chart')[0].addEventListener('mouseenter', () => {
+  document.getElementById('chart-svg').addEventListener('mouseenter', () => {
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "auto";
   });
 
-  document.getElementsByClassName('inner-chart')[0].addEventListener('mouseleave', () => {
+  document.getElementById('chart-svg').addEventListener('mouseleave', () => {
     document.documentElement.style.overflow = "initial";
     document.body.style.overflow = "initial";
   });
@@ -210,7 +210,7 @@ const setDates = (startTime, endTime) => {
 }
 
 const initializeSVG = (width, height) =>
-  d3.select("div.inner-chart").append("svg").attr("width", width).attr("height", height)
+  d3.select("div#inner-chart").append("svg").attr("width", width).attr("height", height).attr("id", 'chart-svg')
 
 const initializeTimeWindow = (data) => {
   const hash = window.location.hash;
@@ -228,6 +228,7 @@ const initializeTimeWindow = (data) => {
   }
 }
 
+let data = window.gon.data;
 const firstTime = data[0][2];
 const lastTime = data[data.length - 1][2];
 

@@ -1,0 +1,18 @@
+.HistoryChart {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.HistoryChart #chart-controls {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.HistoryChart input, button {
+  height: 3rem;
+  font-size: larger;
+  margin-bottom: 2rem;
+}
