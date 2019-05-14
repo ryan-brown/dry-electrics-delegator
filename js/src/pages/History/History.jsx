@@ -5,7 +5,7 @@ import HistoryChart from "../../components/HistoryChart/HistoryChart";
 
 const HistoryPage = () => (
   <Page>
-    <h2>{`${window.gon.currentUser.username} Battery History`}</h2>
+    <h2>{`${window.gon.username} Battery History`}</h2>
     <HistoryChart />
   </Page>
 );

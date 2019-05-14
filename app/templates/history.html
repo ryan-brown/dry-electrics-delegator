@@ -7,6 +7,7 @@
       isAuthenticated: "{{current_user.is_authenticated}}" == "True",
       username: "{{current_user.username}}"
     },
+    username: "{{username}}",
     // Convert datestring to unix timestamp once now so we don't have to many times later
     // Dictionary -> Array backwards compatability. TODO: Rewrite user_chart.js to use updated ORM structure
     data: JSON.parse('{{data | safe}}').map(d => [ d['percentage'], d['charging'], d['updated_at'], moment(d['updated_at']).valueOf()])
