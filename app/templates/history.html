@@ -1,17 +1,14 @@
 <div id="root"></div>
-<script src="/static/d3.v5.min.js" /></script>
-<script src="/static/moment.min.js" /></script>
 <script type="text/javascript">
-  window.gon = {
-    currentUser: {
-      isAuthenticated: "{{current_user.is_authenticated}}" == "True",
-      username: "{{current_user.username}}"
-    },
-    username: "{{username}}",
-    // Convert datestring to unix timestamp once now so we don't have to many times later
-    // Dictionary -> Array backwards compatability. TODO: Rewrite user_chart.js to use updated ORM structure
-    data: JSON.parse('{{data | safe}}').map(d => [ d['percentage'], d['charging'], d['updated_at'], moment(d['updated_at']).valueOf()])
-  }
+window.gon = {
+  currentUser: {
+    isAuthenticated: "{{current_user.is_authenticated}}" == "True",
+    username: "{{current_user.username}}"
+  },
+  username: "{{username}}",
+  // Convert datestring to unix timestamp once now so we don't have to many times later
+  // Dictionary -> Array backwards compatability. TODO: Rewrite user_chart.js to use updated ORM structure
+  data: JSON.parse('{{data | safe}}')
+}
 </script>
 <script src="/static/bundle-history.js"></script>
-<script src="/static/user-chart.js"></script>

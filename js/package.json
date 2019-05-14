@@ -36,6 +36,8 @@
     "webpack-cli": "^3.3.2"
   },
   "dependencies": {
+    "d3": "^5.9.2",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   }

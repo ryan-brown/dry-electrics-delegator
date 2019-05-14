@@ -1,7 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import moment from "moment"
 import Page from "../../components/Page/Page";
 import "./HomePageTable.css"
+
+moment.relativeTimeThreshold('s', 60);
+moment.relativeTimeThreshold('ss', 1);
+moment.relativeTimeThreshold('m', 60);
 
 class HomePage extends React.Component {
   constructor(props) {
