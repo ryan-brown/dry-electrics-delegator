@@ -6,7 +6,7 @@ import "./Page.css";
 const Page = props => (
   <div className="Page">
     <MainHeader />
-    <div style={{ flexGrow: "1", marginLeft: "auto", marginRight: "auto" }}>{props.children}</div>
+    <div style={{ flexGrow: "1" }}>{props.children}</div>
     <MainFooter />
   </div>
 );
