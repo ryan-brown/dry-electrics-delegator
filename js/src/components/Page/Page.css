@@ -10,3 +10,8 @@
 body {
   margin: 0;
 }
+
+@font-face {
+  font-family: Raleway;
+  src: url('/static/Raleway-Regular.ttf');
+}

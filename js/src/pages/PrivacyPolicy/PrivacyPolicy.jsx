@@ -15,7 +15,7 @@ const PrivacyPolicyContent = () => (
     <p>
       The Dry Electrics service does not share personal information with third
       parties nor do we store any information about your visit to this site. If
-      you are running the
+      you are running the{" "}
       <a href="https://github.com/ryan-brown/dry-electrics-delegator">
         client software
       </a>

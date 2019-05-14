@@ -1,0 +1,25 @@
+.HomePageTable table {
+    width: 60%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: #dddddd;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.HomePageTable td {
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid black;
+  }
+  
+.HomePageTable td a {
+    color: black;
+  }
+  
+.HomePageTable th {
+    border: none;
+    border-bottom: 2px solid black;
+    font-family: sans-serif;
+  }
