@@ -16,3 +16,9 @@ body {
   font-family: Raleway;
   src: url('/static/Raleway-Regular.ttf');
 }
+
+@media all and (max-width: 599px) {
+  .Page {
+    margin: 0px 5px 0px 5px;
+  }
+}

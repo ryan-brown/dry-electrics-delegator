@@ -15,7 +15,10 @@ from flask_login import LoginManager
 def create_app():
   app = Flask(__name__, instance_relative_config=True)
 
-  app.config['SECRET_KEY'] = os.environ['FLASK_SECRET']
+  app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET') or 'supersecret'
+
+  if os.environ.get('PRODUCTION') and not os.environ.get('FLASK_SECRET'):
+    raise RuntimeError("Production mode requires FLASK_SECRET environment variable to be exported!")
 
   login_manager = LoginManager()
   login_manager.login_view = 'auth.login'

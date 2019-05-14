@@ -11,6 +11,7 @@
     font-family: "helvetica neue", helvetica, arial, sans-serif;
     text-align: center;
     border: none;
+    padding: 1rem;
     border-bottom: 1px solid black;
   }
   
@@ -19,7 +20,26 @@
   }
   
 .HomePageTable th {
-    border: none;
-    border-bottom: 2px solid black;
-    font-family: sans-serif;
+  border: none;
+  border-bottom: 2px solid black;
+  font-family: sans-serif;
+  font-size: large;
+  padding: 0.5rem;
+}
+
+@media all and (max-width: 599px) {
+  .HomePageTable td {
+    padding: 2px;
+    font-size: larger;
   }
+
+  .HomePageTable th {
+    height: 2rem;
+    font-size: larger;
+    padding: 2px;
+  }
+  
+  .HomePageTable table {
+    width: 100%;
+  }
+}
