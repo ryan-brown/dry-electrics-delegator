@@ -10,6 +10,7 @@ const config = {
     user: __dirname + "/src/pages/User/User.jsx",
     notfound: __dirname + "/src/pages/NotFound/NotFound.jsx",
     history: __dirname + "/src/pages/History/History.jsx",
+    home: __dirname + "/src/pages/Home/Home.jsx",
   },
   output: {
     path: path.join(__dirname, "../app/static"),

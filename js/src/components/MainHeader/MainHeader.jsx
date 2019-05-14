@@ -35,7 +35,7 @@ const ProfileView = props => (
 const LoggedInView = props => (
   <Fragment>
     <div>
-      Stay Wet,
+      Stay Wet,{" "}
       {props.username}
     </div>
     <div>

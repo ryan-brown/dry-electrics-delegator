@@ -9,4 +9,10 @@
 
 body {
   margin: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/static/Raleway-Regular.ttf');
 }
