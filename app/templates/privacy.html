@@ -1,10 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
 <div id="root"></div>
 <script>
-window.gon = {
-  currentUser: {
-    isAuthenticated: "{{current_user.is_authenticated}}" == "True",
-    username: "{{current_user.username}}"
-  }
-}
+  window.gon = {
+    currentUser: {
+      isAuthenticated: "{{current_user.is_authenticated}}" == "True",
+      username: "{{current_user.username}}"
+    }
+  };
 </script>
 <script src="/static/bundle-privacy.js"></script>
+{% endblock %}
