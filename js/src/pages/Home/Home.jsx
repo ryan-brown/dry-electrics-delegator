@@ -6,7 +6,7 @@ import LiveBatteryTable from "../../components/LiveBatteryTable/LiveBatteryTable
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { loading: true, data: [] };
   }
 
   componentDidMount() {
@@ -25,18 +25,30 @@ class HomePage extends React.Component {
         return response.json();
       })
       .then(data => {
-        that.setState({ data });
+        that.setState({ loading: false, data });
       });
   }
 
   render() {
     return (
       <Page>
-        {this.state.data.length > 0 ? (
-          <LiveBatteryTable data={this.state.data} />
-        ) : (
-          <h2>Nobody is currently reporting charging data.</h2>
-        )}
+        {(() => {
+          const { data = [], loading = true } = this.state;
+          if (loading)
+            return (
+              <h2>
+                <object
+                  width="200px"
+                  data="/static/loader.svg"
+                  type="image/svg+xml"
+                  aria-label="loader svg"
+                />
+              </h2>
+            );
+          if (!data.length)
+            return <h2>Nobody is currently reporting charging data.</h2>;
+          return <LiveBatteryTable data={this.state.data} />;
+        })()}
       </Page>
     );
   }
