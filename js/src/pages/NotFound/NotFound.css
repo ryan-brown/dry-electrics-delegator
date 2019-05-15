@@ -1,0 +1,15 @@
+.NotFound #content {
+    display: flex;
+    justify-content: center;
+    margin-left: -100px;
+}
+
+.NotFound #textContent {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.NotFound h2 {
+    text-align: left;
+}

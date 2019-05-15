@@ -34,10 +34,7 @@ const ProfileView = props => (
 
 const LoggedInView = props => (
   <Fragment>
-    <div>
-      Stay Wet,{" "}
-      {props.username}
-    </div>
+    <div>Stay Wet, {props.username}</div>
     <div>
       <a href="/settings">Settings</a>{" "}
       <a href={`/users/${props.username}`}>Profile</a>{" "}

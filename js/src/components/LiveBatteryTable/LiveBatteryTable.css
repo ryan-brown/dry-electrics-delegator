@@ -1,4 +1,4 @@
-.HomePageTable table {
+.LiveBatteryTable table {
     width: 60%;
     border: 1px solid black;
     border-collapse: collapse;
@@ -7,7 +7,7 @@
     margin-right: auto;
 }
   
-.HomePageTable td {
+.LiveBatteryTable td {
     font-family: "helvetica neue", helvetica, arial, sans-serif;
     text-align: center;
     border: none;
@@ -15,11 +15,11 @@
     border-bottom: 1px solid black;
   }
   
-.HomePageTable td a {
+.LiveBatteryTable td a {
     color: black;
   }
   
-.HomePageTable th {
+.LiveBatteryTable th {
   border: none;
   border-bottom: 2px solid black;
   font-family: sans-serif;
@@ -28,18 +28,18 @@
 }
 
 @media all and (max-width: 599px) {
-  .HomePageTable td {
+  .LiveBatteryTable td {
     padding: 2px;
     font-size: larger;
   }
 
-  .HomePageTable th {
+  .LiveBatteryTable th {
     height: 2rem;
     font-size: larger;
     padding: 2px;
   }
   
-  .HomePageTable table {
+  .LiveBatteryTable table {
     width: 100%;
   }
 }

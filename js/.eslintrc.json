@@ -1,15 +1,19 @@
 {
   "rules": {
+    "prettier/prettier": ["error"],
     "semi": ["error", "always"],
     "quotes": ["error", "double"],
+    "react/no-unescaped-entities": 0,
+    "react/jsx-one-expression-per-line": 0,
     "react/prop-types": 0,
     "react/destructuring-assignment": 0,
-    "prettier/prettier": "error"
+    "no-multi-assign": 0
   },
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "globals": {
     "window": true,
-    "document": true
+    "document": true,
+    "fetch": true
   }
 }
