@@ -318,7 +318,7 @@ const drawChart = () => {
     .call(xAxisCall);
 
   const yAxisCall = d3.axisLeft(yScale).tickSize(-graphWidth);
-  graph.append("g").call(yAxisCall);
+  const yAxis = graph.append("g").call(yAxisCall);
 
   updateChart();
 

@@ -23,7 +23,7 @@ const NotFoundContent = () => (
           <h2>Yikes, this page is out of power!</h2>
           <p>Or, well, we couldn't find the page you were looking for.</p>
           <p>
-            Double-check that the URL is correct, otherwise
+            Double-check that the URL is correct, otherwise{" "}
             <a href="/">click here to go to the homepage</a>.
           </p>
         </div>
