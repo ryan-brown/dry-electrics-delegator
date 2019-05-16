@@ -39,13 +39,14 @@ const settingsFormData = [
 const SettingsPage = () => (
   <Page>
     <h2>Settings</h2>
+    <FlashMessage messages={window.gon.flashMessages} />
+    <TableForm rows={settingsFormData} />
+    <h3>Avatar</h3>
     <Avatar username={window.gon.currentUser.username} />
     <form action="/uploader" method="POST" encType="multipart/form-data">
       <input type="file" name="file" />
       <input type="submit" />
     </form>
-    <FlashMessage messages={window.gon.flashMessages} />
-    <TableForm rows={settingsFormData} />
   </Page>
 );
 
