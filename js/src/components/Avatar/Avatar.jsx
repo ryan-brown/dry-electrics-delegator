@@ -7,7 +7,11 @@ const Avatar = props => (
       alt="Avatar"
       width={props.width || 64}
       height={props.height || 64}
-      src={`/static/${props.username}.png`}
+      src={`/static/profile_pictures/${props.username}.png?${Date.now()}`}
+      onError={e => {
+        e.target.onerror = null;
+        e.target.src = "/static/logo.png";
+      }}
     />
   </div>
 );

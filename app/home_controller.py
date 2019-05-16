@@ -60,6 +60,7 @@ def save_settings():
       return redirect(url_for('home.show_settings'))
 
     user = session.query(User).filter(User.id == current_user.id).first()
+    old_username = user.username
     user.email = email
     user.username = username
     if password:
@@ -67,6 +68,11 @@ def save_settings():
     if new_zap:
       user.zap_token = str(uuid.uuid4())
     session.commit()
+
+    image_template = 'app/static/profile_pictures/{}.png'
+    exists = os.path.isfile(image_template.format(old_username))
+    if exists and old_username != username:
+      os.rename(image_template.format(old_username), image_template.format(username))
 
   flash('Setting saved!')
   return redirect(url_for('home.show_settings'))
@@ -80,7 +86,7 @@ def policy():
 def upload_image():
   try:
     f = request.files['file']
-    f.save(os.path.join('app/static', current_user.username+".png"))
+    f.save(os.path.join('app/static/profile_pictures', current_user.username+".png"))
     flash('Profile picture updated!')
     return redirect(url_for('home.show_settings'))
   except:
