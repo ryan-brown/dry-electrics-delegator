@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, jsonify, send_file, redirect, url_
 from flask_login import login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import DBSession, User
+from .user_policy import *
 from sqlalchemy.orm import Session
 import uuid
 
@@ -43,17 +44,30 @@ def signup_post():
 
   passwords_dont_match = not (password == confirm)
 
+  username_errors = validate_username(username)
+  email_errors = validate_email(email)
+  password_errors = validate_password(password)
+
+  if username_errors or email_errors or password_errors or passwords_dont_match:
+    for error in username_errors:
+      flash(error)
+    for error in email_errors:
+      flash(error)
+    for error in password_errors:
+      flash(error)
+    if passwords_dont_match:
+      flash("Passwords do not match.")
+    return redirect(url_for('auth.signup'))
+
   with DBSession() as session:
     email_exists = session.query(User).filter(User.email == email).first()
     username_exists = session.query(User).filter(User.username == username).first()
     
-    if email_exists or username_exists or passwords_dont_match:
+    if email_exists or username_exists:
       if email_exists:
         flash('Email already in use.')
       if username_exists:
         flash('Username already in use.')
-      if passwords_dont_match:
-        flash('Passwords do not match.')
       return redirect(url_for('auth.signup'))
 
     new_user = User(

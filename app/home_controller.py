@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
 from qq import get_shitposts
 from .models import User, DBSession
+from .user_policy import *
 import uuid
 import os
 
@@ -32,17 +33,30 @@ def save_settings():
 
   passwords_dont_match = not (password == confirm)
 
+  username_errors = validate_username(username)
+  email_errors = validate_email(email)
+  password_errors = password and validate_password(password)
+
+  if username_errors or email_errors or password_errors or passwords_dont_match:
+    for error in username_errors:
+      flash(error)
+    for error in email_errors:
+      flash(error)
+    for error in password_errors:
+      flash(error)
+    if passwords_dont_match:
+      flash("Passwords do not match.")
+    return redirect(url_for('home.show_settings'))
+
   with DBSession() as session:
     email_exists = session.query(User).filter(User.id != current_user.id).filter(User.email == email).first()
     username_exists = session.query(User).filter(User.id != current_user.id).filter(User.username == username).first()
 
-    if email_exists or username_exists or passwords_dont_match:
+    if email_exists or username_exists:
       if email_exists:
         flash('Email already in use.')
       if username_exists:
         flash('Username already in use.')
-      if passwords_dont_match:
-        flash('Passwords do not match.')
       return redirect(url_for('home.show_settings'))
 
     user = session.query(User).filter(User.id == current_user.id).first()
