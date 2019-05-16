@@ -10,7 +10,7 @@ const Avatar = props => (
       src={`/static/profile_pictures/${props.username}.png?${Date.now()}`}
       onError={e => {
         e.target.onerror = null;
-        e.target.src = "/static/logo.png";
+        e.target.src = "/static/profile_pictures/default_avatar.png";
       }}
     />
   </div>
