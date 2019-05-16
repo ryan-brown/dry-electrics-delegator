@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash
 from qq import get_shitposts
 from .models import User, DBSession
 import uuid
+import os
 
 home = Blueprint('home', __name__)
 
@@ -59,3 +60,15 @@ def save_settings():
 @home.route("/privacy-policy")
 def policy():
   return render_template("privacy.html")
+
+@home.route("/uploader", methods=['POST'])
+@login_required
+def upload_image():
+  try:
+    f = request.files['file']
+    f.save(os.path.join('app/static', current_user.username+".png"))
+    flash('Profile picture updated!')
+    return redirect(url_for('home.show_settings'))
+  except:
+    flash('Error uploading image.')
+    return redirect(url_for('home.show_settings'))
