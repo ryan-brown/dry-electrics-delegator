@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import Avatar from "../Avatar/Avatar";
 import "./LiveBatteryTable.css";
 
 moment.relativeTimeThreshold("s", 60);
@@ -11,6 +12,7 @@ const LiveBatteryTable = props => (
     <table>
       <tbody>
         <tr>
+          <th />
           <th>User</th>
           <th>Percentage</th>
           <th>Charging</th>
@@ -19,6 +21,11 @@ const LiveBatteryTable = props => (
         {props.data.map(user => {
           return (
             <tr key={user[0]} style={{ backgroundColor: user[0] }}>
+              <td>
+                <a href={`/users/${user[1]}`}>
+                  <Avatar width="32" height="32" username={user[1]} />
+                </a>
+              </td>
               <td>
                 <a href={`/users/${user[1]}`}>{user[1]}</a>
               </td>
