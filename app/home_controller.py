@@ -89,6 +89,7 @@ def upload_image():
     f.save(os.path.join('app/static/profile_pictures', current_user.username+".png"))
     flash('Profile picture updated!')
     return redirect(url_for('home.show_settings'))
-  except:
+  except Exception as e:
+    print(e)
     flash('Error uploading image.')
     return redirect(url_for('home.show_settings'))
