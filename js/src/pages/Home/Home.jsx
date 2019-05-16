@@ -25,7 +25,7 @@ class HomePage extends React.Component {
         return response.json();
       })
       .then(data => {
-        that.state = { loading: false, data };
+        that.setState({ loading: false, data: data });
       });
   }
 
