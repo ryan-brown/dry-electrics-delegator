@@ -1,9 +1,11 @@
 .MainHeader {
   display: flex;
-  background-color: darkgrey;
+  /* based on https://www.color-hex.com/color-palette/33136 -- feel free to change */
+  background-color: #7cdeff;
   padding: 10px;
   margin-bottom: 20px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid hsl(195, 100%, 15%);
+;
 }
 
 .MainHeader:before {

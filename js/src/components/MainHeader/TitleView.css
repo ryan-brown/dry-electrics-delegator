@@ -7,6 +7,7 @@
   align-self: center;
   padding: 10px;
   border: 2px solid white;
+  border-radius: 100%;
   margin-right: 10px;
   background-image: linear-gradient( to bottom right, white 33%, darkgrey 80% );
 }
