@@ -3,6 +3,14 @@ import ReactDOM from "react-dom";
 import Page from "../../components/Page/Page";
 import LiveBatteryTable from "../../components/LiveBatteryTable/LiveBatteryTable";
 
+const arrayEquals = (a1, a2) => {
+  if (a1.length !== a2.length) return false;
+  for (let i = 0; i < a1.length; i += 1) {
+    if (a1[i] !== a2[i]) return false;
+  }
+  return true;
+};
+
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -25,8 +33,17 @@ class HomePage extends React.Component {
         return response.json();
       })
       .then(data => {
-        that.setState({ loading: false, data: data });
+        if (that.state.loading || that.didStateChange(data))
+          that.setState({ loading: false, data });
       });
+  }
+
+  didStateChange(newState) {
+    if (newState.length !== this.state.data.length) return true;
+    for (let i = 0; i < newState.length; i += 1) {
+      if (!arrayEquals(this.state.data[i], newState[i])) return true;
+    }
+    return false;
   }
 
   render() {

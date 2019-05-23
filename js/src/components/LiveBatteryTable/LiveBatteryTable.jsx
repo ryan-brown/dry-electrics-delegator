@@ -7,10 +7,30 @@ moment.relativeTimeThreshold("s", 60);
 moment.relativeTimeThreshold("ss", 1);
 moment.relativeTimeThreshold("m", 60);
 
-const LiveBatteryUpdateTime = props => {
-  const { time } = props;
-  return moment.unix(parseInt(time, 10)).fromNow();
-};
+class LiveBatteryUpdateTime extends React.Component {
+  constructor(props) {
+    super(props);
+    const { time } = props;
+    this.state = { time };
+  }
+
+  componentDidMount() {
+    const that = this;
+    this.interval = setInterval(() => {
+      that.setState({
+        time: this.state.time
+      });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return <div>{moment.unix(parseInt(this.state.time, 10)).fromNow()}</div>;
+  }
+}
 
 const LiveBatteryRow = props => {
   const { user } = props;
