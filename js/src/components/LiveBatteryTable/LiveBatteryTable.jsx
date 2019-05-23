@@ -17,9 +17,7 @@ class LiveBatteryUpdateTime extends React.Component {
   componentDidMount() {
     const that = this;
     this.interval = setInterval(() => {
-      that.setState({
-        time: this.state.time
-      });
+      that.forceUpdate();
     }, 1000);
   }
 
