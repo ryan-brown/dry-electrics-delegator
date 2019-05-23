@@ -27,14 +27,14 @@ class HomePage extends React.Component {
   }
 
   getStats() {
-    const that = this;
     fetch("/api/stats")
       .then(response => {
         return response.json();
       })
       .then(data => {
-        if (that.state.loading || that.didStateChange(data))
-          that.setState({ loading: false, data });
+        if (this.state.loading || this.didStateChange(data)) {
+          this.setState({ loading: false, data });
+        }
       });
   }
 

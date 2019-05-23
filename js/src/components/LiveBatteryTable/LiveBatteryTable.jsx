@@ -4,20 +4,21 @@ import Avatar from "../Avatar/Avatar";
 import "./LiveBatteryTable.css";
 
 moment.relativeTimeThreshold("s", 60);
-moment.relativeTimeThreshold("ss", 1);
+moment.relativeTimeThreshold("ss", 0);
 moment.relativeTimeThreshold("m", 60);
 
 class LiveBatteryUpdateTime extends React.Component {
   constructor(props) {
     super(props);
     const { time } = props;
-    this.state = { time };
+    this.state = { time: moment.unix(parseInt(time, 10)).fromNow() };
   }
 
   componentDidMount() {
-    const that = this;
     this.interval = setInterval(() => {
-      that.forceUpdate();
+      this.setState({
+        time: moment.unix(parseInt(this.props.time, 10)).fromNow()
+      });
     }, 1000);
   }
 
@@ -26,7 +27,7 @@ class LiveBatteryUpdateTime extends React.Component {
   }
 
   render() {
-    return <div>{moment.unix(parseInt(this.state.time, 10)).fromNow()}</div>;
+    return <div>{this.state.time}</div>;
   }
 }
 
