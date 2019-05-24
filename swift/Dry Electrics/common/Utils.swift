@@ -148,12 +148,31 @@ func startAsyncThreads()
     dispatchQueue3.async{
         while (true)
         {
-            // sleep until next minute
+            // sleep until next frequency (default 60 min)
             let date = Date()
             let seconds = calendar.component(.second, from: date)
-            sleep(60 - UInt32(seconds))
+            
+            let freq = UInt32(Settings.getFrequency())
+            sleep(freq - (UInt32(seconds) % freq))
             
             postCharge()
         }
     }
 }
+
+#if os(macOS)
+class OnlyIntegerValueFormatter: NumberFormatter {
+    
+    override func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+        
+        // Ability to reset your field (otherwise you can't delete the content)
+        // You can check if the field is empty later
+        if partialString.isEmpty {
+            return true
+        }
+        
+        // Actual check
+        return Int(partialString) != nil
+    }
+}
+#endif

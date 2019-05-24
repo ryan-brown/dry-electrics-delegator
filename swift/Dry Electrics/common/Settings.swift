@@ -17,6 +17,7 @@ class Settings
     
     static var defaultZapToken = ""
     static let defaultServer = "https://electrics.fortheusers.org"
+    static let defaultFrequency = 30
 
     init() {
     }
@@ -34,7 +35,30 @@ class Settings
     }
     
     static func getServer() -> String {
-        return defaults.string(forKey: "server") ?? defaultServer
+        if let value = defaults.string(forKey: "server") {
+            if value == "" {
+                return defaultServer
+            }
+            return value
+        }
+        
+        return defaultServer
+    }
+    
+    static func setFrequency(server: Int) {
+        if server > 0 && server <= 60 {
+            defaults.set(server, forKey: "push_freq")
+        }
+    }
+    
+    static func getFrequency() -> Int {
+        let value = defaults.integer(forKey: "push_freq")
+        
+        if value < 1 || value > 60 {
+            return defaultFrequency
+        }
+        
+        return defaults.integer(forKey: "push_freq")
     }
     
     #if os(macOS)
@@ -77,6 +101,7 @@ class Settings
     
     static var userText: MTextField?
     static var serverText: MTextField?
+    static var frequencyText: MTextField?
     
     @objc static func toggleReporting()
     {
@@ -88,6 +113,7 @@ class Settings
         if (window != nil) {
             Settings.setZapToken(token: userText?.stringValue ?? "")
             Settings.setServer(server: serverText?.stringValue ?? "")
+            Settings.setFrequency(server: Int(frequencyText?.intValue ?? 0))
             
             let windowCopy = window!
             window = nil
@@ -96,12 +122,15 @@ class Settings
     }
 
     @objc static func showSettingsWindow() {
+        
+        NSApp.activate(ignoringOtherApps: true)
+        
         if Settings.window != nil {
             Settings.window?.makeKey()
             return
         }
         
-        let frameRect = CGRect(origin: .zero, size: CGSize(width: 370, height: 150))
+        let frameRect = CGRect(origin: .zero, size: CGSize(width: 370, height: 200))
         
         Settings.window = NSWindow(contentRect: frameRect, styleMask: [.titled], backing: .buffered, defer: false)
         
@@ -111,18 +140,20 @@ class Settings
 
         let view = NSView()
         
+        let top = 160
+        
         let userTextLabel = NSTextField()
         userTextLabel.stringValue = "Zap Token"
         userTextLabel.isEditable = false
         userTextLabel.drawsBackground = false
         userTextLabel.isBezeled = false
-        userTextLabel.frame = CGRect(origin: CGPoint(x: 20, y: 110), size: CGSize(width: 100, height: 25))
+        userTextLabel.frame = CGRect(origin: CGPoint(x: 20, y: top), size: CGSize(width: 100, height: 25))
         view.addSubview(userTextLabel)
         
         let userText = MTextField()
         let name = Settings.getZapToken()
         userText.stringValue = name
-        userText.frame = CGRect(origin: CGPoint(x: 100, y: 110), size: CGSize(width: 230, height: 25))
+        userText.frame = CGRect(origin: CGPoint(x: 100, y: top), size: CGSize(width: 230, height: 25))
         userText.cell?.wraps = false
         userText.cell?.isScrollable = true
         if #available(OSX 10.10, *) {
@@ -136,25 +167,41 @@ class Settings
         nameTextLabel.isEditable = false
         nameTextLabel.drawsBackground = false
         nameTextLabel.isBezeled = false
-        nameTextLabel.frame = CGRect(origin: CGPoint(x: 20, y: 70), size: CGSize(width: 100, height: 25))
+        nameTextLabel.frame = CGRect(origin: CGPoint(x: 20, y: top - 40), size: CGSize(width: 100, height: 25))
         view.addSubview(nameTextLabel)
 
         let serverText = MTextField()
         serverText.stringValue = Settings.getServer()
         serverText.cell?.wraps = false
         serverText.cell?.isScrollable = true
-        serverText.frame = CGRect(origin: CGPoint(x: 100, y: 70), size: CGSize(width: 230, height: 25))
+        serverText.frame = CGRect(origin: CGPoint(x: 100, y: top - 40), size: CGSize(width: 230, height: 25))
         if #available(OSX 10.10, *) {
             serverText.placeholderString = "Server"
         }
         view.addSubview(serverText)
         Settings.serverText = serverText
         
+        let intervalLabel = NSTextField()
+        intervalLabel.stringValue = "Submit battery data every          seconds"
+        intervalLabel.isEditable = false
+        intervalLabel.drawsBackground = false
+        intervalLabel.isBezeled = false
+        intervalLabel.frame = CGRect(origin: CGPoint(x: 50, y: top - 90), size: CGSize(width: 300, height: 25))
+        view.addSubview(intervalLabel)
+        
+        frequencyText = MTextField()
+        let interval = frequencyText!
+        let onlyIntFormatter = OnlyIntegerValueFormatter()
+        interval.formatter = onlyIntFormatter
+        interval.stringValue = "\(Settings.getFrequency())"
+        interval.frame = CGRect(origin: CGPoint(x: 204, y: top - 85), size: CGSize(width: 25, height: 25))
+        view.addSubview(interval)
+        
         let save = NSButton()
         save.setButtonType(.momentaryLight)
         save.bezelStyle = .rounded
         save.title = "Save Preferences"
-        save.frame = CGRect(origin: CGPoint(x: 120, y: 15), size: CGSize(width: 140, height: 25))
+        save.frame = CGRect(origin: CGPoint(x: 130, y: top - 130), size: CGSize(width: 140, height: 25))
         save.action = #selector(Settings.close)
         save.target = Settings.self
         view.addSubview(save)
