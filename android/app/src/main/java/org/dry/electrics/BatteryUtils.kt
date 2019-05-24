@@ -1,4 +1,4 @@
-package org.dry.electrics
+package com.dry.electrics
 
 import android.os.BatteryManager
 import org.json.JSONArray

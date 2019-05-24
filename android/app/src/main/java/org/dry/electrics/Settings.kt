@@ -1,4 +1,4 @@
-package org.dry.electrics
+package com.dry.electrics
 
 class Settings
 {
