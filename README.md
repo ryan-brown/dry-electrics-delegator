@@ -1,26 +1,40 @@
 # dry-electrics-delegator
+
 Some Dry Electrics Delegation
 
 ![wet elecs](https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/app/static/logo.png)
 
 ## Clients
-A client will report your battery percentage autotmatically to the server every minute or display information about other people's battery percents. You should only choose one for reporting.
+
+A client will report your battery percentage autotmatically to the server
+every minute or display information about other people's battery percents.
+You should only choose one for reporting.
 
 ### Mac Menubar App
-Download the latest Mac .app file from the [releases](https://github.com/ryan-brown/dry-electrics-delegator/releases) page. You will need to enter your zap token from the server after running it for the first time.
+
+Download the latest Mac .app file from the
+[releases](https://github.com/ryan-brown/dry-electrics-delegator/releases)
+page. You will need to enter your zap token from the server after running it
+for the first time.
 
 ### Mac/Linux cron job
-- Download the latest [bg.sh](https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/bg.sh) script to `/some/path/bg.sh`
+
+- Download the latest [bg.sh](https://raw.githubusercontent.com/ryan-brown/dry-electrics-delegator/master/bg.sh)
+  script to `/some/path/bg.sh`
 - Run `crontab -e`
 - Enter the following with correct path and name, and save:
 
-```
+```txt
 * * * * * sh /some/path/bg.sh YourZapToken
 ```
 
 ### Mac Touchbar
-Using [MTMR](https://github.com/Toxblh/MTMR), you can use the following config to create a touchbar item that displays the driest user.  Just plug in the location of the ded.scpt file (from this repository):
-```
+
+Using [MTMR](https://github.com/Toxblh/MTMR), you can use the following
+config to create a touchbar item that displays the driest user. Just plug in
+the location of the ded.scpt file (from this repository):
+
+```json
   {
     "type": "appleScriptTitledButton",
     "width": 200,
@@ -37,51 +51,69 @@ Using [MTMR](https://github.com/Toxblh/MTMR), you can use the following config t
 ```
 
 ## Server
+
 The server can be executed via docker-compose or manually, and consists of:
 
-- a sqlite file `database.db` where all offline data is stored
-- a redis instance where cache/queue data is stored
-- flask server `run.py` that collects datapoints and displays them from redis
+- A sqlite file `database.db` where all offline data is stored
+- A redis instance where cache/queue data is stored
+- Flask server `run.py` that collects datapoints and displays them from redis
 - `processor.py` which moves data from the queue into the sqlite file
 
 ### Using docker-compose
-Cloning the repo and running `docker-compose up` should be enough to get the containers to build and services to come up. If you make changes to the images in [Dockerfiles](https://github.com/ryan-brown/dry-electrics-delegator/blob/master/Dockerfiles), you may have to run `docker-compose build`.
 
-If a `database.db` file does not exist, an empty one will be created. If using in production, a `FLASK_SECRET` should be exported as an environment variable on the host.
+Cloning the repo and running `docker-compose up` should be enough to get the
+containers to build and services to come up. If you make changes to the
+images in
+[Dockerfiles](https://github.com/ryan-brown/dry-electrics-delegator/blob/master/Dockerfiles),
+you may have to run `docker-compose build`.
 
-The `PRODUCTION` environment variable can be set to a non-empty string before bringing up the containers to use gunicorn instead of flask.
+If a `database.db` file does not exist, an empty one will be created. If
+using in production, a `FLASK_SECRET` should be exported as an environment
+variable on the host.
+
+The `PRODUCTION` environment variable can be set to a non-empty string before
+bringing up the containers to use gunicorn instead of flask.
 
 ### Running Manually
+
 To create the database:
-```
+
+```sh
 sqlite3 database.db < schema.sql
 ```
 
 Running redis:
-```
+
+```sh
 docker-compose up
 ```
 
-You should also put: `127.0.0.1  redis` in your `/etc/hosts` file, or edit [qq.py](https://github.com/ryan-brown/dry-electrics-delegator/blob/master/qq.py#L5) to have `host="localhost"`.
+You should also put: `127.0.0.1 redis` in your `/etc/hosts` file, or edit
+[qq.py](https://github.com/ryan-brown/dry-electrics-delegator/blob/master/qq.py#L5)
+to have `host="localhost"`.
 
 Running the server (development):
-```
+
+```sh
 pip3 install -r requirements.txt
 FLASK_APP=main.py FLASK_SECRET=SECRET FLASK_DEBUG=1 python3 -m flask run --host=0.0.0.0 --port=5002
 ```
 
 Running the server (production):
-```
+
+```sh
 gunicorn wsgi:app --bind 0.0.0.0:5002
 ```
 
 Adding processor to a crontab on the server (every 5 minutes):
-```
+
+```txt
 * * * * * cd /path/to/dry-elecs/ && python3 processor.py
 ```
 
 ## Public API
-` /api/v2/driest`
+
+`/api/v2/driest`
 Fetch the user who needs energy the most badly
 
 `/api/stats`
@@ -92,4 +124,3 @@ Download the database file from the server
 
 `/update`
 Force a hot-reload and restart of the flask server
-

@@ -7,8 +7,13 @@
 .TitleViewText a {
   flex: 1;
   vertical-align: middle;
-  color: white;
+  color: hsl(195, 100%, 15%);
   font-size: 24px;
   line-height: 26px;
   text-decoration: none;
+}
+
+.TitleViewText a::first-letter {
+  font-weight: 800;
+  font-size: 32px;
 }

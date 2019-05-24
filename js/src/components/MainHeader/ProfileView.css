@@ -5,12 +5,19 @@
   flex-direction: column;
   justify-content: flex-end;
 
-  color: white;
+  color: hsl(195, 100%, 90%);
+  font-style: italic;
   font-size: 18px;
   line-height: 20px;
   text-decoration: none;
 }
 
 .ProfileView a {
-  color: #4444ff;
+  color: hsl(195, 100%, 15%);
+  text-decoration: none;
+  font-style: normal;
+}
+
+.ProfileView a:hover {
+  text-decoration: underline;
 }
