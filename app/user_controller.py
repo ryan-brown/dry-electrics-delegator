@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 import database
 import json
 from flask import jsonify
+from flask_login import current_user
 from .models import DBSession, User
 
 user = Blueprint('user', __name__)
@@ -21,6 +22,9 @@ def show_user(username):
 
 @user.route("/<username>/history", methods=['GET'])
 def show_user_history(username):
+  if not current_user.is_authenticated:
+    return render_template("404.html"), 404
+
   try:
     user_data = [update.toDict() for update in database.get_user_updates(username)]
     return render_template("history.html", username=username, data=json.dumps(user_data))

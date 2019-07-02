@@ -9,9 +9,10 @@ const UserPage = () => (
     <Avatar username={window.gon.user.username} />
     <div>{window.gon.user.email}</div>
     <div>{window.gon.user.username}</div>
-    <div>
-      <a href={`${window.gon.user.username}/history`}>Battery History</a>
-    </div>
+    {window.gon.currentUser.isAuthenticated && (
+      <div>
+        <a href={`${window.gon.user.username}/history`}>Battery History</a>
+      </div>) }
   </Page>
 );
 
